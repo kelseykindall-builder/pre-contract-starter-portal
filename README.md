@@ -1,20 +1,19 @@
-# share-unit-ambassador-landing-page
+# pre-contract-landing-page
 
-[one-line purpose]
+Pre-contract landing page for Change Ambassadors — motivates influencers to sign before they've committed.
 
 ## Run it
 
 ```sh
-# Replace with how this prototype is opened/run.
-# Examples:
-#   open index.html
-#   pnpm dev
-#   python3 -m http.server 8000
+open 1-pre-contract.html
+# or serve locally:
+python3 -m http.server 8000
 ```
 
 ## Structure
 
-- `docs/` — research and notes
+- `1-pre-contract.html` — active build (Page 1)
+- `docs/` — sprint plan and research
 - `mood-board/` — visual references
 - `riff/` — design exploration boards
 - `deployment/` — Vercel / build artifacts
@@ -22,4 +21,4 @@
 
 ## Status
 
-Created 2026-05-26. See `CLAUDE.md` for project context.
+Created 2026-05-26. See `CLAUDE.md` for full project context.
