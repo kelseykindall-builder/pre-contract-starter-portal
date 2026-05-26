@@ -1,0 +1,36 @@
+# system
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# build outputs
+dist/
+build/
+.next/
+.nuxt/
+out/
+
+# deployment — Vercel manages its own git inside this folder.
+# The project git tracks the prototype; Vercel owns deployment/.
+deployment/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# misc
+*.log
+.cache/
