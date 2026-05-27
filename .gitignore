@@ -34,3 +34,5 @@ deployment/
 # misc
 *.log
 .cache/
+pre-contract-landing-page/
+deployment
