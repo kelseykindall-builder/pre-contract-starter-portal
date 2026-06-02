@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Change Ambassadors — V6: Bold Typography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* V6: Bold Typography — type-first, giant display numbers, red rule lines as section breaks. Black/white/red only. */
+    :root{--red:#E8003E;--dark:#1D1D1D;--gray:#767676;--gray-lt:#F5F5F5;--border:#E0E0E0;--white:#fff;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:"Commissioner",system-ui,sans-serif;color:var(--dark);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.5;}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:100;background:white;border-bottom:2px solid var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;}
+    .logo{font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--dark);}
+    .logo-dot{color:var(--red);}
+    .nav-right{display:flex;align-items:center;gap:24px;}
+    .nav-link{font-size:14px;color:var(--gray);text-decoration:none;}
+    .nav-link:hover{color:var(--dark);}
+    .nav-cta{background:var(--red);color:white;font-family:inherit;font-weight:700;font-size:14px;padding:9px 22px;border:none;border-radius:0;cursor:pointer;text-decoration:none;letter-spacing:0.01em;}
+    .nav-cta:hover{opacity:0.9;}
+
+    /* LAYOUT */
+    .ctr{max-width:1100px;margin:0 auto;padding:0 48px;}
+
+    /* RED RULE */
+    .red-rule{height:4px;background:var(--red);margin:0;}
+
+    /* HERO */
+    .hero{padding:96px 0 80px;border-bottom:2px solid var(--dark);}
+    .hero-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:20px;}
+    h1{font-size:72px;line-height:1.0;font-weight:700;letter-spacing:-0.035em;color:var(--dark);max-width:900px;margin-bottom:28px;}
+    h1 em{font-style:normal;color:var(--red);}
+    .hero-sub{font-size:20px;line-height:1.6;color:var(--gray);max-width:620px;margin-bottom:40px;}
+    .hero-sub strong{color:var(--dark);}
+    .hero-btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+    .btn{background:var(--red);color:white;font-family:inherit;font-weight:700;font-size:16px;padding:15px 32px;border:none;border-radius:0;cursor:pointer;text-decoration:none;letter-spacing:0.01em;display:inline-flex;align-items:center;gap:8px;}
+    .btn:hover{opacity:0.9;}
+    .btn-outline{background:transparent;color:var(--dark);font-family:inherit;font-weight:600;font-size:16px;padding:14px 28px;border:2px solid var(--dark);border-radius:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;}
+    .btn-outline:hover{background:var(--dark);color:white;}
+
+    /* STAT STRIP */
+    .stat-strip{border-bottom:2px solid var(--dark);display:flex;}
+    .stat-block{flex:1;padding:32px 40px;border-right:2px solid var(--dark);}
+    .stat-block:last-child{border-right:none;}
+    .stat-val{font-size:52px;font-weight:700;letter-spacing:-0.035em;color:var(--dark);line-height:1;}
+    .stat-val.red{color:var(--red);}
+    .stat-lbl{font-size:13px;color:var(--gray);margin-top:6px;font-weight:500;}
+
+    /* SECTIONS */
+    .sec{padding:80px 0;border-bottom:2px solid var(--dark);}
+    .sec-header{display:flex;align-items:baseline;gap:24px;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+    .sec-num{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);min-width:80px;}
+    h2{font-size:36px;font-weight:700;letter-spacing:-0.02em;color:var(--dark);}
+    .sec-sub-txt{font-size:15px;color:var(--gray);margin-left:auto;text-align:right;max-width:300px;}
+
+    /* DELIVERABLES — big number grid */
+    .del-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(--dark);}
+    .del-card{padding:28px 24px;border-right:2px solid var(--dark);}
+    .del-card:last-child{border-right:none;}
+    .del-val{font-size:52px;font-weight:700;letter-spacing:-0.035em;line-height:1;color:var(--dark);}
+    .del-val.red{color:var(--red);font-size:28px;line-height:1.2;}
+    .del-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-top:10px;}
+    .del-sub{font-size:12px;color:var(--gray);margin-top:4px;}
+
+    /* VIDEO */
+    .video-frame{width:100%;aspect-ratio:16/9;background:var(--dark);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;}
+    .play-btn{width:80px;height:80px;background:var(--red);display:flex;align-items:center;justify-content:center;}
+    .play-tri{width:0;height:0;border-left:26px solid white;border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:6px;}
+    .vid-dur{position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.6);color:white;font-size:12px;padding:3px 8px;}
+    .vid-caption{position:absolute;bottom:16px;left:20px;color:white;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.05em;}
+    .vid-meta{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:0;border:2px solid var(--dark);border-top:none;}
+    .vid-overview{padding:20px 24px;border-right:2px solid var(--dark);font-size:14px;line-height:1.65;color:var(--dark);}
+    .vid-qs{padding:20px 24px;}
+    .vid-qs-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+    .vq{display:flex;gap:10px;font-size:13px;margin-bottom:8px;}
+    .vq:last-child{margin-bottom:0;}
+    .vq-n{font-size:10px;font-weight:700;color:var(--gray);min-width:16px;padding-top:2px;}
+
+    /* SHARE UNIT */
+    .su-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--dark);}
+    .su-text{padding:32px;border-right:2px solid var(--dark);}
+    .su-text p{font-size:15px;color:var(--gray);line-height:1.65;margin-bottom:16px;}
+    .su-text strong{color:var(--dark);}
+    .su-pull{font-size:22px;font-weight:700;letter-spacing:-0.015em;color:var(--dark);line-height:1.3;border-left:4px solid var(--red);padding-left:20px;margin-bottom:20px;}
+    .su-note{font-size:12px;color:var(--gray);line-height:1.65;border-top:1px solid var(--border);padding-top:14px;}
+    .su-note strong{color:var(--dark);}
+    .su-note code{background:var(--gray-lt);padding:1px 5px;font-size:11px;color:var(--red);font-weight:700;}
+    .su-photos-panel{padding:32px;display:flex;gap:12px;align-items:center;justify-content:center;}
+    .su-pw{display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .su-photo{width:108px;height:188px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15);background:#ddd;}
+    .su-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    .su-pl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);}
+
+    /* DIFF */
+    .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--dark);}
+    .diff-card{padding:28px;border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);}
+    .diff-card:nth-child(2n){border-right:none;}
+    .diff-card:nth-child(3),.diff-card:nth-child(4){border-bottom:none;}
+    .diff-n{font-size:48px;font-weight:700;letter-spacing:-0.03em;color:var(--gray-lt);line-height:1;margin-bottom:8px;}
+    .diff-card h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+    .diff-card p{font-size:14px;color:var(--gray);line-height:1.65;}
+    .diff-card p strong{color:var(--dark);}
+    .diff-fn{font-size:11px;color:var(--gray);margin-top:10px;font-style:italic;}
+
+    /* CALC */
+    .calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--dark);}
+    .calc-left{padding:32px;border-right:2px solid var(--dark);}
+    .calc-q{font-size:13px;color:var(--gray);margin-bottom:16px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;}
+    .calc-readout{font-size:64px;font-weight:700;letter-spacing:-0.04em;line-height:1;margin-bottom:24px;color:var(--dark);}
+    .calc-readout span{font-size:16px;font-weight:400;color:var(--gray);letter-spacing:0;}
+    .slider{-webkit-appearance:none;width:100%;height:4px;background:var(--border);border-radius:0;outline:none;cursor:pointer;}
+    .slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:0;background:var(--dark);border:none;}
+    .slider-bnds{display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-top:8px;}
+    .calc-note{font-size:13px;color:var(--gray);margin-top:20px;line-height:1.55;}
+    .calc-right{padding:32px;}
+    .cr-label{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gray);margin-bottom:12px;}
+    .cr-amt{font-size:56px;font-weight:700;letter-spacing:-0.04em;color:var(--red);line-height:1;margin-bottom:6px;}
+    .cr-range{font-size:14px;color:var(--gray);margin-bottom:20px;}
+    .cr-note{font-size:12px;color:var(--gray);line-height:1.6;border-top:2px solid var(--dark);padding-top:16px;}
+    .cr-note strong{color:var(--dark);}
+
+    /* TIER */
+    .tier-layout{border:2px solid var(--dark);}
+    .tier-input-area{padding:24px;border-bottom:2px solid var(--dark);display:flex;align-items:center;gap:20px;}
+    .tier-input-lbl{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);white-space:nowrap;}
+    .tier-input{padding:10px 16px;font-size:20px;font-weight:700;font-family:inherit;border:none;border-bottom:2px solid var(--dark);outline:none;width:240px;background:transparent;}
+    .tier-input:focus{border-bottom-color:var(--red);}
+    .tier-input-sfx{font-size:14px;color:var(--gray);}
+    .tier-result{padding:16px 24px;border-bottom:2px solid var(--dark);display:none;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--dark);}
+    .tier-result.below{background:var(--gray-lt);border:none;}
+    .tr-label{font-size:13px;color:rgba(255,255,255,0.55);}
+    .tier-result.below .tr-label{color:var(--gray);}
+    .tr-tier{font-size:18px;font-weight:700;color:white;}
+    .tier-result.below .tr-tier{color:var(--dark);}
+    .tr-sep{color:rgba(255,255,255,0.3);}
+    .tr-amount{font-size:28px;font-weight:700;color:var(--red);}
+    .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+    .tier-pill{padding:24px;border-right:2px solid var(--dark);}
+    .tier-pill:last-child{border-right:none;}
+    .tier-pill.active{background:var(--dark);}
+    .tp-range{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);margin-bottom:8px;}
+    .tier-pill.active .tp-range{color:rgba(255,255,255,0.4);}
+    .tp-amount{font-size:36px;font-weight:700;color:var(--dark);letter-spacing:-0.025em;}
+    .tier-pill.active .tp-amount{color:var(--red);}
+
+    /* STEPS */
+    .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--dark);}
+    .step-card{padding:32px;border-right:2px solid var(--dark);}
+    .step-card:last-child{border-right:none;}
+    .step-big-n{font-size:80px;font-weight:700;letter-spacing:-0.05em;color:var(--gray-lt);line-height:1;margin-bottom:12px;}
+    .step-n{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+    .step-card h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+    .step-card p{font-size:14px;color:var(--gray);line-height:1.65;}
+    .step-card a{color:var(--red);text-decoration:none;}
+
+    /* FOOTER */
+    .footer-cta{background:var(--dark);padding:96px 0;text-align:center;}
+    .footer-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:16px;}
+    .footer-cta h2{color:white;font-size:52px;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.05;}
+    .footer-cta p{font-size:16px;color:rgba(255,255,255,0.6);max-width:480px;margin:0 auto 40px;line-height:1.65;}
+    .footer-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+    .btn-red-sq{background:var(--red);color:white;font-family:inherit;font-weight:700;font-size:16px;padding:15px 32px;border:none;border-radius:0;cursor:pointer;text-decoration:none;letter-spacing:0.01em;}
+    .btn-red-sq:hover{opacity:0.9;}
+    .btn-outline-w{background:transparent;color:white;font-family:inherit;font-weight:600;font-size:16px;padding:14px 28px;border:2px solid rgba(255,255,255,0.35);border-radius:0;cursor:pointer;text-decoration:none;}
+    .btn-outline-w:hover{border-color:white;}
+    .footnote{text-align:center;font-size:12px;color:var(--gray);font-style:italic;padding:24px 0;}
+
+    @media(max-width:860px){
+      h1{font-size:44px;}
+      .stat-strip,.del-grid,.diff-grid,.su-layout,.calc-layout,.steps-grid{grid-template-columns:1fr;}
+      .stat-block,.del-card,.diff-card,.su-text,.su-photos-panel,.calc-left,.calc-right,.step-card{border-right:none;border-bottom:2px solid var(--dark);}
+      .vid-meta{grid-template-columns:1fr;}
+      .vid-overview{border-right:none;border-bottom:2px solid var(--dark);}
+      .tier-grid{grid-template-columns:1fr;}
+      .tier-pill{border-right:none;border-bottom:2px solid var(--dark);}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">change<span class="logo-dot">.</span>org</div>
+  <div class="nav-right">
+    <a href="#advance" class="nav-link">Your advance</a>
+    <a href="#earnings" class="nav-link">Earnings</a>
+    <a href="#sign" class="nav-cta">Sign contract</a>
+  </div>
+</nav>
+
+<div class="red-rule"></div>
+
+<div class="hero">
+  <div class="ctr">
+    <span class="hero-label">Change Ambassadors Program · Paid Partnership</span>
+    <h1>Get paid to spotlight what you <em>care about.</em></h1>
+    <p class="hero-sub">Start a petition on a topic that matters to you — and earn money to share it with your audience. <strong>Your voice. Your topic. Your audience.</strong> Not a typical brand deal.</p>
+    <div class="hero-btns">
+      <a href="#sign" class="btn">Sign your contract →</a>
+      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-outline">Book a call with Kelsey</a>
+    </div>
+  </div>
+</div>
+
+<div class="stat-strip">
+  <div class="stat-block"><div class="stat-val red" id="featured-advance-value" style="font-size:36px;line-height:1.2;">Your advance</div><div class="stat-lbl">Guaranteed when you launch · see tier below</div></div>
+  <div class="stat-block"><div class="stat-val">3</div><div class="stat-lbl">Share units to deliver</div></div>
+  <div class="stat-block"><div class="stat-val">95%</div><div class="stat-lbl">Promo revenue back to you</div></div>
+  <div class="stat-block"><div class="stat-val">2 wks</div><div class="stat-lbl">Contract to live petition</div></div>
+</div>
+
+<section class="sec">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">01 — Deal</span>
+      <h2>Here's the deal</h2>
+      <span class="sec-sub-txt">1 petition · 3 posts · 2 weeks · then keep earning</span>
+    </div>
+    <div class="del-grid">
+      <div class="del-card"><div class="del-val red">$300–$5K</div><div class="del-lbl">Advance payment</div><div class="del-sub">Paid when you launch · see your tier below</div></div>
+      <div class="del-card"><div class="del-val">1</div><div class="del-lbl">Petition</div><div class="del-sub">On a topic you choose</div></div>
+      <div class="del-card"><div class="del-val">3</div><div class="del-lbl">Share units</div><div class="del-sub">1 primary + 2 secondary</div></div>
+      <div class="del-card"><div class="del-val" style="font-size:36px;line-height:1.2;">2 wks</div><div class="del-lbl">Timeline</div><div class="del-sub">From contract to live</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="advance">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">02 — Advance</span>
+      <h2>How your advance is decided</h2>
+      <span class="sec-sub-txt">Based on total audience across active platforms</span>
+    </div>
+    <div class="tier-layout">
+      <div class="tier-input-area">
+        <span class="tier-input-lbl">Your followers</span>
+        <input type="text" id="follower-count" class="tier-input" placeholder="340,000" inputmode="numeric">
+        <span class="tier-input-sfx">total across active platforms</span>
+      </div>
+      <div class="tier-result" id="tier-result">
+        <span class="tr-label">With</span><strong class="tr-tier" id="tier-result-tier">—</strong><span class="tr-sep">·</span><span class="tr-label">your guaranteed advance is</span><strong class="tr-amount" id="tier-result-amount">—</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">03 — Watch</span>
+      <h2>The three-minute walk-through</h2>
+      <span class="sec-sub-txt">Kelsey covers the 4 questions every creator asks</span>
+    </div>
+    <div class="video-frame" role="button" tabindex="0" aria-label="Play intro video">
+      <span class="vid-dur">3:12</span>
+      <div class="play-btn"><div class="play-tri"></div></div>
+      <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+    </div>
+    <div class="vid-meta">
+      <div class="vid-overview">Launch 1 petition tied to an issue your audience already cares about. Drive signatures with 3 posts — 1 main, plus 2 more in any format. You keep your guaranteed advance, plus monthly revenue paid per signature your posts bring in.</div>
+      <div class="vid-qs">
+        <div class="vid-qs-label">Questions answered</div>
+        <div class="vq"><span class="vq-n">01</span><span>What should my petition be about?</span></div>
+        <div class="vq"><span class="vq-n">02</span><span>What exactly do I have to deliver?</span></div>
+        <div class="vq"><span class="vq-n">03</span><span>Does a petition actually create change?</span></div>
+        <div class="vq"><span class="vq-n">04</span><span>What's the timeline and what's the catch?</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">04 — Share units</span>
+      <h2>What's a share unit?</h2>
+      <span class="sec-sub-txt">One original post pointing to your petition</span>
+    </div>
+    <div class="su-layout">
+      <div class="su-text">
+        <div class="su-pull">3 is the floor — not the ceiling.</div>
+        <p>The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format (story, tweet, threads, newsletter).</p>
+        <p>The program has <strong>no cap on posts</strong>. The more you share, the more signatures you drive — and the more you earn each month.</p>
+        <div class="su-note"><strong>Each share must be unique creative.</strong> <strong>Secondaries must be on a platform with 50K+ followers</strong> to qualify. Every post must include <code>#ad</code> or <code>#sponsored</code>.</div>
+      </div>
+      <div class="su-photos-panel">
+        <div class="su-pw"><div class="su-photo"><img src="../images/post-tiktok.png" alt="TikTok post" style="object-position:center 15%"></div><span class="su-pl">Primary</span></div>
+        <div class="su-pw"><div class="su-photo"><img src="../images/post-maternity.png" alt="IG Story" style="object-position:top center"></div><span class="su-pl">Secondary</span></div>
+        <div class="su-pw"><div class="su-photo"><img src="../images/post-als.png" alt="IG Story" style="object-position:top center"></div><span class="su-pl">Secondary</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">05 — Why different</span>
+      <h2>Why this isn't a typical brand deal</h2>
+      <span class="sec-sub-txt">Built for creators, not commodified by them</span>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card"><div class="diff-n">01</div><h3>Your voice, all the way through</h3><p>You pick the topic. You write it. You post in your style. Our team helps for reach — but <strong>the message is ultimately yours</strong>.</p></div>
+      <div class="diff-card"><div class="diff-n">02</div><h3>Guaranteed payment, no signature target</h3><p>We activate your advance when you share your first post. <strong>You keep it whether your petition gets 1,000 or 100,000 signatures.</strong></p></div>
+      <div class="diff-card"><div class="diff-n">03</div><h3>No earnings ceiling</h3><p>Once your petition recoups your advance, you earn <strong>95% of promotions revenue</strong> — every month, for as long as it keeps gaining signatures.</p></div>
+      <div class="diff-card"><div class="diff-n">04</div><h3>The chance to keep going</h3><p>Once your petition's revenue surpasses your advance, <strong>you unlock another petition*</strong> — fresh earnings stacking on top.</p><div class="diff-fn">*Not guaranteed — offered to ambassadors who've shown they can mobilize their audience.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="earnings">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">06 — Earnings</span>
+      <h2>What you can earn</h2>
+      <span class="sec-sub-txt">Your advance + $0.30–$0.50 per signature</span>
+    </div>
+    <div class="calc-layout">
+      <div class="calc-left">
+        <p class="calc-q">Signatures you can drive</p>
+        <div class="calc-readout"><span id="sig-readout">25,000</span> <span>sigs</span></div>
+        <input type="range" min="1000" max="200000" step="500" value="25000" class="slider" id="sig-slider" aria-label="Signature estimate">
+        <div class="slider-bnds"><span>1K (floor)</span><span>200K+ (top creators)</span></div>
+        <p class="calc-note">Total across <strong style="color:var(--dark)">all your posts</strong> — no cap on how many you make.</p>
+      </div>
+      <div class="calc-right" aria-live="polite">
+        <p class="cr-label">Including your advance, you can earn</p>
+        <div class="cr-amt" id="promo-mid">$10,000</div>
+        <div class="cr-range" id="promo-range">$7.5K–$12.5K range</div>
+        <p class="cr-note" id="earnings-note"><strong>Add your follower count above</strong> to include your advance in this total.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="ctr">
+    <div class="sec-header">
+      <span class="sec-num">07 — Process</span>
+      <h2>How it works, start to finish</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-big-n">1</div><div class="step-n">Step 01</div><h3>Sign your contract</h3><p>Standard DocuSign agreement. Tier and advance confirmed here. Want to talk first? <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener">Book a call with Kelsey.</a></p></div>
+      <div class="step-card"><div class="step-big-n">2</div><div class="step-n">Step 02</div><h3>Launch your petition</h3><p>Pick your topic. Our team helps shape it for reach. You publish with full creative control. Most ambassadors live within 2 weeks.</p></div>
+      <div class="step-card"><div class="step-big-n">3</div><div class="step-n">Step 03</div><h3>Share it, get paid</h3><p>Post 1 primary — advance activates, paid within 30 days. Post 2 more to fulfill. Keep posting to keep earning monthly.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta" id="sign">
+  <div class="ctr">
+    <span class="footer-label">Ready to start?</span>
+    <h2>Sign your contract.</h2>
+    <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to petition live is usually 2 weeks — your advance is paid within 30 days of your first post.</p>
+    <div class="footer-btns">
+      <a href="mailto:kelsey.kindall@change.org?subject=Ready%20to%20sign%20-%20Change%20Ambassadors%20Program&body=Hi%20Kelsey%2C%20I%27m%20ready%20to%20move%20forward." class="btn-red-sq">Send me the contract →</a>
+      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-outline-w">Book a 30-min call first</a>
+    </div>
+  </div>
+</section>
+<p class="footnote">Tier ranges reflect current program structure.</p>
+
+<script>
+(function(){
+  const slider=document.getElementById("sig-slider"),readoutEl=document.getElementById("sig-readout"),promoMid=document.getElementById("promo-mid"),promoRange=document.getElementById("promo-range"),earningsNote=document.getElementById("earnings-note");
+  let currentAdvance=0;
+  const nf=new Intl.NumberFormat("en-US"),cf=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+  function shortD(n){if(n>=1000){const k=n/1000;return"$"+(k%1===0?k.toFixed(0):k.toFixed(1))+"K";}return cf.format(n);}
+  function update(){
+    const sigs=parseInt(slider.value,10);
+    readoutEl.textContent=nf.format(sigs);
+    const mid=sigs*0.40,lo=sigs*0.30,hi=sigs*0.50;
+    promoMid.textContent=cf.format(currentAdvance+mid);
+    promoRange.textContent=shortD(currentAdvance+lo)+"–"+shortD(currentAdvance+hi)+" range";
+    earningsNote.innerHTML=currentAdvance>0?"<strong>Your advance</strong> activates when you share your first post — paid within 30 days.":"<strong>Add your follower count above</strong> to include your advance in this total.";
+    const pct=((sigs-+slider.min)/(+slider.max-+slider.min))*100;
+    slider.style.background=`linear-gradient(90deg,#1D1D1D ${pct}%,#E0E0E0 ${pct}%)`;
+  }
+  slider.addEventListener("input",update);update();
+  const fi=document.getElementById("follower-count"),tr=document.getElementById("tier-result"),fa=document.getElementById("featured-advance-value");
+  function getAdv(n){if(n>=1000000)return{label:"$5,000",value:5000,idx:2};if(n>=250000)return{label:"$1,000",value:1000,idx:1};if(n>=100000)return{label:"$300",value:300,idx:0};return null;}
+  function fmtS(n){if(n>=1e6)return(n/1e6).toFixed(1).replace(/\.0$/,"")+"M";if(n>=1000)return Math.round(n/1000)+"K";return String(n);}
+  function updAdv(){
+    const raw=fi.value.replace(/[^0-9]/g,""),n=parseInt(raw,10)||0;
+    if(raw&&raw!==fi.value)fi.value=nf.format(n);else if(!raw)fi.value="";
+    document.querySelectorAll(".tier-pill").forEach(p=>p.classList.remove("active"));
+    if(!n){tr.style.display="none";if(fa){fa.textContent="Your advance";fa.style.fontSize="";}currentAdvance=0;update();return;}
+    const adv=getAdv(n);
+    if(!adv){tr.style.display="flex";tr.className="tier-result below";tr.innerHTML='<span class="tr-label">Below program minimum (100K followers). Reach out — Kelsey can take a look.</span>';if(fa)fa.textContent="Your advance";currentAdvance=0;update();return;}
+    tr.style.display="flex";tr.className="tier-result";
+    tr.innerHTML='<span class="tr-label">With</span><strong class="tr-tier">'+fmtS(n)+' followers</strong><span class="tr-sep">·</span><span class="tr-label">your guaranteed advance is</span><strong class="tr-amount">'+adv.label+'</strong>';
+    if(fa){fa.textContent=adv.label;fa.style.fontSize="48px";}
+    const ap=document.getElementById("tier-"+adv.idx);if(ap)ap.classList.add("active");
+    currentAdvance=adv.value;update();
+  }
+  fi.addEventListener("input",updAdv);
+})();
+</script>
+</body>
+</html>

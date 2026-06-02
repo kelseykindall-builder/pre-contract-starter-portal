@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Change Ambassadors — V5: Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* V5: Dashboard — fixed left sidebar nav, scrollable main content. Feels like a change.org creator portal. */
+    :root{--red:#E8003E;--dark:#1D1D1D;--gray:#767676;--gray-lt:#F5F5F5;--border:#E0E0E0;--white:#fff;--yellow:#FFDB00;--sidebar-w:220px;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:"Commissioner",system-ui,sans-serif;color:var(--dark);background:var(--gray-lt);-webkit-font-smoothing:antialiased;line-height:1.5;display:flex;flex-direction:column;min-height:100vh;}
+
+    /* TOP NAV */
+    .topnav{background:var(--dark);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;position:sticky;top:0;z-index:200;}
+    .logo{font-size:18px;font-weight:700;letter-spacing:-0.02em;color:white;}
+    .logo span{color:var(--red);}
+    .nav-cta{background:var(--red);color:white;font-family:inherit;font-weight:600;font-size:13px;padding:7px 16px;border:none;border-radius:4px;cursor:pointer;text-decoration:none;}
+
+    /* LAYOUT */
+    .layout{display:flex;flex:1;}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-w);flex-shrink:0;background:white;border-right:1px solid var(--border);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;display:flex;flex-direction:column;}
+    .sidebar-header{padding:20px 20px 12px;border-bottom:1px solid var(--border);}
+    .sidebar-badge{display:inline-block;background:#fff0f3;color:var(--red);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;margin-bottom:8px;}
+    .sidebar-title{font-size:13px;font-weight:700;color:var(--dark);line-height:1.4;}
+    .sidebar-sub{font-size:11px;color:var(--gray);margin-top:2px;}
+    .sidebar-nav{padding:12px 0;flex:1;}
+    .nav-section-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);padding:8px 20px 4px;}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:13px;color:var(--gray);text-decoration:none;cursor:pointer;transition:background 0.1s;}
+    .nav-item:hover{background:var(--gray-lt);color:var(--dark);}
+    .nav-item.active{color:var(--red);font-weight:600;background:#fff5f7;}
+    .nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
+    .sidebar-cta{padding:16px 20px;border-top:1px solid var(--border);}
+    .sidebar-btn{display:block;width:100%;background:var(--red);color:white;font-family:inherit;font-weight:600;font-size:13px;padding:10px;border:none;border-radius:6px;cursor:pointer;text-align:center;text-decoration:none;}
+    .sidebar-btn:hover{opacity:0.9;}
+
+    /* MAIN */
+    .main{flex:1;padding:32px 40px 80px;max-width:860px;}
+
+    /* PROGRESS BAR */
+    .progress-bar{background:white;border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:28px;display:flex;gap:0;align-items:center;}
+    .prog-step{display:flex;align-items:center;gap:8px;flex:1;}
+    .prog-step:not(:last-child)::after{content:"";flex:1;height:1px;background:var(--border);margin:0 8px;}
+    .prog-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gray);flex-shrink:0;background:white;}
+    .prog-step.current .prog-dot{border-color:var(--red);color:var(--red);background:#fff5f7;}
+    .prog-step.done .prog-dot{border-color:var(--dark);background:var(--dark);color:white;}
+    .prog-label{font-size:11px;color:var(--gray);font-weight:500;}
+    .prog-step.current .prog-label{color:var(--dark);font-weight:600;}
+
+    /* SECTION HEADERS */
+    .sec-head{margin-bottom:20px;}
+    .sec-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:4px;}
+    h2{font-size:22px;font-weight:700;letter-spacing:-0.015em;color:var(--dark);}
+    .sec-sub{font-size:13px;color:var(--gray);margin-top:4px;}
+    .sec-divider{height:1px;background:var(--border);margin:36px 0;}
+
+    /* PANEL / CARD */
+    .panel{background:white;border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px;}
+    .panel-title{font-size:14px;font-weight:600;margin-bottom:12px;}
+    .panel-sub{font-size:12px;color:var(--gray);margin-bottom:16px;}
+
+    /* DELIVERABLES TABLE */
+    .del-table{width:100%;border-collapse:collapse;}
+    .del-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);}
+    .del-table td{padding:12px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top;}
+    .del-table tr:last-child td{border-bottom:none;}
+    .del-val-cell{font-size:22px;font-weight:700;letter-spacing:-0.02em;color:var(--dark);white-space:nowrap;}
+    .del-featured-val{color:var(--red);}
+    .del-lbl-cell{font-weight:500;}
+    .del-desc-cell{color:var(--gray);}
+
+    /* VIDEO */
+    .video-frame{width:100%;aspect-ratio:16/9;background:var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;}
+    .play-btn{width:60px;height:60px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .play-tri{width:0;height:0;border-left:18px solid var(--dark);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px;}
+    .vid-dur{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);color:white;font-size:11px;padding:2px 7px;border-radius:99px;}
+    .vid-caption{position:absolute;bottom:12px;left:16px;color:white;font-weight:600;font-size:13px;}
+    .vid-overview{background:var(--gray-lt);border-radius:6px;padding:14px 16px;margin-top:14px;font-size:13px;line-height:1.65;color:var(--dark);}
+    .vid-qs{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+    .vq{display:flex;gap:8px;font-size:13px;}
+    .vq-n{font-size:10px;font-weight:700;color:var(--gray);min-width:16px;padding-top:2px;}
+
+    /* SHARE UNIT */
+    .su-two-col{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;}
+    .su-text p{font-size:13px;color:var(--gray);line-height:1.65;margin-bottom:12px;}
+    .su-text strong{color:var(--dark);}
+    .su-callout{background:#fff5f7;border-left:2px solid var(--red);padding:12px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.65;margin-bottom:12px;}
+    .su-note{font-size:11px;color:var(--gray);line-height:1.6;border-top:1px dashed var(--border);padding-top:12px;}
+    .su-note strong{color:var(--dark);}
+    .su-note code{background:var(--gray-lt);padding:1px 4px;border-radius:3px;font-size:10px;color:var(--red);font-weight:700;}
+    .su-photos{display:flex;gap:8px;}
+    .su-pw{display:flex;flex-direction:column;align-items:center;gap:4px;}
+    .su-photo{width:72px;height:126px;border-radius:6px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.15);background:#ddd;}
+    .su-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    .su-pl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray);}
+
+    /* DIFF */
+    .diff-row{display:flex;flex-direction:column;gap:0;}
+    .diff-item{padding:14px 0;border-bottom:1px solid var(--border);}
+    .diff-item:first-child{border-top:1px solid var(--border);}
+    .diff-item h3{font-size:14px;font-weight:600;margin-bottom:4px;}
+    .diff-item p{font-size:13px;color:var(--gray);line-height:1.6;}
+    .diff-item p strong{color:var(--dark);}
+    .diff-fn{font-size:11px;color:var(--gray);margin-top:6px;font-style:italic;}
+
+    /* CALC */
+    .calc-two-col{display:grid;grid-template-columns:1fr 240px;gap:28px;align-items:start;}
+    .calc-q{font-size:13px;color:var(--gray);margin-bottom:12px;}
+    .calc-readout{font-size:40px;font-weight:700;letter-spacing:-0.03em;line-height:1;margin-bottom:16px;}
+    .calc-readout span{font-size:14px;font-weight:400;color:var(--gray);}
+    .slider{-webkit-appearance:none;width:100%;height:4px;background:var(--border);border-radius:99px;outline:none;cursor:pointer;}
+    .slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--dark);border:2px solid white;box-shadow:0 0 0 1px var(--dark);}
+    .slider-bnds{display:flex;justify-content:space-between;font-size:10px;color:var(--gray);margin-top:6px;}
+    .calc-note{font-size:12px;color:var(--gray);margin-top:14px;line-height:1.55;}
+    .calc-panel{background:var(--dark);border-radius:8px;padding:20px;}
+    .cp-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;}
+    .cp-amt{font-size:32px;font-weight:700;letter-spacing:-0.025em;color:var(--yellow);margin-bottom:4px;}
+    .cp-range{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;}
+    .cp-note{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.55;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;}
+    .cp-note strong{color:rgba(255,255,255,0.7);}
+
+    /* TIER */
+    .tier-input-block{background:var(--gray-lt);border-radius:6px;padding:16px;margin-bottom:12px;}
+    .tier-input-lbl{font-size:12px;font-weight:500;display:block;margin-bottom:6px;color:var(--dark);}
+    .tier-input-row{display:flex;align-items:center;gap:8px;}
+    .tier-input{padding:8px 12px;font-size:16px;font-weight:600;font-family:inherit;border:1.5px solid var(--border);border-radius:6px;max-width:200px;outline:none;width:100%;background:white;}
+    .tier-input:focus{border-color:var(--red);}
+    .tier-input-sfx{font-size:13px;color:var(--gray);}
+    .tier-result{background:var(--dark);color:white;padding:12px 16px;border-radius:6px;margin-bottom:12px;display:none;align-items:baseline;gap:6px;flex-wrap:wrap;}
+    .tier-result.below{background:var(--gray-lt);color:var(--dark);border:1px solid var(--border);}
+    .tr-label{font-size:12px;color:rgba(255,255,255,0.55);}
+    .tier-result.below .tr-label{color:var(--gray);}
+    .tr-tier{font-size:14px;font-weight:700;}
+    .tr-sep{color:rgba(255,255,255,0.25);}
+    .tier-result.below .tr-sep{color:var(--border);}
+    .tr-amount{font-size:18px;font-weight:700;color:var(--yellow);}
+    .tier-result.below .tr-amount{color:var(--dark);}
+    .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    .tier-pill{border:1.5px solid var(--border);border-radius:6px;padding:12px;background:white;}
+    .tier-pill.active{border-color:var(--dark);background:var(--dark);}
+    .tp-range{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray);margin-bottom:4px;}
+    .tier-pill.active .tp-range{color:rgba(255,255,255,0.4);}
+    .tp-amount{font-size:18px;font-weight:700;color:var(--dark);}
+    .tier-pill.active .tp-amount{color:var(--yellow);}
+
+    /* STEPS */
+    .steps-list{display:flex;flex-direction:column;gap:0;}
+    .step-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+    .step-item:first-child{border-top:1px solid var(--border);}
+    .step-num-badge{width:28px;height:28px;border-radius:50%;background:var(--red);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .step-item h3{font-size:14px;font-weight:600;margin-bottom:4px;}
+    .step-item p{font-size:13px;color:var(--gray);line-height:1.6;}
+    .step-item a{color:var(--red);text-decoration:none;}
+
+    /* FOOTER CTA */
+    .footer-panel{background:var(--red);border-radius:8px;padding:36px;text-align:center;margin-top:20px;}
+    .footer-panel h2{color:white;font-size:26px;margin-bottom:10px;}
+    .footer-panel p{font-size:14px;color:rgba(255,255,255,0.8);max-width:420px;margin:0 auto 24px;line-height:1.6;}
+    .footer-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    .btn-white{background:white;color:var(--red);font-family:inherit;font-weight:700;font-size:14px;padding:11px 22px;border:none;border-radius:6px;cursor:pointer;text-decoration:none;}
+    .btn-white:hover{background:#f5f5f5;}
+    .btn-ghost-w{background:transparent;color:rgba(255,255,255,0.8);font-family:inherit;font-weight:500;font-size:14px;padding:11px 18px;border:1px solid rgba(255,255,255,0.4);border-radius:6px;cursor:pointer;text-decoration:none;}
+    .footnote{font-size:11px;color:var(--gray);font-style:italic;padding:16px 0;text-align:center;}
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="logo">change<span>.org</span></div>
+  <a href="#sign" class="nav-cta">Sign contract</a>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-badge">Paid Partnership</div>
+      <div class="sidebar-title">Change Ambassadors</div>
+      <div class="sidebar-sub">Pre-contract overview</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">This page</div>
+      <a href="#deal" class="nav-item active"><span class="nav-dot"></span>The deal</a>
+      <a href="#advance" class="nav-item"><span class="nav-dot"></span>Your advance</a>
+      <a href="#video" class="nav-item"><span class="nav-dot"></span>Watch intro</a>
+      <a href="#share-units" class="nav-item"><span class="nav-dot"></span>Share units</a>
+      <a href="#why-different" class="nav-item"><span class="nav-dot"></span>Why it's different</a>
+      <a href="#earnings" class="nav-item"><span class="nav-dot"></span>Earnings calculator</a>
+      <a href="#how-it-works" class="nav-item"><span class="nav-dot"></span>How it works</a>
+      <div class="nav-section-label" style="margin-top:8px;">Next steps</div>
+      <a href="#sign" class="nav-item"><span class="nav-dot"></span>Sign contract</a>
+      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="nav-item"><span class="nav-dot"></span>Book a call</a>
+    </nav>
+    <div class="sidebar-cta">
+      <a href="#sign" class="sidebar-btn">Sign your contract →</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- PROGRESS -->
+    <div class="progress-bar">
+      <div class="prog-step done"><div class="prog-dot">✓</div><span class="prog-label">Outreach</span></div>
+      <div class="prog-step current"><div class="prog-dot">2</div><span class="prog-label">Review & sign</span></div>
+      <div class="prog-step"><div class="prog-dot">3</div><span class="prog-label">Launch petition</span></div>
+      <div class="prog-step"><div class="prog-dot">4</div><span class="prog-label">Share & earn</span></div>
+    </div>
+
+    <!-- DEAL -->
+    <div id="deal">
+      <div class="sec-head">
+        <span class="sec-label">The deal</span>
+        <h2>Here's the deal</h2>
+        <div class="sec-sub">1 petition, 3 posts, 2 weeks · then keep earning as it grows</div>
+      </div>
+      <div class="panel">
+        <table class="del-table">
+          <thead><tr><th>Deliverable</th><th>What it is</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="del-val-cell del-featured-val" id="featured-advance-value">An advance</div></td>
+              <td class="del-lbl-cell">Guaranteed advance payment</td>
+              <td class="del-desc-cell">Paid within 30 days of your first share unit post. See your tier below.</td>
+            </tr>
+            <tr>
+              <td><div class="del-val-cell">1</div></td>
+              <td class="del-lbl-cell">Original petition</td>
+              <td class="del-desc-cell">On a topic you choose and write. Our team helps shape it for reach.</td>
+            </tr>
+            <tr>
+              <td><div class="del-val-cell">3</div></td>
+              <td class="del-lbl-cell">Share units</td>
+              <td class="del-desc-cell">1 primary post + 2 secondary shares in any format.</td>
+            </tr>
+            <tr>
+              <td><div class="del-val-cell" style="font-size:16px;white-space:nowrap;">2 weeks</div></td>
+              <td class="del-lbl-cell">Timeline to launch</td>
+              <td class="del-desc-cell">From signed contract to live petition. Then monthly earnings ongoing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ADVANCE / TIER -->
+    <div id="advance">
+      <div class="sec-head">
+        <span class="sec-label">Your advance</span>
+        <h2>How your advance is decided</h2>
+        <div class="sec-sub">Based on total followers across active platforms</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Find your tier</div>
+        <div class="tier-input-block">
+          <label class="tier-input-lbl" for="follower-count">Total followers across active platforms</label>
+          <div class="tier-input-row">
+            <input type="text" id="follower-count" class="tier-input" placeholder="e.g. 340,000" inputmode="numeric">
+            <span class="tier-input-sfx">followers</span>
+          </div>
+        </div>
+        <div class="tier-result" id="tier-result">
+          <span class="tr-label">With</span><strong class="tr-tier" id="tier-result-tier">—</strong><span class="tr-sep">·</span><span class="tr-label">advance is</span><strong class="tr-amount" id="tier-result-amount">—</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- VIDEO -->
+    <div id="video">
+      <div class="sec-head">
+        <span class="sec-label">Watch</span>
+        <h2>The three-minute walk-through</h2>
+        <div class="sec-sub">Kelsey covers the 4 questions every creator asks</div>
+      </div>
+      <div class="panel">
+        <div class="video-frame" role="button" tabindex="0" aria-label="Play intro video">
+          <span class="vid-dur">3:12</span>
+          <div class="play-btn"><div class="play-tri"></div></div>
+          <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+        </div>
+        <div class="vid-overview">Launch 1 petition tied to an issue your audience already cares about. Drive signatures with 3 posts — 1 main, plus 2 more in any format. Keep your guaranteed advance, plus monthly revenue per signature.</div>
+        <div class="vid-qs">
+          <div class="vq"><span class="vq-n">01</span><span>What should my petition be about?</span></div>
+          <div class="vq"><span class="vq-n">02</span><span>What exactly do I have to deliver?</span></div>
+          <div class="vq"><span class="vq-n">03</span><span>Does a petition actually create change?</span></div>
+          <div class="vq"><span class="vq-n">04</span><span>What's the timeline and what's the catch?</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- SHARE UNITS -->
+    <div id="share-units">
+      <div class="sec-head">
+        <span class="sec-label">Deliverables</span>
+        <h2>What's a share unit?</h2>
+        <div class="sec-sub">One original post pointing your audience to your petition.</div>
+      </div>
+      <div class="panel">
+        <div class="su-two-col">
+          <div class="su-text">
+            <p>The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format (story, tweet, threads, newsletter).</p>
+            <div class="su-callout"><strong>3 is the floor — not the ceiling.</strong> The program has <strong>no cap on posts</strong>. More posts = more signatures = more earnings monthly.</div>
+            <div class="su-note"><strong>Each share must be unique creative.</strong> <strong>Secondaries must be on a platform with 50K+ followers.</strong> Every post must include <code>#ad</code> or <code>#sponsored</code>.</div>
+          </div>
+          <div class="su-photos">
+            <div class="su-pw"><div class="su-photo"><img src="../images/post-tiktok.png" alt="TikTok" style="object-position:center 15%"></div><span class="su-pl">Primary</span></div>
+            <div class="su-pw"><div class="su-photo"><img src="../images/post-maternity.png" alt="IG Story" style="object-position:top center"></div><span class="su-pl">Secondary</span></div>
+            <div class="su-pw"><div class="su-photo"><img src="../images/post-als.png" alt="IG Story" style="object-position:top center"></div><span class="su-pl">Secondary</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- WHY DIFFERENT -->
+    <div id="why-different">
+      <div class="sec-head">
+        <span class="sec-label">Why it's different</span>
+        <h2>Why this isn't a typical brand deal</h2>
+      </div>
+      <div class="panel">
+        <div class="diff-row">
+          <div class="diff-item"><h3>Your voice, all the way through</h3><p>You pick the topic. You write it. You post in your style. Our team helps for reach — but <strong>the message is ultimately yours</strong>.</p></div>
+          <div class="diff-item"><h3>Guaranteed payment, no signature target</h3><p>We activate your advance when you share your first post. <strong>You keep it whether your petition gets 1,000 or 100,000 signatures.</strong></p></div>
+          <div class="diff-item"><h3>No earnings ceiling</h3><p>Once your petition recoups your advance, you earn <strong>95% of promotions revenue</strong> — every month, for as long as it keeps gaining signatures.</p></div>
+          <div class="diff-item"><h3>The chance to keep going</h3><p>Once your petition's revenue surpasses your advance, <strong>you unlock the option to start another petition*</strong>.<div class="diff-fn">*Not guaranteed — offered to ambassadors who've shown they can mobilize their audience.</div></p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- EARNINGS CALC -->
+    <div id="earnings">
+      <div class="sec-head">
+        <span class="sec-label">Earnings</span>
+        <h2>What you can earn</h2>
+        <div class="sec-sub">Your advance plus $0.30–$0.50 per signature</div>
+      </div>
+      <div class="panel">
+        <div class="calc-two-col">
+          <div>
+            <p class="calc-q">How many signatures do you think you can drive?</p>
+            <div class="calc-readout"><span id="sig-readout">25,000</span> <span>signatures</span></div>
+            <input type="range" min="1000" max="200000" step="500" value="25000" class="slider" id="sig-slider" aria-label="Signature estimate">
+            <div class="slider-bnds"><span>1K</span><span>200K+</span></div>
+            <p class="calc-note">Total across all your posts — no cap on how many you make.</p>
+          </div>
+          <aside class="calc-panel" aria-live="polite">
+            <p class="cp-label">You can earn</p>
+            <div class="cp-amt" id="promo-mid">$10,000</div>
+            <div class="cp-range" id="promo-range">$7.5K–$12.5K</div>
+            <p class="cp-note" id="earnings-note"><strong>Add follower count above</strong> to include your advance.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- HOW IT WORKS -->
+    <div id="how-it-works">
+      <div class="sec-head">
+        <span class="sec-label">Process</span>
+        <h2>How it works, start to finish</h2>
+      </div>
+      <div class="panel">
+        <div class="steps-list">
+          <div class="step-item"><div class="step-num-badge">1</div><div><h3>Sign your contract</h3><p>Standard DocuSign agreement. Your tier and advance confirmed here. Want to talk first? <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener">Book a call with Kelsey.</a></p></div></div>
+          <div class="step-item"><div class="step-num-badge">2</div><div><h3>Launch your petition</h3><p>Pick your topic. Our team helps shape it for reach. You publish with full creative control. Most ambassadors live within 2 weeks.</p></div></div>
+          <div class="step-item"><div class="step-num-badge">3</div><div><h3>Share it, get paid</h3><p>Post 1 primary — advance activates, paid within 30 days. Post 2 more to fulfill the deal. Keep posting to keep earning monthly.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="footer-panel" id="sign">
+      <h2>Ready to sign?</h2>
+      <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to petition live is usually 2 weeks.</p>
+      <div class="footer-btns">
+        <a href="mailto:kelsey.kindall@change.org?subject=Ready%20to%20sign%20-%20Change%20Ambassadors%20Program&body=Hi%20Kelsey%2C%20I%27m%20ready%20to%20move%20forward." class="btn-white">Send me the contract →</a>
+        <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost-w">Book a 30-min call first</a>
+      </div>
+    </div>
+    <p class="footnote">Tier ranges reflect current program structure.</p>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  const slider=document.getElementById("sig-slider"),readoutEl=document.getElementById("sig-readout"),promoMid=document.getElementById("promo-mid"),promoRange=document.getElementById("promo-range"),earningsNote=document.getElementById("earnings-note");
+  let currentAdvance=0;
+  const nf=new Intl.NumberFormat("en-US"),cf=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+  function shortD(n){if(n>=1000){const k=n/1000;return"$"+(k%1===0?k.toFixed(0):k.toFixed(1))+"K";}return cf.format(n);}
+  function update(){
+    const sigs=parseInt(slider.value,10);
+    readoutEl.textContent=nf.format(sigs);
+    const mid=sigs*0.40,lo=sigs*0.30,hi=sigs*0.50;
+    promoMid.textContent=cf.format(currentAdvance+mid);
+    promoRange.textContent=shortD(currentAdvance+lo)+"–"+shortD(currentAdvance+hi);
+    earningsNote.innerHTML=currentAdvance>0?"<strong>Your advance</strong> activates on first post — paid within 30 days.":"<strong>Add follower count above</strong> to include your advance.";
+    const pct=((sigs-+slider.min)/(+slider.max-+slider.min))*100;
+    slider.style.background=`linear-gradient(90deg,#1D1D1D ${pct}%,#E0E0E0 ${pct}%)`;
+  }
+  slider.addEventListener("input",update);update();
+  const fi=document.getElementById("follower-count"),tr=document.getElementById("tier-result"),fa=document.getElementById("featured-advance-value");
+  function getAdv(n){if(n>=1000000)return{label:"$5,000",value:5000,idx:2};if(n>=250000)return{label:"$1,000",value:1000,idx:1};if(n>=100000)return{label:"$300",value:300,idx:0};return null;}
+  function fmtS(n){if(n>=1e6)return(n/1e6).toFixed(1).replace(/\.0$/,"")+"M";if(n>=1000)return Math.round(n/1000)+"K";return String(n);}
+  function updAdv(){
+    const raw=fi.value.replace(/[^0-9]/g,""),n=parseInt(raw,10)||0;
+    if(raw&&raw!==fi.value)fi.value=nf.format(n);else if(!raw)fi.value="";
+    document.querySelectorAll(".tier-pill").forEach(p=>p.classList.remove("active"));
+    if(!n){tr.style.display="none";if(fa){fa.textContent="An advance";fa.style.fontSize="";}currentAdvance=0;update();return;}
+    const adv=getAdv(n);
+    if(!adv){tr.style.display="flex";tr.className="tier-result below";tr.innerHTML='<span class="tr-label">Below minimum (100K). Reach out — Kelsey can take a look.</span>';if(fa)fa.textContent="An advance";currentAdvance=0;update();return;}
+    tr.style.display="flex";tr.className="tier-result";
+    tr.innerHTML='<span class="tr-label">With</span><strong class="tr-tier">'+fmtS(n)+' followers</strong><span class="tr-sep">·</span><span class="tr-label">advance is</span><strong class="tr-amount">'+adv.label+'</strong>';
+    if(fa){fa.textContent=adv.label;fa.style.fontSize="20px";}
+    const ap=document.getElementById("tier-"+adv.idx);if(ap)ap.classList.add("active");
+    currentAdvance=adv.value;update();
+  }
+  fi.addEventListener("input",updAdv);
+  // Sidebar active state on scroll
+  const sections=["deal","advance","video","share-units","why-different","earnings","how-it-works","sign"];
+  const navItems=document.querySelectorAll(".nav-item");
+  function onScroll(){
+    let current="deal";
+    sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<120)current=id;});
+    navItems.forEach(item=>{
+      const href=item.getAttribute("href");
+      item.classList.toggle("active",href==="#"+current);
+    });
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+})();
+</script>
+</body>
+</html>
