@@ -28,7 +28,7 @@
     .nav-cta:hover { background: var(--red-h); }
 
     /* LAYOUT */
-    .ctr { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .ctr { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
     section { padding: 72px 0; }
     section.alt { background: var(--gray-lt); }
 
@@ -174,6 +174,26 @@
       .su-photo { width: 130px; height: 228px; }
     }
 
+    /* SIDEBAR NAV */
+    .side-nav { position: fixed; left: 12px; top: 50%; transform: translateY(-50%); width: 28px; z-index: 50; }
+    .side-nav-list { list-style: none; }
+    .side-nav-link { display: flex; align-items: center; text-decoration: none; padding: 7px 4px; position: relative; }
+    .side-nav-link::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+    .side-nav-link:hover::before { background: var(--gray); transform: scale(1.3); }
+    .side-nav-link.active::before { background: var(--red); transform: scale(1.2); }
+    .snl-text { position: absolute; left: 18px; background: var(--dark); color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
+    .side-nav-link:hover .snl-text { opacity: 1; }
+    @media (min-width: 1640px) {
+      .side-nav { left: calc(50vw - 796px); width: 140px; }
+      .side-nav-link { padding: 6px 0 6px 12px; border-left: 2px solid var(--border); }
+      .side-nav-link::before { display: none; }
+      .side-nav-link:hover { border-color: #999; }
+      .side-nav-link.active { border-color: var(--red); }
+      .snl-text { position: static; background: none; color: var(--gray); padding: 0; border-radius: 0; white-space: normal; opacity: 1; pointer-events: auto; transition: color 0.15s; line-height: 1.4; }
+      .side-nav-link:hover .snl-text { color: var(--dark); }
+      .side-nav-link.active .snl-text { color: var(--red); font-weight: 700; }
+    }
+
     @media (max-width: 860px) {
       h1 { font-size: 36px; }
       .del-grid { grid-template-columns: repeat(2, 1fr); }
@@ -191,6 +211,19 @@
   <a href="#sign" class="nav-cta">Sign your contract</a>
 </nav>
 
+<nav class="side-nav" aria-label="Page sections">
+  <ul class="side-nav-list">
+    <li><a class="side-nav-link" href="#deal"><span class="snl-text">The deal</span></a></li>
+    <li><a class="side-nav-link" href="#advance"><span class="snl-text">Your advance</span></a></li>
+    <li><a class="side-nav-link" href="#watch"><span class="snl-text">Intro video</span></a></li>
+    <li><a class="side-nav-link" href="#deliverables"><span class="snl-text">Deliverables</span></a></li>
+    <li><a class="side-nav-link" href="#why-different"><span class="snl-text">About the program</span></a></li>
+    <li><a class="side-nav-link" href="#earnings"><span class="snl-text">Earnings</span></a></li>
+    <li><a class="side-nav-link" href="#process"><span class="snl-text">Process</span></a></li>
+    <li><a class="side-nav-link" href="#sign"><span class="snl-text">Sign contract</span></a></li>
+  </ul>
+</nav>
+
 <div class="hero">
   <div class="ctr">
     <span class="eyebrow">Change Ambassadors Program · Paid Partnership</span>
@@ -198,12 +231,12 @@
     <p class="hero-sub">Start a petition on a topic that matters to you — and earn money to share it with your audience. <strong>Your voice. Your topic. Your audience.</strong> Not a typical brand deal.</p>
     <div class="hero-btns">
       <a href="#sign" class="btn">Sign your contract →</a>
-      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost">Book a call with Kelsey first</a>
+      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost">Book a call with us first</a>
     </div>
   </div>
 </div>
 
-<section>
+<section id="deal">
   <div class="ctr">
     <span class="sec-label">The deal</span>
     <h2>What does this actually involve?</h2>
@@ -253,7 +286,7 @@
   </div>
 </section>
 
-<section>
+<section id="watch">
   <div class="ctr">
     <span class="sec-label">Watch</span>
     <h2>The three-minute walk-through</h2>
@@ -280,7 +313,7 @@
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="deliverables">
   <div class="ctr">
     <span class="sec-label">Deliverables</span>
     <h2>What's a share unit?</h2>
@@ -309,7 +342,7 @@
   </div>
 </section>
 
-<section>
+<section id="why-different">
   <div class="ctr">
     <span class="sec-label">Why it's different</span>
     <h2>Why this isn't a typical brand deal</h2>
@@ -340,7 +373,7 @@
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="earnings">
   <div class="ctr">
     <span class="sec-label">Earnings</span>
     <h2>What you can earn on your petition</h2>
@@ -363,7 +396,7 @@
   </div>
 </section>
 
-<section>
+<section id="process">
   <div class="ctr">
     <span class="sec-label">Process</span>
     <h2>How it works, start to finish</h2>
@@ -372,7 +405,7 @@
       <div class="step-card">
         <div class="step-num">Step 01</div>
         <h3>Sign your contract</h3>
-        <p>We send a standard agreement via DocuSign. Your tier and advance amount are confirmed here. Want to talk through it first? <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener">Book a call with Kelsey.</a></p>
+        <p>We send a standard agreement via DocuSign. Your tier and advance amount are confirmed here. Want to talk through it first? <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener">Book a call with us first.</a></p>
       </div>
       <div class="step-card">
         <div class="step-num">Step 02</div>
@@ -395,7 +428,7 @@
     <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to petition live is usually 2 weeks — your advance is paid within 30 days of your first post.</p>
     <div class="footer-btns">
       <a href="mailto:kelsey.kindall@change.org?subject=Ready%20to%20sign%20-%20Change%20Ambassadors%20Program&body=Hi%20Kelsey%2C%20I%27m%20ready%20to%20move%20forward." class="btn-white">Send me the contract →</a>
-      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost-w">Book a 30-min call first</a>
+      <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost-w">Book a call with us first</a>
     </div>
   </div>
 </section>
@@ -406,7 +439,7 @@
 (function() {
   const slider = document.getElementById("sig-slider");
   const readoutEl = document.getElementById("sig-readout");
-  const promoMid = document.getElementById("promo-mid");
+  const promoMidEl = document.getElementById("promo-mid");
   const promoRange = document.getElementById("promo-range");
   const earningsNote = document.getElementById("earnings-note");
   let currentAdvance = 0;
@@ -416,12 +449,21 @@
   function update() {
     const sigs = parseInt(slider.value, 10);
     readoutEl.innerHTML = nf.format(sigs) + " <span>signatures</span>";
-    const mid = sigs*0.40, lo = sigs*0.30, hi = sigs*0.50;
-    promoMid.textContent = cf.format(currentAdvance + mid);
-    promoRange.textContent = shortD(currentAdvance+lo)+"–"+shortD(currentAdvance+hi)+" range";
-    earningsNote.innerHTML = currentAdvance > 0
-      ? "<strong>Your advance</strong> activates when you share your first post — paid out within 30 days."
-      : "<strong>Add your follower count above</strong> to include your advance in this total.";
+    const promoLo = sigs*0.30, promoMid = sigs*0.40, promoHi = sigs*0.50;
+    function applyRecoup(promo) {
+      if (!currentAdvance) return promo;
+      return promo <= currentAdvance ? currentAdvance : currentAdvance + promo * 0.95;
+    }
+    promoMidEl.textContent = cf.format(applyRecoup(promoMid));
+    promoRange.textContent = shortD(applyRecoup(promoLo))+"–"+shortD(applyRecoup(promoHi))+" range";
+    if (currentAdvance > 0) {
+      const aboveRecoup = promoMid > currentAdvance;
+      earningsNote.innerHTML = aboveRecoup
+        ? "<strong>Advance paid at launch.</strong> Once promo revenue surpasses your advance, you keep 95% of everything above."
+        : "<strong>Your advance is your floor.</strong> At this signature count, promo revenue stays below your advance — you keep it either way.";
+    } else {
+      earningsNote.innerHTML = "<strong>Add your follower count above</strong> to include your advance in this total.";
+    }
     const pct = ((sigs - +slider.min)/(+slider.max - +slider.min))*100;
     slider.style.background = `linear-gradient(90deg,#1D1D1D ${pct}%,#E0E0E0 ${pct}%)`;
   }
@@ -451,6 +493,21 @@
     currentAdvance=adv.value; update();
   }
   fi.addEventListener("input", updAdv);
+
+  // Scrollspy
+  const navLinks = document.querySelectorAll(".side-nav-link");
+  if (navLinks.length) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove("active"));
+          const match = document.querySelector('.side-nav-link[href="#'+entry.target.id+'"]');
+          if (match) match.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -60% 0px" });
+    document.querySelectorAll("section[id]").forEach(s => obs.observe(s));
+  }
 })();
 </script>
 </body>
