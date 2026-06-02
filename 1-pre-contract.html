@@ -121,8 +121,9 @@
     .cp-note strong { color: rgba(255,255,255,0.75); }
 
     /* TIER */
-    .tier-intro { font-size: 14px; color: var(--gray); max-width: 600px; margin-bottom: 24px; }
+    .tier-intro { font-size: 14px; color: var(--gray); max-width: 600px; margin-bottom: 8px; }
     .tier-intro strong { color: var(--dark); }
+    .tier-fn { font-size: 11px; color: var(--gray); margin-bottom: 20px; }
     .tier-input-block { background: var(--gray-lt); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
     .tier-input-lbl { font-size: 13px; font-weight: 500; display: block; margin-bottom: 8px; }
     .tier-input-row { display: flex; align-items: center; gap: 10px; }
@@ -167,6 +168,12 @@
 
     .footnote { text-align: center; font-size: 12px; color: var(--gray); font-style: italic; padding: 24px 0; }
 
+    @media (min-width: 861px) {
+      .su-grid { justify-items: center; }
+      .su-photos { justify-content: center; align-items: flex-start; }
+      .su-photo { width: 130px; height: 228px; }
+    }
+
     @media (max-width: 860px) {
       h1 { font-size: 36px; }
       .del-grid { grid-template-columns: repeat(2, 1fr); }
@@ -199,7 +206,7 @@
 <section>
   <div class="ctr">
     <span class="sec-label">The deal</span>
-    <h2>Here's the deal</h2>
+    <h2>What does this actually involve?</h2>
     <p class="sec-sub">1 petition, 3 posts, 2 weeks · then keep earning as it grows</p>
     <div class="del-grid">
       <div class="del-card featured">
@@ -231,7 +238,8 @@
     <span class="sec-label">Your advance</span>
     <h2>How your advance is decided</h2>
     <p class="sec-sub">Based on your total audience across active platforms</p>
-    <p class="tier-intro">Your <strong>guaranteed advance</strong> is based on your total followers across all platforms where you post regularly. Enter your count to find your tier.</p>
+    <p class="tier-intro">Your <strong>guaranteed advance</strong> is based on your total followers across all platforms where you post regularly. Enter your count to find your tier.<sup>*</sup></p>
+    <p class="tier-fn"><sup>*</sup> Only platforms with 50k+ followers count toward your total.</p>
     <div class="tier-input-block">
       <label class="tier-input-lbl" for="follower-count">Your total followers across active platforms</label>
       <div class="tier-input-row">
@@ -279,7 +287,7 @@
     <p class="sec-sub">One original post pointing your audience to your petition.</p>
     <div class="su-grid">
       <div>
-        <p>The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format (story, tweet, threads, newsletter).</p>
+        <p>The partnership requires <strong>3 posts at minimum</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format (story, tweet, threads, newsletter).</p>
         <div class="su-callout"><strong>3 is the floor — not the ceiling.</strong> The program has <strong>no cap on posts</strong>. The more you share, the more signatures you drive — and the more you earn each month.</div>
         <div class="su-note"><strong>Each share must be unique creative.</strong> <strong>Secondary shares must be posted on a platform with 50K+ followers</strong> to qualify. Every post must include <code>#ad</code> or <code>#sponsored</code>.</div>
       </div>
