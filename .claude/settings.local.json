@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(change-design:brand)",
+      "Skill(change-design:brand:*)",
+      "Skill(change-design:foundations)",
+      "Skill(change-design:foundations:*)",
+      "Skill(change-design:templates)",
+      "Skill(change-design:templates:*)",
+      "Skill(change-design:components)",
+      "Skill(change-design:components:*)",
+      "Skill(change-design:change-design-system)",
+      "Skill(change-design:change-design-system:*)",
+      "Skill(change-engineering:deploy-to-vercel)",
+      "Skill(change-engineering:deploy-to-vercel:*)",
+      "Bash(vercel team *)",
+      "Bash(vercel project *)",
+      "Bash(node -e ' *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(vercel deploy *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node --check api/notify-contract.js)",
+      "Bash(curl -s -o /tmp/slack_resp1.txt -w 'HTTP %{http_code}\\\\n' -X POST -H 'Content-Type: application/json' -d '{\"text\":\"diagnostic test — ignore\",\"type\":\"contract\",\"name\":\"DIAGTEST\",\"email\":\"x@x.com\",\"followers\":\"\",\"tier\":\"\",\"petitionIdea\":\"\",\"starterToken\":\"\"}' https://hooks.slack.com/triggers/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)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' https://www.pre-contract-landing-page.v0.changeeng.org/)",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' https://www.pre-contract-landing-page.v0.changeeng.org/1-pre-contract.html)",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' https://www.pre-contract-landing-page.v0.changeeng.org/api/notify-contract)",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST -H 'Content-Type: application/json' -d '{\"type\":\"contract\",\"name\":\"DIAGTEST3\",\"email\":\"x@x.com\"}' https://www.pre-contract-landing-page.v0.changeeng.org/api/notify-contract -o /tmp/r3.txt -D /tmp/h3.txt)",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST -H 'Content-Type: application/json' -d '{\"type\":\"contract\",\"name\":\"TEST — ignore \\(Kelsey\\)\",\"email\":\"kelseykindall@gmail.com\",\"followers\":\"340,000\",\"tier\":\"$1,000 tier\"}' https://www.pre-contract-landing-page.v0.changeeng.org/api/notify-contract)",
+      "Bash(exit 1)",
+      "Bash(git commit -q -m ' *)",
+      "mcp__707e7d41-2ca8-4dfb-a532-c59d3bd7ed27__slack_search_channels",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST -H 'Content-Type: application/json' -d '{\"type\":\"contract\",\"name\":\"MENTION TEST \\(delete me\\)\",\"email\":\"x@x.com\",\"text\":\"<@U09E1JJ1S2H> :tada: *MENTION TEST \\(delete me\\)* is ready for their contract!\"}' https://www.pre-contract-landing-page.v0.changeeng.org/api/notify-contract)",
+      "mcp__707e7d41-2ca8-4dfb-a532-c59d3bd7ed27__slack_read_channel",
+      "Bash(curl -s -w '\\\\nHTTP %{http_code}\\\\n' -X POST -H 'Content-Type: application/json' -d '{\"type\":\"contract\",\"name\":\"TAG TEST \\(delete me\\)\",\"email\":\"x@x.com\"}' https://www.pre-contract-landing-page.v0.changeeng.org/api/notify-contract)"
+    ]
+  }
+}

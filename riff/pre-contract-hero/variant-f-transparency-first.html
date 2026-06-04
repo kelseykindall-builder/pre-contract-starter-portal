@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transparency First — Pre-contract hero · Change.org</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Commissioner', 'system-ui', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            sunrise: {
+              'bg-base':            '#FFFFFF',
+              'bg-raised':          '#F8F9FC',
+              'text-strong':        '#2D2F37',
+              'text-weak':          'rgba(58,62,73,0.8)',
+              'text-weaker':        'rgba(58,62,73,0.5)',
+              'stroke-weaker':      '#DDE0E9',
+              'brand-red':          '#E02822',
+              'yellow':             '#FFDB00',
+              'fill-success':       '#1B8A4A',
+              'fill-success-weak':  '#ECFDF5',
+              'fill-warning-weak':  '#FFFBEB',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card-shadow { box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 3px 19px rgba(58,41,62,0.06); }
+  </style>
+  <script type="application/json" id="riff-concepts">
+  {
+    "variant": "F",
+    "name": "Transparency First",
+    "summary": "CTA leads, then explains exactly what signing means. Radical clarity before the pitch.",
+    "concepts": [
+      { "id": "cta-above-fold", "name": "CTA above the fold", "desc": "Sign button appears in the first 200px — unusual move that signals 'this is ready, no catch.' The page explains why after." },
+      { "id": "numbered-explanation", "name": "Numbered 'what this means' explainer", "desc": "After the CTA: 'Signing means: 1) You agree to post 3 times. 2) We pay you $X–$Y. 3) You own your content.' Clear before/after framing." },
+      { "id": "progress-tracker-visual", "name": "Progress tracker — where you are", "desc": "A step indicator showing: Outreach → Review → Sign → Launch → Get paid. User is at 'Sign'. Makes the flow visible." },
+      { "id": "yellow-warning-honesty-note", "name": "Honesty callout chip", "desc": "Yellow chip: 'No gotchas: your tier and exact amount are in your contract.' Proactively addresses signing anxiety." },
+      { "id": "whats-in-contract-summary", "name": "'What's in the contract' summary card", "desc": "A card listing what the contract actually covers: payment amount, posting dates, cancellation policy. Previews before signing." },
+      { "id": "faq-accordion", "name": "3-question inline FAQ", "desc": "Three most common questions answered inline: 'Do I choose the cause?' / 'What if I want to cancel?' / 'When do I get paid?' — no accordion, just visible." },
+      { "id": "53-clicks-proof-chip", "name": "53-clicks proof chip", "desc": "Small chip above the second CTA: '53 clicks/post on avg — 4× better than brand deals' — proof at the decision point, not the hero." },
+      { "id": "double-cta-end", "name": "Repeated CTA at end", "desc": "CTA appears again at the bottom after the FAQ — closes the loop. Same yellow button, same text." }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-sunrise-bg-base min-h-screen font-sans text-sunrise-text-strong">
+
+  <!-- NAV -->
+  <header class="px-6 py-4 border-b border-sunrise-stroke-weaker flex items-center justify-between">
+    <span class="font-bold text-base tracking-tight">change<span class="text-sunrise-brand-red">.</span>org</span>
+    <span class="text-xs text-sunrise-text-weaker font-medium">Ambassadors</span>
+  </header>
+
+  <!-- TOP: CTA FIRST -->
+  <section class="px-6 pt-8 pb-6">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-3">Your contract is ready</p>
+    <h1 class="text-3xl font-extrabold mb-3 leading-tight" style="letter-spacing:-0.025em">
+      One click to sign.<br/>Here's exactly what it means.
+    </h1>
+
+    <!-- Progress tracker -->
+    <div class="flex items-center gap-1 mb-6 overflow-x-auto">
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <div class="w-5 h-5 rounded-full flex items-center justify-center text-xs" style="background:#1B8A4A">
+          <span class="text-white text-xs">✓</span>
+        </div>
+        <span class="text-xs text-sunrise-text-weaker">Outreach</span>
+      </div>
+      <div class="w-4 h-px flex-shrink-0" style="background:#DDE0E9"></div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <div class="w-5 h-5 rounded-full flex items-center justify-center text-xs" style="background:#1B8A4A">
+          <span class="text-white text-xs">✓</span>
+        </div>
+        <span class="text-xs text-sunrise-text-weaker">Review</span>
+      </div>
+      <div class="w-4 h-px flex-shrink-0" style="background:#DDE0E9"></div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center" style="border-color:#FFDB00;background:#FFFDF4">
+          <div class="w-2 h-2 rounded-full" style="background:#FFDB00"></div>
+        </div>
+        <span class="text-xs font-bold text-sunrise-text-strong">Sign</span>
+      </div>
+      <div class="w-4 h-px flex-shrink-0" style="background:#DDE0E9"></div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <div class="w-5 h-5 rounded-full border flex-shrink-0" style="border-color:#DDE0E9;background:#F8F9FC"></div>
+        <span class="text-xs text-sunrise-text-weaker">Launch</span>
+      </div>
+      <div class="w-4 h-px flex-shrink-0" style="background:#DDE0E9"></div>
+      <div class="flex items-center gap-1 flex-shrink-0">
+        <div class="w-5 h-5 rounded-full border flex-shrink-0" style="border-color:#DDE0E9;background:#F8F9FC"></div>
+        <span class="text-xs text-sunrise-text-weaker">Get paid</span>
+      </div>
+    </div>
+
+    <!-- Honesty chip -->
+    <div class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-5 text-xs font-semibold" style="background:#FFFBEB;border:1px solid #FDE68A;color:#92400E">
+      ✦ No gotchas — your exact amount is in the contract
+    </div>
+
+    <a href="#" class="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base text-sunrise-text-strong" style="background:#FFDB00">
+      Sign your contract →
+    </a>
+  </section>
+
+  <div class="border-t border-sunrise-stroke-weaker mx-6"></div>
+
+  <!-- WHAT SIGNING MEANS -->
+  <section class="px-6 py-7">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-4">Signing means</p>
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-4">
+        <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background:#0D1B2A">1</div>
+        <p class="text-sm text-sunrise-text-weak leading-relaxed pt-0.5">You'll post <strong class="text-sunrise-text-strong">3 times</strong> about a petition you create with us. Feed, stories, or reels — your format.</p>
+      </div>
+      <div class="flex gap-4">
+        <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background:#0D1B2A">2</div>
+        <p class="text-sm text-sunrise-text-weak leading-relaxed pt-0.5">We pay you <strong class="text-sunrise-text-strong">$300–$3,000+</strong> based on your audience tier. Exact amount is shown in your contract now.</p>
+      </div>
+      <div class="flex gap-4">
+        <div class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background:#0D1B2A">3</div>
+        <p class="text-sm text-sunrise-text-weak leading-relaxed pt-0.5">You own your content. No exclusivity. No ongoing obligation after the campaign ends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN THE CONTRACT -->
+  <section class="px-6 pb-7">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-4">What's in the contract</p>
+    <div class="rounded-xl border border-sunrise-stroke-weaker bg-sunrise-bg-raised p-5">
+      <div class="flex flex-col divide-y" style="--tw-divide-opacity:1;border-color:#DDE0E9">
+        <div class="flex justify-between py-3 text-sm">
+          <span class="text-sunrise-text-weak">Compensation amount</span>
+          <span class="font-semibold text-sunrise-text-strong">In contract</span>
+        </div>
+        <div class="flex justify-between py-3 text-sm">
+          <span class="text-sunrise-text-weak">Content requirements</span>
+          <span class="font-semibold text-sunrise-text-strong">3 posts</span>
+        </div>
+        <div class="flex justify-between py-3 text-sm">
+          <span class="text-sunrise-text-weak">Campaign duration</span>
+          <span class="font-semibold text-sunrise-text-strong">~4 weeks</span>
+        </div>
+        <div class="flex justify-between py-3 text-sm">
+          <span class="text-sunrise-text-weak">Payment timeline</span>
+          <span class="font-semibold text-sunrise-text-strong">Within days of last post</span>
+        </div>
+        <div class="flex justify-between py-3 text-sm">
+          <span class="text-sunrise-text-weak">Cancellation</span>
+          <span class="font-semibold text-sunrise-text-strong">Before posting starts</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-6 pb-8">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-4">Common questions</p>
+    <div class="flex flex-col gap-4">
+      <div>
+        <p class="text-sm font-semibold text-sunrise-text-strong mb-1">Do I choose the cause?</p>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">Yes — always. We never assign a topic. You pick a cause your audience knows you care about, we help you draft the petition.</p>
+      </div>
+      <div class="border-t border-sunrise-stroke-weaker pt-4">
+        <p class="text-sm font-semibold text-sunrise-text-strong mb-1">What if I want to cancel?</p>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">You can cancel before your first post goes up. After that, the contract terms apply. Full details in your contract.</p>
+      </div>
+      <div class="border-t border-sunrise-stroke-weaker pt-4">
+        <p class="text-sm font-semibold text-sunrise-text-strong mb-1">When do I get paid?</p>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">Within days of your final share unit posting. We use Gigapay — no invoice, no chasing, straight to your account.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="px-6 pb-12">
+    <div class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 mb-4 text-xs font-semibold text-sunrise-text-weak" style="background:#F5F4F0;border:1px solid #DDE0E9">
+      53 clicks/post avg · 4× better than brand deals
+    </div>
+    <a href="#" class="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base text-sunrise-text-strong" style="background:#FFDB00">
+      Sign your contract →
+    </a>
+    <p class="text-xs text-sunrise-text-weaker text-center mt-3">2-minute DocuSign · Your amount shown before you sign</p>
+  </section>
+
+</body>
+</html>

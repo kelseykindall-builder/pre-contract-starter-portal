@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Alt: Dark / Mission-forward</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D1B2A;
+    --bg-card: #122538;
+    --bg-card-2: #17304A;
+    --border: rgba(255,255,255,0.08);
+    --text: #F7F5F0;
+    --text-muted: rgba(247,245,240,0.65);
+    --text-faint: rgba(247,245,240,0.4);
+    --red: #E8002D;
+    --yellow: #FFC93C;
+    --green: #00A878;
+  }
+
+  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+  body { line-height: 1.55; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── NAV ── */
+  .nav {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .brand {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  .brand .dot { color: var(--red); }
+  .nav-cta {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--bg);
+    background: var(--yellow);
+    padding: 10px 20px;
+    border-radius: 6px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 96px 0 80px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -160px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(232,0,45,0.32) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -120px;
+    width: 460px; height: 460px;
+    background: radial-gradient(circle, rgba(255,201,60,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+  .eyebrow {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .pulse {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(232,0,45,0.5);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(232,0,45,0.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(232,0,45,0); }
+    100% { box-shadow: 0 0 0 0 rgba(232,0,45,0); }
+  }
+  .h1 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 68px;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+  .h1 em { font-style: normal; color: var(--yellow); }
+  .h1 .underline {
+    background-image: linear-gradient(to top, var(--red) 0, var(--red) 8px, transparent 8px);
+    background-repeat: no-repeat;
+    background-position: 0 92%;
+    padding-bottom: 2px;
+  }
+  .hero-sub {
+    font-size: 19px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--yellow);
+    color: var(--bg);
+    font-family: 'Commissioner', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    padding: 16px 32px;
+    border-radius: 8px;
+    transition: transform 0.15s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 16px 20px;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .hero-meta {
+    margin-top: 56px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-meta-item .num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--text);
+  }
+  .hero-meta-item .num em { color: var(--yellow); font-style: normal; }
+  .hero-meta-item .lbl {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ── SECTION ── */
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+  .sec-eyebrow {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .sec-h2 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.1;
+    max-width: 760px;
+    margin-bottom: 16px;
+  }
+  .sec-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+
+  /* ── VIDEO + WHAT IS IT ── */
+  .video-row {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    position: relative;
+    border: 1px solid var(--border);
+    background-image: linear-gradient(135deg, #1a3050 0%, #0d1b2a 100%);
+  }
+  .video-card .play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg);
+    font-size: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .video-card .meta {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    right: 24px;
+  }
+  .video-card .meta .who {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .video-card .meta .role {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .qa-stack { display: flex; flex-direction: column; gap: 16px; }
+  .qa-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .qa-q {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+  .qa-a { font-size: 14px; color: var(--text-muted); }
+
+  /* ── DIFFERENTIATORS — "not a brand deal" ── */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .diff-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .diff-card:hover { transform: translateY(-3px); border-color: rgba(255,201,60,0.4); }
+  .diff-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(232,0,45,0.15);
+    color: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .diff-h {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .diff-p { font-size: 13px; color: var(--text-muted); }
+
+  /* ── CALCULATOR ── */
+  .calc-card {
+    background: linear-gradient(135deg, #17304a 0%, #0d1b2a 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .calc-left .label {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+  .calc-left h3 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .calc-left p { color: var(--text-muted); font-size: 15px; }
+  .calc-right .input-row { margin-bottom: 24px; }
+  .calc-right .input-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+  }
+  .calc-right .followers {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--yellow);
+  }
+  input[type="range"] {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px; height: 22px;
+    background: var(--yellow);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--bg);
+  }
+  .calc-output {
+    background: rgba(255,201,60,0.08);
+    border: 1px solid rgba(255,201,60,0.25);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .calc-output .out-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+  }
+  .calc-output .out-range {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--yellow);
+  }
+  .calc-output .out-note { font-size: 11px; color: var(--text-faint); margin-top: 8px; font-style: italic; }
+
+  /* ── TIER PREVIEW ── */
+  .tier-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .tier-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .tier-card.highlight { border-color: var(--yellow); background: rgba(255,201,60,0.06); }
+  .tier-rank {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .tier-name {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .tier-followers { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+  .tier-advance {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--yellow);
+  }
+  .tier-advance-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+  /* ── PROOF POINTS ── */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .proof-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .proof-name {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  .proof-niche { font-size: 12px; color: var(--text-faint); margin-bottom: 20px; }
+  .proof-topic { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; min-height: 42px; }
+  .proof-stat {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--yellow);
+  }
+  .proof-stat-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── HOW IT WORKS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+  .step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    position: relative;
+  }
+  .step-num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+  .step-h {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .step-p { font-size: 14px; color: var(--text-muted); }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    background: linear-gradient(135deg, #E8002D 0%, #B30024 100%);
+    border-radius: 20px;
+    padding: 72px 56px;
+    text-align: center;
+    margin: 96px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-cta::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,201,60,0.25) 0%, transparent 70%);
+  }
+  .footer-cta h2 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1.05;
+    max-width: 640px;
+    margin: 0 auto 16px;
+    position: relative;
+  }
+  .footer-cta p {
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .footer-cta .btn-primary { background: var(--bg); color: var(--yellow); }
+  .footer-cta .btn-ghost { color: rgba(255,255,255,0.85); }
+
+  footer {
+    padding: 32px 0 48px;
+    font-size: 12px;
+    color: var(--text-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 920px) {
+    .h1 { font-size: 44px; }
+    .sec-h2 { font-size: 30px; }
+    .video-row, .calc-card { grid-template-columns: 1fr; }
+    .diff-grid, .tier-row { grid-template-columns: repeat(2, 1fr); }
+    .proof-grid, .steps { grid-template-columns: 1fr; }
+    .footer-cta { padding: 48px 28px; }
+    .footer-cta h2 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="brand">CHANGE<span class="dot">.</span>ORG / AMBASSADORS</div>
+    <a href="#sign" class="nav-cta">Sign your contract →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="eyebrow"><span class="pulse"></span> Change Ambassadors Program</div>
+    <h1 class="h1">Get paid to spotlight<br>what you <span class="underline">already</span> <em>care about.</em></h1>
+    <p class="hero-sub">Start a petition on a topic your audience trusts you on — and earn a guaranteed advance to share it. Full creative control. No awkward brand messaging.</p>
+    <div class="cta-row">
+      <a href="#sign" class="btn-primary">Sign your contract →</a>
+      <a href="#video" class="btn-ghost">▶ Watch Kelsey explain it (3 min)</a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="num">2,400<em>+</em></div>
+        <div class="lbl">Petitions launched</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">12M<em>+</em></div>
+        <div class="lbl">Signatures collected</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">100%</div>
+        <div class="lbl">Guaranteed advance</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO + QA -->
+<section id="video">
+  <div class="container">
+    <div class="sec-eyebrow">Hear it from us</div>
+    <h2 class="sec-h2">A 3-minute walkthrough, then your questions answered.</h2>
+    <p class="sec-sub">Run by Kelsey, who you'd work with directly. No salesy pitch — just how the program works and what you'd actually do.</p>
+
+    <div class="video-row">
+      <div class="video-card">
+        <div class="play">▶</div>
+        <div class="meta">
+          <div class="who">Kelsey Kindall</div>
+          <div class="role">Brand Growth · Change.org</div>
+        </div>
+      </div>
+      <div class="qa-stack">
+        <div class="qa-item">
+          <div class="qa-q">What is it?</div>
+          <div class="qa-a">A paid partnership to start and share a petition with your audience — on a topic you choose.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Who's it for?</div>
+          <div class="qa-a">Creators with engaged audiences and a clear point of view. We're selective — we don't want everyone.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">What do I actually do?</div>
+          <div class="qa-a">Write a petition (we'll help). Share it with your audience the way you already share things. That's it.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">What do I get?</div>
+          <div class="qa-a">A guaranteed advance up front, plus promo revenue if your petition gains momentum.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">This isn't a brand deal</div>
+    <h2 class="sec-h2">Four things every starter tells us made it different.</h2>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon">✦</div>
+        <div class="diff-h">Creative control</div>
+        <div class="diff-p">Your voice, your framing, your post. No brand-approved scripts. No watermarks. No tagging requirements that kill your reach.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">♥</div>
+        <div class="diff-h">Authentic topics</div>
+        <div class="diff-p">You pick what you petition for. We won't ask you to promote something you don't believe in. Your audience can already tell when you do.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">$</div>
+        <div class="diff-h">Guaranteed advance</div>
+        <div class="diff-p">Flat payment up front — paid whether the petition takes off or not. Plus promo revenue upside if it scales.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">∞</div>
+        <div class="diff-h">Long-term partner</div>
+        <div class="diff-p">If this one goes well, we work together again. We're building a roster of trusted voices — not a one-off campaign.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Estimate your promo revenue</div>
+    <h2 class="sec-h2">What you might earn on top of your advance.</h2>
+    <p class="sec-sub">Your advance is fixed and based on your tier. Promo revenue is variable — it depends on how many people sign the petition you share. Move the slider for a rough estimate.</p>
+
+    <div class="calc-card">
+      <div class="calc-left">
+        <div class="label">How it works</div>
+        <h3>The advance is yours. Everything below is upside.</h3>
+        <p>For every signer your petition drives, you earn a share of the promo revenue Change.org collects when that signer becomes a paying supporter. The calculator estimates a realistic range — not a promise.</p>
+      </div>
+      <div class="calc-right">
+        <div class="input-row">
+          <div class="input-label">
+            <span>Your follower count</span>
+            <span class="followers" id="follower-display">250K</span>
+          </div>
+          <input type="range" min="10000" max="2000000" step="10000" value="250000" id="follower-slider" />
+        </div>
+        <div class="calc-output">
+          <div class="out-label">Estimated promo revenue range</div>
+          <div class="out-range" id="revenue-output">$800 – $2,400</div>
+          <div class="out-note">Range based on average engagement. Excludes your advance.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER PREVIEW -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Advance tiers</div>
+    <h2 class="sec-h2">What tier you might land in.</h2>
+    <p class="sec-sub">Your specific advance is set when we send your contract. The tiers below show the structure — not your number.</p>
+
+    <div class="tier-row">
+      <div class="tier-card">
+        <div class="tier-rank">Tier 1</div>
+        <div class="tier-name">Emerging</div>
+        <div class="tier-followers">10K – 50K followers</div>
+        <div class="tier-advance">$ – $$</div>
+        <div class="tier-advance-label">Advance range</div>
+      </div>
+      <div class="tier-card highlight">
+        <div class="tier-rank">Tier 2 · Most common</div>
+        <div class="tier-name">Established</div>
+        <div class="tier-followers">50K – 250K followers</div>
+        <div class="tier-advance">$$ – $$$</div>
+        <div class="tier-advance-label">Advance range</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-rank">Tier 3</div>
+        <div class="tier-name">Major</div>
+        <div class="tier-followers">250K – 1M followers</div>
+        <div class="tier-advance">$$$ – $$$$</div>
+        <div class="tier-advance-label">Advance range</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-rank">Tier 4</div>
+        <div class="tier-name">Headline</div>
+        <div class="tier-followers">1M+ followers</div>
+        <div class="tier-advance">$$$$+</div>
+        <div class="tier-advance-label">Custom range</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF POINTS -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Recent ambassadors</div>
+    <h2 class="sec-h2">Real petitions, real signatures, real creators.</h2>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-name">Maya Chen</div>
+        <div class="proof-niche">Sustainable fashion · 412K followers</div>
+        <div class="proof-topic">"Ban deceptive 'eco' labels on fast-fashion garments"</div>
+        <div class="proof-stat">87,000</div>
+        <div class="proof-stat-label">Signatures in 6 weeks</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-name">Jordan Reyes</div>
+        <div class="proof-niche">Civic + youth advocacy · 156K followers</div>
+        <div class="proof-topic">"Add civics back to required high school curriculum"</div>
+        <div class="proof-stat">142,000</div>
+        <div class="proof-stat-label">Signatures · still growing</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-name">Dr. Aisha Patel</div>
+        <div class="proof-niche">Public health · 89K followers</div>
+        <div class="proof-topic">"Require menstrual product access in all public schools"</div>
+        <div class="proof-stat">63,500</div>
+        <div class="proof-stat-label">Signatures in 4 weeks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">How it works</div>
+    <h2 class="sec-h2">Three steps from signing to sharing.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-h">Sign your contract</div>
+        <div class="step-p">DocuSign — under 5 minutes. You'll see your specific advance amount and tier when we send it over.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-h">Create your petition</div>
+        <div class="step-p">Pick the topic. We help you draft and refine. You approve every word before it goes live.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-h">Share with your audience</div>
+        <div class="step-p">Post it the way you already post. Three share units across the platforms where your audience lives.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="container">
+  <div class="footer-cta" id="sign">
+    <h2>The next ambassador roster closes soon.</h2>
+    <p>Sign your contract to lock in your spot, your advance, and your launch window.</p>
+    <div class="cta-row" style="justify-content: center;">
+      <a href="#" class="btn-primary">Sign your contract →</a>
+      <a href="#" class="btn-ghost">Book a call with Kelsey instead</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px;">
+    <div>© Change.org · Change Ambassadors Program</div>
+    <div>Questions? kelsey@change.org</div>
+  </div>
+</footer>
+
+<script>
+  const slider = document.getElementById('follower-slider');
+  const display = document.getElementById('follower-display');
+  const output = document.getElementById('revenue-output');
+
+  function format(n) {
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1) + 'M';
+    if (n >= 1_000) return Math.round(n / 1_000) + 'K';
+    return String(n);
+  }
+  function money(n) { return '$' + n.toLocaleString(); }
+
+  function update() {
+    const f = +slider.value;
+    display.textContent = format(f);
+    // Rough estimate: signers ≈ 0.5–1.5% of followers, $0.40–$0.80 per signer
+    const low  = Math.round(f * 0.005 * 0.40 / 50) * 50;
+    const high = Math.round(f * 0.015 * 0.80 / 50) * 50;
+    output.textContent = money(low) + ' – ' + money(high);
+  }
+  slider.addEventListener('input', update);
+  update();
+</script>
+
+</body>
+</html>

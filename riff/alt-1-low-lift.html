@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — The simplest program you'll see</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E8002D;
+    --yellow: #FFC93C;
+    --navy: #0D1B2A;
+    --paper: #FFFFFF;
+    --cream: #FAF8F3;
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --line: #ECE9E0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+
+  /* BACK LINK */
+  .back {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    background: white;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    z-index: 100;
+  }
+  .back:hover { color: var(--red); border-color: var(--red); }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 96px 32px 80px; }
+
+  /* TOP */
+  .eyebrow {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  h1 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 84px;
+    line-height: 0.98;
+    color: var(--navy);
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+  }
+  h1 em { font-style: normal; color: var(--red); }
+  h1 .min {
+    font-size: 0.6em;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: -0.02em;
+  }
+
+  .lede {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 48px;
+    max-width: 560px;
+  }
+  .lede strong { color: var(--navy); font-weight: 700; }
+
+  /* CTA */
+  .cta-block {
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    background: var(--yellow);
+    color: var(--navy);
+    font-family: 'Commissioner', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 16px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { background: var(--navy); color: var(--yellow); }
+  .cta-note {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .cta-note strong { color: var(--navy); }
+
+  /* SECTION */
+  section { margin-bottom: 80px; }
+  .sec-num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .sec-h {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .sec-h em { font-style: normal; color: var(--red); }
+
+  /* LIST */
+  .ask-list { list-style: none; }
+  .ask-list li {
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .ask-list li:last-child { border-bottom: 1px solid var(--line); }
+  .ask-num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .ask-text {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--navy);
+    line-height: 1.35;
+  }
+  .ask-text small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .ask-time {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: #FFF0F2;
+    padding: 6px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* NOT-LIST (anti-ask) */
+  .not-block {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 36px 40px;
+  }
+  .not-h {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .not-list { list-style: none; }
+  .not-list li {
+    font-size: 15px;
+    color: var(--text);
+    padding: 10px 0;
+    padding-left: 32px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .not-list li::before {
+    content: '✕';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 800;
+    font-size: 16px;
+  }
+
+  /* PROOF BAND */
+  .proof {
+    background: var(--navy);
+    color: white;
+    border-radius: 16px;
+    padding: 56px 48px;
+    text-align: center;
+  }
+  .proof .big {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--yellow);
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+  .proof .big-label {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 32px;
+  }
+  .proof .sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    list-style: none;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: var(--line);
+  }
+  .timeline li {
+    position: relative;
+    padding: 0 0 32px 48px;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 18px;
+    height: 18px;
+    background: var(--yellow);
+    border: 3px solid var(--paper);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--red);
+  }
+  .tl-time {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .tl-what {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .tl-desc { font-size: 14px; color: var(--muted); }
+
+  /* QUOTE */
+  .quote-block {
+    border-left: 4px solid var(--red);
+    padding: 8px 0 8px 32px;
+  }
+  .quote-block p {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .quote-attrib {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .quote-attrib strong { color: var(--navy); font-family: 'Commissioner', sans-serif; }
+
+  /* FINAL CTA */
+  .final {
+    text-align: center;
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
+  }
+  .final h2 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 44px;
+    line-height: 1.05;
+    color: var(--navy);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .final h2 em { font-style: normal; color: var(--red); }
+  .final .btn { font-size: 17px; padding: 18px 36px; }
+  .final-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 56px; }
+    .sec-h { font-size: 28px; }
+    .proof .big { font-size: 64px; }
+    .ask-list li { grid-template-columns: 40px 1fr; }
+    .ask-time { grid-column: 2; justify-self: start; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← Riff gallery</a>
+
+<div class="wrap">
+
+  <div class="eyebrow">The simplest program we offer</div>
+  <h1>Five<span class="min"> min.</span><br>Three posts.<br><em>That's it.</em></h1>
+  <p class="lede"><strong>Sign your contract in five minutes. Post three times across the next eight weeks.</strong> No scripts to memorize. No reshoots. No legal review on every caption. The lightest creator partnership you've been offered this year.</p>
+
+  <div class="cta-block">
+    <a href="#" class="btn">Sign your contract →</a>
+    <div class="cta-note">Takes <strong>under 5 minutes</strong> · DocuSign · You see your advance before signing</div>
+  </div>
+
+
+  <section>
+    <div class="sec-num">What we ask of you · in full</div>
+    <h2 class="sec-h">Three things. Nothing else.</h2>
+
+    <ul class="ask-list">
+      <li>
+        <div class="ask-num">01</div>
+        <div class="ask-text">
+          Sign your contract.
+          <small>DocuSign, on your phone. The dollar amount is locked in before you sign.</small>
+        </div>
+        <div class="ask-time">5 min</div>
+      </li>
+      <li>
+        <div class="ask-num">02</div>
+        <div class="ask-text">
+          Launch one petition.
+          <small>You pick the topic. We help you draft. You approve every word before it goes live.</small>
+        </div>
+        <div class="ask-time">~45 min</div>
+      </li>
+      <li>
+        <div class="ask-num">03</div>
+        <div class="ask-text">
+          Share it three times.
+          <small>Three posts across whichever platforms you already use. Post the way you already post.</small>
+        </div>
+        <div class="ask-time">~30 min total</div>
+      </li>
+    </ul>
+  </section>
+
+
+  <section>
+    <div class="not-block">
+      <div class="not-h">What we do not ask you to do</div>
+      <ul class="not-list">
+        <li>No brand-approved scripts. You write your own captions.</li>
+        <li>No reshoots, no "can we get one more take?" emails.</li>
+        <li>No legal review on every post. One approval, one launch.</li>
+        <li>No exclusivity. Keep posting your normal content alongside this.</li>
+        <li>No specific platform required. Wherever your audience is, that's where you post.</li>
+        <li>No follow-up content required. Three posts and you're done.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="proof">
+      <div class="big">~80<span style="font-size: 0.5em;"> min</span></div>
+      <div class="big-label">Average total time investment</div>
+      <p class="sub">Measured across 342 ambassadors. Includes signing, writing, approving, and posting. Most finish in a single afternoon.</p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-num">From signed to done</div>
+    <h2 class="sec-h">A realistic timeline.</h2>
+
+    <ul class="timeline">
+      <li>
+        <div class="tl-time">Day 0 — 5 minutes</div>
+        <div class="tl-what">You sign the contract</div>
+        <div class="tl-desc">DocuSign. We pay your advance within 48 hours.</div>
+      </li>
+      <li>
+        <div class="tl-time">Day 1–7 — at your pace</div>
+        <div class="tl-what">You + Kelsey draft the petition</div>
+        <div class="tl-desc">One async doc, one short call if you want one. No mandatory meetings.</div>
+      </li>
+      <li>
+        <div class="tl-time">Day 7–14</div>
+        <div class="tl-what">Petition goes live</div>
+        <div class="tl-desc">You approve the final version. We publish it on Change.org under your name.</div>
+      </li>
+      <li>
+        <div class="tl-time">Weeks 2–8</div>
+        <div class="tl-what">You post three times</div>
+        <div class="tl-desc">On your schedule, on your platforms. Tag us if you want — not required.</div>
+      </li>
+      <li>
+        <div class="tl-time">Done</div>
+        <div class="tl-what">You're done</div>
+        <div class="tl-desc">Promo revenue accrues for 90 days. Final payout 30 days after that.</div>
+      </li>
+    </ul>
+  </section>
+
+
+  <section>
+    <div class="quote-block">
+      <p>"I thought it would eat my whole month. It was literally two posts, one call, and a Google Doc."</p>
+      <div class="quote-attrib"><strong>Maya Chen</strong> · sustainable fashion · 412K followers</div>
+    </div>
+  </section>
+
+
+  <div class="final">
+    <h2>Five minutes from now,<br>you could be <em>signed.</em></h2>
+    <a href="#" class="btn">Sign your contract →</a>
+    <div class="final-note">Or <a href="#" style="color:var(--red);">book a 15-min call</a> if you have one question first.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

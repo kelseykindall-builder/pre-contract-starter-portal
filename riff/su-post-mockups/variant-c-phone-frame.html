@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's a share unit? — Phone Frame</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E8002D;--yellow:#FFDB00;
+  --bg:#FAF8F4;--text:#231226;--muted:rgba(35,18,38,.58);
+  --stroke:rgba(35,18,38,.08);
+}
+body{font-family:'Commissioner',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding:40px 24px 60px}
+.section{max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:10px}
+h2{font-size:24px;font-weight:700;letter-spacing:-.022em;line-height:1.2;margin-bottom:12px}
+.sub{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:28px}
+.sub strong{color:var(--text);font-weight:600}
+.visual{display:flex;gap:10px;align-items:flex-start;justify-content:center;margin-bottom:24px}
+.fmt{display:flex;flex-direction:column;align-items:center;gap:10px}
+.fmt-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.fmt-desc{font-size:10px;color:var(--muted);text-align:center;line-height:1.4;max-width:120px}
+.plus{font-size:18px;font-weight:300;color:var(--muted);align-self:center;padding-top:86px}
+
+/* Phone frame wrapper */
+.phone-frame{
+  width:124px;height:204px;
+  background:#111;
+  border-radius:14px;
+  padding:2px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 6px 20px rgba(0,0,0,.45),
+    0 2px 6px rgba(0,0,0,.3),
+    inset 0 0 0 1px rgba(255,255,255,.04);
+  position:relative;
+}
+.phone-screen{
+  width:100%;height:100%;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+}
+/* Status bar */
+.status-bar{
+  position:absolute;top:0;left:0;right:0;height:16px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 8px;z-index:10;background:rgba(0,0,0,.5);
+}
+.status-time{font-size:7px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.status-icons{display:flex;align-items:center;gap:2.5px}
+.status-icon{font-size:6px;color:#fff;opacity:.9}
+/* Dynamic island / notch */
+.notch{
+  position:absolute;top:1px;left:50%;transform:translateX(-50%);
+  width:30px;height:8px;background:#000;border-radius:0 0 8px 8px;z-index:11;
+}
+/* Screen content (app inside the frame) */
+.screen-content{position:absolute;inset:0}
+/* Glass reflection */
+.phone-frame::after{
+  content:'';position:absolute;inset:2px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,255,255,.07) 0%,transparent 40%);
+  pointer-events:none;z-index:20;
+}
+
+/* === Primary: AI regulation reel (TikTok inside phone) === */
+.screen-ai{
+  background:
+    radial-gradient(ellipse at 45% 35%,rgba(178,33,33,.2) 0%,transparent 55%),
+    linear-gradient(175deg,#0D2535 0%,#070D14 50%,#1B1020 100%)
+}
+.ai-overlay{position:absolute;left:7px;top:55px;z-index:3;transform:rotate(-3deg)}
+.ai-big{font-size:38px;font-weight:900;color:#fff;line-height:.88;letter-spacing:-.04em;
+  text-shadow:-1.5px -1.5px 0 #5B1B96,1.5px -1.5px 0 #5B1B96,-1.5px 1.5px 0 #5B1B96,1.5px 1.5px 0 #5B1B96}
+.ai-sub{font-size:11px;font-weight:900;color:#fff;text-shadow:-1px -1px 0 #5B1B96,1px 1px 0 #5B1B96}
+.ai-right{position:absolute;right:5px;bottom:42px;display:flex;flex-direction:column;align-items:center;gap:7px;z-index:4}
+.ai-action{display:flex;flex-direction:column;align-items:center;gap:1px}
+.ai-icon{font-size:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.ai-count{font-size:5.5px;color:#fff;font-weight:600;opacity:.88}
+.ai-bottom{position:absolute;bottom:8px;left:5px;right:28px;z-index:4}
+.ai-handle{font-size:7px;font-weight:700;color:#fff;margin-bottom:2px}
+.ai-cap{font-size:5.5px;color:rgba(255,255,255,.8);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ai-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.12)}
+.ai-progress-fill{height:100%;background:#fff;width:42%}
+
+/* === Secondary 1: ALS story === */
+.screen-als{background:linear-gradient(160deg,#4A6A80 0%,#2E4555 40%,#1C2E38 100%)}
+.als-bars{position:absolute;top:20px;left:6px;right:6px;display:flex;gap:2px;z-index:5}
+.als-bars span{flex:1;height:1.5px;background:rgba(255,255,255,.35);border-radius:1px}
+.als-bars span.active{background:rgba(255,255,255,.92)}
+.als-header{position:absolute;top:26px;left:6px;right:6px;display:flex;align-items:center;gap:3px;z-index:5}
+.als-av{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#C68A6A,#6B4434);border:1px solid rgba(255,255,255,.4);flex-shrink:0}
+.als-h-name{font-size:6px;font-weight:700;color:#fff;flex:1}
+.als-h-time{font-size:5px;color:rgba(255,255,255,.65)}
+.als-sticker{position:absolute;top:58px;left:6px;right:6px;z-index:3;
+  background:rgba(255,255,255,.94);border-radius:5px;padding:5px}
+.als-sticker-tag{font-size:5px;font-weight:700;color:#1F9BFC;margin-bottom:2px}
+.als-sticker-body{font-size:6px;font-weight:700;color:#111;line-height:1.25}
+.als-sticker-sub{font-size:5px;color:#555;margin-top:2px;line-height:1.3}
+.als-reply{position:absolute;bottom:8px;left:6px;right:6px;
+  border:1px solid rgba(255,255,255,.45);border-radius:18px;
+  padding:3px 7px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+.als-reply-text{font-size:5.5px;color:rgba(255,255,255,.6)}
+.als-reply-icon{font-size:8px;color:rgba(255,255,255,.8)}
+
+/* === Secondary 2: Forest story === */
+.screen-forest{
+  background:
+    radial-gradient(ellipse at 50% 90%,#2D4A1A 0%,transparent 55%),
+    linear-gradient(180deg,#0E1A08 0%,#071005 60%,#142210 100%)
+}
+.forest-bars{position:absolute;top:20px;left:6px;right:6px;display:flex;gap:2px;z-index:5}
+.forest-bars span{flex:1;height:1.5px;background:rgba(255,255,255,.3);border-radius:1px}
+.forest-bars span.active{background:rgba(255,255,255,.9)}
+.forest-header{position:absolute;top:26px;left:6px;right:6px;display:flex;align-items:center;gap:3px;z-index:5}
+.forest-av{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#4A7A3A,#1E3A14);border:1px solid rgba(255,255,255,.35);flex-shrink:0}
+.forest-h-name{font-size:6px;font-weight:700;color:#fff;flex:1}
+.forest-h-time{font-size:5px;color:rgba(255,255,255,.6)}
+.forest-stickers{position:absolute;top:52px;left:6px;right:6px;z-index:3;display:flex;flex-direction:column;gap:3px}
+.forest-s{border-radius:3px;padding:2px 5px;font-size:5.5px;font-weight:700}
+.forest-s.tan{background:rgba(210,195,155,.9);color:#3A2E10}
+.forest-s.purple{background:rgba(90,28,148,.9);color:#fff}
+.forest-s.sigs{background:rgba(255,255,255,.12);color:#fff}
+.forest-s.link{background:#1F9BFC;color:#fff}
+.forest-s.caption{background:transparent;color:rgba(255,255,255,.65);font-size:5px}
+.forest-reply{position:absolute;bottom:8px;left:6px;right:6px;
+  border:1px solid rgba(255,255,255,.4);border-radius:18px;
+  padding:3px 7px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+.forest-reply-text{font-size:5.5px;color:rgba(255,255,255,.55)}
+.forest-reply-icon{font-size:8px;color:rgba(255,255,255,.75)}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:rgba(35,18,38,.04);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px}
+.callout-icon{color:var(--text);flex-shrink:0;margin-top:1px}
+.callout-text{font-size:13px;color:var(--muted);line-height:1.55}
+.callout-text strong{color:var(--text);font-weight:700}
+.callout-text em{color:var(--red);font-style:normal}
+</style>
+</head>
+<body>
+<div class="section">
+  <p class="eyebrow">What's a share unit?</p>
+  <h2>One original post pointing your audience to your petition.</h2>
+  <p class="sub">The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format you like.</p>
+
+  <div class="visual" aria-hidden="true">
+
+    <!-- Primary: Phone frame around TikTok reel -->
+    <div class="fmt">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="screen-content screen-ai">
+            <div class="notch"></div>
+            <div class="status-bar">
+              <span class="status-time">9:41</span>
+              <div class="status-icons">
+                <span class="status-icon">▐▐▐</span>
+                <span class="status-icon">WiFi</span>
+                <span class="status-icon">▊</span>
+              </div>
+            </div>
+            <div class="ai-overlay">
+              <div class="ai-big">AI</div>
+              <div class="ai-sub">Regulations</div>
+            </div>
+            <div class="ai-right">
+              <div class="ai-action"><span class="ai-icon">♥</span><span class="ai-count">12.4K</span></div>
+              <div class="ai-action"><span class="ai-icon">💬</span><span class="ai-count">234</span></div>
+              <div class="ai-action"><span class="ai-icon">↗</span><span class="ai-count">4.5K</span></div>
+            </div>
+            <div class="ai-bottom">
+              <div class="ai-handle">@genericartdad</div>
+              <div class="ai-cap">Sign the petition — regulate AI 🔗 #ad #sponsored</div>
+            </div>
+            <div class="ai-progress"><div class="ai-progress-fill"></div></div>
+          </div>
+        </div>
+      </div>
+      <span class="fmt-label">Primary</span>
+      <span class="fmt-desc">Original video on your top platform</span>
+    </div>
+
+    <span class="plus">+</span>
+
+    <!-- Secondary 1: Phone frame around ALS story -->
+    <div class="fmt">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="screen-content screen-als">
+            <div class="notch"></div>
+            <div class="status-bar">
+              <span class="status-time">9:41</span>
+              <div class="status-icons">
+                <span class="status-icon">▐▐▐</span>
+                <span class="status-icon">▊</span>
+              </div>
+            </div>
+            <div class="als-bars"><span class="active"></span><span></span><span></span></div>
+            <div class="als-header">
+              <div class="als-av"></div>
+              <span class="als-h-name">April 28</span>
+              <span class="als-h-time">8:47 AM</span>
+            </div>
+            <div class="als-sticker">
+              <div class="als-sticker-tag">#ad #sponsored @changedotorg</div>
+              <div class="als-sticker-body">I'm living with ALS.</div>
+              <div class="als-sticker-sub">The ACT for ALS gives people like me access to experimental treatments.</div>
+            </div>
+            <div class="als-reply">
+              <span class="als-reply-text">Send message</span>
+              <span class="als-reply-icon">✈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="fmt-label">Secondary</span>
+      <span class="fmt-desc">Any format — Story, post, Reel</span>
+    </div>
+
+    <span class="plus">+</span>
+
+    <!-- Secondary 2: Phone frame around Forest story -->
+    <div class="fmt">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="screen-content screen-forest">
+            <div class="notch"></div>
+            <div class="status-bar">
+              <span class="status-time">9:41</span>
+              <div class="status-icons">
+                <span class="status-icon">▐▐▐</span>
+                <span class="status-icon">▊</span>
+              </div>
+            </div>
+            <div class="forest-bars"><span></span><span class="active"></span><span></span></div>
+            <div class="forest-header">
+              <div class="forest-av"></div>
+              <span class="forest-h-name">forestcreator</span>
+              <span class="forest-h-time">2h</span>
+            </div>
+            <div class="forest-stickers">
+              <div class="forest-s tan">Petition to protect the Roadless Rule.</div>
+              <div class="forest-s purple">500K signatures = USDA delivery.</div>
+              <div class="forest-s sigs">6K signatures already! Sign here:</div>
+              <div class="forest-s link">Stop Destroying Our Forests</div>
+              <div class="forest-s caption">#sponsored @changedotorg</div>
+            </div>
+            <div class="forest-reply">
+              <span class="forest-reply-text">Send message</span>
+              <span class="forest-reply-icon">✈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="fmt-label">Secondary</span>
+      <span class="fmt-desc">Any format — Story, post, Reel</span>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5 11 12 4 19 11"/></svg>
+    </span>
+    <p class="callout-text"><strong>3 is the floor — not the ceiling.</strong> You need 3 to keep your advance, but the program has <strong>no cap on posts</strong>. <em>The more you share, the more you earn.</em></p>
+  </div>
+</div>
+
+<script id="riff-concepts" type="application/json">
+{
+  "variant": "C",
+  "name": "Phone Frame",
+  "summary": "Each post sits inside a dark phone hardware frame with Dynamic Island notch, status bar (9:41, signal, battery), and subtle glass reflection. Signals 'this is a screenshot taken from a real phone.'",
+  "concepts": [
+    {"id":"phone-hardware-frame","name":"Phone hardware frame","desc":"Dark rounded-rect device bezel with slight inset glow, wrapping each post card. Immediately reads as 'screenshot of a phone' rather than an abstract illustration."},
+    {"id":"dynamic-island","name":"Dynamic Island + status bar","desc":"Black pill notch at top + '9:41 ▐▐▐ ▊' status bar below it. The strongest OS-level screenshot signal — recognizable to any smartphone user."},
+    {"id":"glass-reflection","name":"Glass screen reflection","desc":"Subtle linear-gradient overlay (top-left bright corner) on the phone screen suggesting glossy phone glass. Small detail that adds realism."},
+    {"id":"frame-hardware-shadow","name":"Hardware shadow + edge glint","desc":"Box shadow on the frame itself (not just the card) with an inner highlight to simulate the phone's physical edge. Makes the device feel three-dimensional."},
+    {"id":"consistent-os-chrome","name":"Consistent OS chrome across all 3","desc":"All 3 cards share the same phone frame and status bar, while the app content inside each differs — reinforcing that these are screenshots, not illustrations."}
+  ]
+}
+</script>
+</body>
+</html>

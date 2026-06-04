@@ -1,0 +1,18 @@
+{
+  "name": "riff",
+  "version": "2.0.0",
+  "description": "Riff — multi-direction design exploration with a compare board and prompt cart. Hosts multiple boards under one project. All output is self-contained (file:// compatible).",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "capture": "node capture.js",
+    "index": "node build-index.js",
+    "serve": "node serve-with-free-port.js",
+    "playwright:install": "pnpm exec playwright install chromium"
+  },
+  "devDependencies": {
+    "playwright": "^1.59.1",
+    "serve": "^14.2.4"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

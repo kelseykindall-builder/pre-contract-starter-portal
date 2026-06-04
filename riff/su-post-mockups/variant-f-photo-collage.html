@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's a share unit? — Photo Collage</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E8002D;--yellow:#FFDB00;
+  --bg:#FAF8F4;--text:#231226;--muted:rgba(35,18,38,.58);
+  --stroke:rgba(35,18,38,.08);
+}
+body{font-family:'Commissioner',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding:40px 24px 60px}
+.section{max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:10px}
+h2{font-size:24px;font-weight:700;letter-spacing:-.022em;line-height:1.2;margin-bottom:12px}
+.sub{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:28px}
+.sub strong{color:var(--text);font-weight:600}
+
+/* Collage: overlapping angled cards on a slightly elevated surface */
+.visual{
+  position:relative;
+  height:230px;
+  margin-bottom:32px;
+  display:flex;align-items:center;justify-content:center;
+}
+.visual-inner{position:relative;width:340px;height:210px}
+
+/* Base card style — like a photo print */
+.photo-card{
+  position:absolute;
+  width:118px;height:196px;
+  border-radius:8px;overflow:hidden;
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.28),
+    0 1px 4px rgba(0,0,0,.18),
+    0 0 0 1px rgba(255,255,255,.08);
+  background:#000;
+}
+/* Subtle screen glare on each card */
+.photo-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(130deg,rgba(255,255,255,.06) 0%,transparent 45%);
+  pointer-events:none;z-index:20;border-radius:8px;
+}
+
+/* Position + rotation for each card */
+.card-1{left:0;top:10px;transform:rotate(-5deg);z-index:1}
+.card-2{left:111px;top:0;transform:rotate(1.5deg);z-index:3}
+.card-3{left:222px;top:8px;transform:rotate(4deg);z-index:2}
+
+/* Format label below each card (positioned relative to card) */
+.fmt-labels{position:absolute;bottom:-28px;left:0;right:0;display:flex;justify-content:space-between;padding:0 8px}
+.fmt-lbl{display:flex;flex-direction:column;align-items:center;gap:2px;width:118px}
+.fmt-lbl-name{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.fmt-lbl-desc{font-size:9px;color:var(--muted);text-align:center}
+
+/* === Card 1: AI Reel (TikTok) === */
+.screen-ai{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 45% 35%,rgba(178,33,33,.2) 0%,transparent 55%),
+    linear-gradient(175deg,#1A4D5C 0%,#0D2535 45%,#1B1020 100%);
+}
+.ai-text{position:absolute;left:7px;top:48px;transform:rotate(-3deg);z-index:2}
+.ai-big{font-size:36px;font-weight:900;color:#fff;line-height:.88;letter-spacing:-.05em;
+  text-shadow:-1.5px -1.5px 0 #5B1B96,1.5px -1.5px 0 #5B1B96,-1.5px 1.5px 0 #5B1B96,1.5px 1.5px 0 #5B1B96,0 3px 8px rgba(0,0,0,.4)}
+.ai-big-sub{font-size:10px;font-weight:900;color:#fff;
+  text-shadow:-1px -1px 0 #5B1B96,1px 1px 0 #5B1B96}
+.ai-side{position:absolute;right:6px;bottom:42px;display:flex;flex-direction:column;align-items:center;gap:7px;z-index:3}
+.ai-side-action{display:flex;flex-direction:column;align-items:center;gap:1px}
+.ai-side-icon{font-size:14px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.ai-side-count{font-size:5px;color:#fff;font-weight:600;opacity:.85}
+.ai-foot{position:absolute;bottom:8px;left:6px;right:26px;z-index:3}
+.ai-foot-handle{font-size:6.5px;font-weight:700;color:#fff;margin-bottom:2px;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.ai-foot-cap{font-size:5px;color:rgba(255,255,255,.8);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ai-foot-audio{font-size:4.5px;color:rgba(255,255,255,.65);margin-top:1px;display:flex;align-items:center;gap:1px}
+.ai-scrub{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.12)}
+.ai-scrub-fill{height:100%;width:38%;background:#fff}
+/* TK logo watermark */
+.tk-wm{position:absolute;top:6px;right:5px;font-size:6.5px;font-weight:900;color:#fff;letter-spacing:-.4px;z-index:4;opacity:.8}
+
+/* === Card 2: ALS Story (IG) === */
+.screen-als{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#4A6A80 0%,#2E4555 40%,#1C2E38 100%);
+}
+.als-sbars{position:absolute;top:5px;left:5px;right:5px;display:flex;gap:2px;z-index:5}
+.als-sbars span{flex:1;height:1.5px;background:rgba(255,255,255,.3);border-radius:1px}
+.als-sbars span.active{background:rgba(255,255,255,.9)}
+.als-shead{position:absolute;top:11px;left:5px;right:5px;display:flex;align-items:center;gap:3px;z-index:5}
+.als-sav{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#C68A6A,#6B4434);border:1px solid rgba(255,255,255,.35);flex-shrink:0}
+.als-sname{font-size:5.5px;font-weight:700;color:#fff;flex:1}
+.als-stime{font-size:5px;color:rgba(255,255,255,.6)}
+.als-scard{position:absolute;top:36px;left:5px;right:5px;z-index:3;
+  background:rgba(255,255,255,.93);border-radius:4px;padding:5px}
+.als-scard-tag{font-size:4.5px;font-weight:700;color:#1F9BFC;margin-bottom:1.5px}
+.als-scard-body{font-size:6.5px;font-weight:700;color:#111;line-height:1.2}
+.als-scard-sub{font-size:4.5px;color:#555;margin-top:2px;line-height:1.3}
+.als-sreply{position:absolute;bottom:8px;left:5px;right:5px;
+  border:1px solid rgba(255,255,255,.45);border-radius:18px;padding:3px 7px;
+  display:flex;align-items:center;justify-content:space-between;z-index:5}
+.als-sreply-text{font-size:5px;color:rgba(255,255,255,.55)}
+.als-sreply-icon{font-size:8px;color:rgba(255,255,255,.75)}
+/* IG logo */
+.ig-wm{position:absolute;top:5px;right:5px;width:11px;height:11px;z-index:6;
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  border-radius:3px;display:flex;align-items:center;justify-content:center}
+.ig-wm-inner{width:5px;height:5px;border:1.5px solid #fff;border-radius:1.5px}
+
+/* === Card 3: Forest Story (IG) === */
+.screen-forest{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 90%,#2D4A1A 0%,transparent 55%),
+    linear-gradient(180deg,#0E1A08 0%,#071005 65%,#142210 100%);
+}
+.forest-sbars{position:absolute;top:5px;left:5px;right:5px;display:flex;gap:2px;z-index:5}
+.forest-sbars span{flex:1;height:1.5px;background:rgba(255,255,255,.28);border-radius:1px}
+.forest-sbars span.active{background:rgba(255,255,255,.88)}
+.forest-shead{position:absolute;top:11px;left:5px;right:5px;display:flex;align-items:center;gap:3px;z-index:5}
+.forest-sav{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#4A7A3A,#1E3A14);border:1px solid rgba(255,255,255,.3);flex-shrink:0}
+.forest-sname{font-size:5.5px;font-weight:700;color:#fff;flex:1}
+.forest-stime{font-size:5px;color:rgba(255,255,255,.55)}
+.forest-sstickers{position:absolute;top:32px;left:5px;right:5px;z-index:3;display:flex;flex-direction:column;gap:2.5px}
+.fss{border-radius:3px;padding:2px 4px;font-size:5.5px;font-weight:700}
+.fss.tan{background:rgba(210,195,155,.9);color:#3A2E10}
+.fss.purple{background:rgba(90,28,148,.9);color:#fff}
+.fss.sigs{background:rgba(255,255,255,.12);color:#fff}
+.fss.link{background:#1F9BFC;color:#fff}
+.fss.cap{background:transparent;color:rgba(255,255,255,.6);font-size:5px}
+.forest-sreply{position:absolute;bottom:8px;left:5px;right:5px;
+  border:1px solid rgba(255,255,255,.38);border-radius:18px;padding:3px 7px;
+  display:flex;align-items:center;justify-content:space-between;z-index:5}
+.forest-sreply-text{font-size:5px;color:rgba(255,255,255,.5)}
+.forest-sreply-icon{font-size:8px;color:rgba(255,255,255,.7)}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:rgba(35,18,38,.04);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px}
+.callout-icon{color:var(--text);flex-shrink:0;margin-top:1px}
+.callout-text{font-size:13px;color:var(--muted);line-height:1.55}
+.callout-text strong{color:var(--text);font-weight:700}
+.callout-text em{color:var(--red);font-style:normal}
+</style>
+</head>
+<body>
+<div class="section">
+  <p class="eyebrow">What's a share unit?</p>
+  <h2>One original post pointing your audience to your petition.</h2>
+  <p class="sub">The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format you like.</p>
+
+  <div class="visual" aria-hidden="true">
+    <div class="visual-inner">
+      <!-- Card 1: Primary Reel (TikTok), rotated left -->
+      <div class="photo-card card-1">
+        <div class="screen-ai"></div>
+        <div class="tk-wm">TikTok</div>
+        <div class="ai-text">
+          <div class="ai-big">AI</div>
+          <div class="ai-big-sub">Regulations</div>
+        </div>
+        <div class="ai-side">
+          <div class="ai-side-action"><span class="ai-side-icon">♥</span><span class="ai-side-count">12.4K</span></div>
+          <div class="ai-side-action"><span class="ai-side-icon">💬</span><span class="ai-side-count">234</span></div>
+          <div class="ai-side-action"><span class="ai-side-icon">↗</span><span class="ai-side-count">4.5K</span></div>
+        </div>
+        <div class="ai-foot">
+          <div class="ai-foot-handle">@genericartdad</div>
+          <div class="ai-foot-cap">Sign the petition — regulate AI in schools 🔗 #ad #sponsored</div>
+          <div class="ai-foot-audio">♪ Original audio · genericartdad</div>
+        </div>
+        <div class="ai-scrub"><div class="ai-scrub-fill"></div></div>
+      </div>
+
+      <!-- Card 2: Secondary Story (IG, ALS), centered, on top -->
+      <div class="photo-card card-2">
+        <div class="screen-als"></div>
+        <div class="ig-wm"><div class="ig-wm-inner"></div></div>
+        <div class="als-sbars"><span class="active"></span><span></span><span></span></div>
+        <div class="als-shead">
+          <div class="als-sav"></div>
+          <span class="als-sname">April 28</span>
+          <span class="als-stime">8:47 AM</span>
+        </div>
+        <div class="als-scard">
+          <div class="als-scard-tag">#ad #sponsored @changedotorg</div>
+          <div class="als-scard-body">I'm living with ALS.</div>
+          <div class="als-scard-sub">ACT for ALS gives access to experimental treatments.</div>
+        </div>
+        <div class="als-sreply">
+          <span class="als-sreply-text">Send message</span>
+          <span class="als-sreply-icon">✈</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Secondary Story (IG, Forest), rotated right -->
+      <div class="photo-card card-3">
+        <div class="screen-forest"></div>
+        <div class="ig-wm" style="top:5px;right:5px"><div class="ig-wm-inner"></div></div>
+        <div class="forest-sbars"><span></span><span class="active"></span><span></span></div>
+        <div class="forest-shead">
+          <div class="forest-sav"></div>
+          <span class="forest-sname">forestcreator</span>
+          <span class="forest-stime">2h</span>
+        </div>
+        <div class="forest-sstickers">
+          <div class="fss tan">Petition: protect Roadless Rule.</div>
+          <div class="fss purple">500K sigs = USDA delivery.</div>
+          <div class="fss sigs">6K signatures! Sign here:</div>
+          <div class="fss link">Stop Destroying Our Forests</div>
+          <div class="fss cap">#sponsored @changedotorg</div>
+        </div>
+        <div class="forest-sreply">
+          <span class="forest-sreply-text">Send message</span>
+          <span class="forest-sreply-icon">✈</span>
+        </div>
+      </div>
+
+      <!-- Format labels -->
+      <div class="fmt-labels">
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Primary</span><span class="fmt-lbl-desc">Top platform, original video</span></div>
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Secondary</span><span class="fmt-lbl-desc">Any format</span></div>
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Secondary</span><span class="fmt-lbl-desc">Any format</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5 11 12 4 19 11"/></svg>
+    </span>
+    <p class="callout-text"><strong>3 is the floor — not the ceiling.</strong> You need 3 to keep your advance, but the program has <strong>no cap on posts</strong>. <em>The more you share, the more you earn.</em></p>
+  </div>
+</div>
+
+<script id="riff-concepts" type="application/json">
+{
+  "variant": "F",
+  "name": "Photo Collage",
+  "summary": "The 3 post cards overlap at slight angles (−5°, +1.5°, +4°) like a photo dump spread on a table. Each card has a glass-glare overlay and realistic platform chrome inside. More organic and casual than a structured grid.",
+  "concepts": [
+    {"id":"overlapping-angled-layout","name":"Overlapping angled layout","desc":"Cards at slightly different rotations (−5°, +1.5°, +4°) overlap left-to-right with z-ordering — center card on top. Feels like someone spread screenshots on a table rather than a structured diagram."},
+    {"id":"glass-glare-overlay","name":"Glass glare on each card","desc":"Subtle linear-gradient pseudo-element on each card simulating phone screen glass reflection. Makes each card read unambiguously as a phone screenshot, not a drawn illustration."},
+    {"id":"platform-watermark-corner","name":"Platform watermark corner","desc":"Small platform logo (TikTok wordmark / IG icon) in the top-right corner of each card — exactly where native screenshot apps leave watermarks. High authenticity signal."},
+    {"id":"casual-photo-dump-feel","name":"Casual photo-dump composition","desc":"The overlap + rotation evokes someone sharing their own post screenshots with a friend ('here's what I posted'). More relatable and human than a clinical side-by-side grid."},
+    {"id":"center-card-on-top","name":"Center card on top (z-ordering)","desc":"The center card sits above the other two, with outer cards partially hidden behind it. Draws the eye to the secondary-format example and creates visual depth without needing a shadow system."}
+  ]
+}
+</script>
+</body>
+</html>

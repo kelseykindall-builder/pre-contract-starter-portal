@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+<defs><style>@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@400;600;700&amp;display=swap");text { font-family: Commissioner, -apple-system, 'Segoe UI', sans-serif; }</style></defs>
+<rect width="1080" height="1920" fill="#FFFFFF"/>
+
+<!-- Top red bar -->
+<rect x="0" y="0" width="1080" height="5" fill="#E02822"/>
+
+<!-- change.org wordmark — top right -->
+<text x="1008" y="106" font-size="44" font-weight="700" fill="#403A49"
+  text-anchor="end" letter-spacing="-1" font-family="Commissioner, -apple-system, 'Segoe UI', sans-serif">
+  <tspan fill="#E02822">change</tspan><tspan fill="#403A49">.org</tspan>
+</text>
+
+<!-- CHANGE — top line -->
+<text x="72" y="340" font-size="148" font-weight="700" fill="#403A49"
+  letter-spacing="-3" font-family="Commissioner, -apple-system, 'Segoe UI', sans-serif">CHANGE</text>
+
+<!-- AMBASSADORS — bottom line, sized to stretch across -->
+<text x="72" y="510" font-size="118" font-weight="700" fill="#403A49"
+  letter-spacing="-2" font-family="Commissioner, -apple-system, 'Segoe UI', sans-serif">AMBASSADORS</text>
+
+<!-- Red underline punctuation -->
+<rect x="72" y="534" width="936" height="6" fill="#E02822" rx="1.5"/>
+
+<!-- Red dot accent -->
+<circle cx="78" cy="610" r="8" fill="#E02822"/>
+
+<!-- Divider — open presenter zone below -->
+<rect x="72" y="900" width="936" height="1" fill="#E1DDE9"/>
+
+<!-- Bottom red bar -->
+<rect x="0" y="1915" width="1080" height="5" fill="#E02822"/>
+</svg>

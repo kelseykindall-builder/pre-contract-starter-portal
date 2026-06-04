@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riff — __BOARD_TITLE__</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F4F5F7;
+      --card-bg: #FFFFFF;
+      --text-strong: #2D2F37;
+      --text-weak: rgba(58,62,73,0.7);
+      --text-weaker: rgba(58,62,73,0.45);
+      --stroke: #DDE0E9;
+      --accent: #003193;
+      --accent-weak: #F0F7FF;
+      --brand-yellow: #F5B800;
+      --brand-yellow-deep: #D99A00;
+      --radius: 12px;
+      --shadow-low: 0 2px 2px rgba(0,0,0,0.05), 0 3px 19px rgba(58,41,62,0.06);
+      --shadow-elevated: 0 4px 13px rgba(95,95,95,0.07), 0 18px 26px rgba(123,123,123,0.12);
+      --shadow-modal: 0 24px 80px rgba(58,41,62,0.24), 0 8px 24px rgba(58,41,62,0.12);
+      --spring-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --soft-easing: cubic-bezier(0.4, 0, 0.2, 1);
+      --out-easing: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body {
+      font-family: 'Commissioner', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-strong);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--stroke);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .riff-logo {
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      color: var(--brand-yellow);
+      line-height: 1;
+      text-shadow: 0 0 0.5px var(--brand-yellow-deep);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      gap: 0;
+      perspective: 600px;
+    }
+    .riff-logo .letter {
+      display: inline-block;
+      transform-origin: 50% 100%;
+      will-change: transform, color;
+    }
+    .header-divider { width: 1px; height: 22px; background: var(--stroke); }
+    .header-title { font-size: 16px; font-weight: 700; }
+    .header-subtitle { font-size: 13px; color: var(--text-weak); margin-left: 8px; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
+    /* Viewport toggle (Mobile / Desktop) — segmented control */
+    .view-toggle {
+      display: inline-flex;
+      background: var(--bg);
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .view-toggle-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: inherit;
+      font-size: 12px; font-weight: 600;
+      color: var(--text-weak);
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background 0.2s var(--soft-easing), color 0.2s var(--soft-easing);
+    }
+    .view-toggle-btn:hover { color: var(--text-strong); }
+    .view-toggle-btn.is-active {
+      background: var(--card-bg);
+      color: var(--text-strong);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .view-toggle-btn .missing-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brand-yellow);
+      display: none;
+    }
+    .view-toggle-btn.has-missing .missing-dot { display: inline-block; }
+
+    /* Desktop-missing banner */
+    .missing-banner {
+      max-width: 1400px;
+      margin: 20px auto 0;
+      padding: 12px 16px;
+      background: #FFFBEB;
+      border: 1px solid #F5D998;
+      border-radius: 10px;
+      display: none;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: #6B4A00;
+    }
+    .missing-banner.is-visible { display: flex; }
+    .missing-banner-text { flex: 1; line-height: 1.45; }
+    .missing-banner-text strong { color: #4A3300; font-weight: 700; }
+    .missing-banner-cmd {
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 12px;
+      background: white;
+      border: 1px solid #F5D998;
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: #6B4A00;
+    }
+    .missing-banner-copy {
+      font-family: inherit;
+      font-size: 12px; font-weight: 600;
+      background: #6B4A00; color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: filter 0.2s var(--soft-easing);
+    }
+    .missing-banner-copy:hover { filter: brightness(1.15); }
+
+    .cart-btn {
+      position: relative;
+      display: flex; align-items: center; gap: 8px;
+      font-family: inherit;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-strong);
+      background: var(--card-bg);
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      padding: 7px 14px 7px 12px;
+      cursor: pointer;
+      transition: background 0.2s var(--soft-easing), border-color 0.2s var(--soft-easing);
+    }
+    .cart-btn:hover { background: var(--bg); border-color: var(--accent); }
+    .cart-btn.has-items {
+      background: var(--accent-weak);
+      border-color: #B3D0F5;
+      color: var(--accent);
+    }
+    .cart-btn.has-items:hover { background: #E1EFFD; }
+    .cart-btn-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 20px; height: 20px;
+      background: var(--accent);
+      color: white;
+      font-size: 11px; font-weight: 800;
+      border-radius: 999px;
+      padding: 0 6px;
+      transition: transform 0.25s var(--spring-easing);
+    }
+    .cart-btn-count.is-zero {
+      background: var(--bg);
+      color: var(--text-weaker);
+      border: 1px solid var(--stroke);
+    }
+
+    .gallery {
+      padding: 24px 28px 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 1800px;
+      margin: 0 auto;
+      transition: opacity 0.35s var(--soft-easing);
+    }
+    .gallery.is-zoomed { opacity: 0; pointer-events: none; }
+    /* Mobile view: 3-up grid of portrait thumbnails */
+    .gallery.view-mobile {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1600px;
+      gap: 16px;
+    }
+
+    .variant-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow-low);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.3s var(--soft-easing),
+                  transform 0.3s var(--spring-easing),
+                  border-color 0.3s var(--soft-easing),
+                  opacity 0.25s var(--soft-easing);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      opacity: 1; /* never hidden by default — guarantees visibility even if JS fails */
+    }
+    .variant-card:hover {
+      box-shadow: var(--shadow-elevated);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .variant-card:hover .card-label-pill { background: var(--accent); color: white; }
+    .variant-card:hover .card-expand-hint { opacity: 1; }
+
+    .card-label-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--stroke);
+      background: var(--card-bg);
+    }
+    .card-label-pill {
+      font-size: 12px; font-weight: 700;
+      padding: 3px 10px; border-radius: 6px;
+      background: var(--bg); color: var(--text-strong);
+      border: 1px solid var(--stroke);
+      transition: background 0.25s var(--soft-easing), color 0.25s var(--soft-easing);
+      letter-spacing: 0.02em;
+    }
+    .card-label-name { font-size: 13px; font-weight: 600; color: var(--text-strong); }
+    .card-label-left { display: flex; align-items: center; gap: 10px; }
+    .card-cart-badge {
+      font-size: 10px; font-weight: 700;
+      background: var(--accent-weak); color: var(--accent);
+      border: 1px solid #B3D0F5;
+      padding: 1px 7px; border-radius: 999px;
+      display: none;
+    }
+    .card-cart-badge.is-visible { display: inline-block; }
+    .card-expand-hint {
+      font-size: 11px; color: var(--text-weaker);
+      display: flex; align-items: center; gap: 3px;
+      opacity: 0;
+      transition: opacity 0.25s var(--soft-easing);
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      max-height: 460px;
+      overflow: hidden;
+      position: relative;
+      background: var(--bg);
+      background-size: cover;
+      background-position: 0% 0%;
+      background-repeat: no-repeat;
+    }
+    /* Mobile view: portrait thumbs (phone aspect ratio) */
+    .gallery.view-mobile .card-thumb {
+      aspect-ratio: 9 / 16;
+      max-height: 520px;
+    }
+    .card-thumb-fallback {
+      position: absolute; inset: 0;
+      display: none;
+      align-items: center; justify-content: center;
+      font-size: 11px; color: var(--text-weaker);
+      background: var(--bg);
+      padding: 20px;
+      text-align: center;
+    }
+    .card-thumb.is-missing .card-thumb-fallback { display: flex; }
+    .card-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 80%, rgba(244,245,247,0.4) 100%);
+      pointer-events: none;
+    }
+
+    .card-meta {
+      padding: 10px 14px;
+      border-top: 1px solid var(--stroke);
+      background: var(--bg);
+    }
+    .card-meta p { font-size: 12px; color: var(--text-weak); line-height: 1.4; }
+
+    .zoom-overlay {
+      position: fixed; inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--soft-easing);
+    }
+    .zoom-overlay.is-active { pointer-events: all; opacity: 1; }
+
+    .zoom-panel {
+      position: fixed;
+      z-index: 210;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.985);
+      transition: opacity 0.3s var(--out-easing), transform 0.3s var(--out-easing);
+    }
+    .zoom-panel.is-active { pointer-events: all; opacity: 1; transform: scale(1); }
+
+    .zoom-toolbar {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--stroke);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 16px;
+    }
+    .zoom-toolbar-left, .zoom-toolbar-center, .zoom-toolbar-right {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .zoom-toolbar-center { flex: 1; }
+    .zoom-close {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600; color: var(--text-strong);
+      background: var(--bg);
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s var(--soft-easing), border-color 0.2s var(--soft-easing);
+    }
+    .zoom-close:hover { background: var(--stroke); }
+    .zoom-variant-name { font-size: 14px; font-weight: 700; }
+    .zoom-nav-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--stroke);
+      background: var(--card-bg);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s var(--soft-easing), border-color 0.2s var(--soft-easing);
+    }
+    .zoom-nav-btn:hover { background: var(--bg); border-color: var(--accent); }
+    .zoom-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .zoom-counter {
+      font-size: 12px; color: var(--text-weak); font-weight: 600;
+      min-width: 36px; text-align: center;
+    }
+
+    .concepts-toggle {
+      display: flex; align-items: center; gap: 6px;
+      font-family: inherit;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-strong);
+      background: var(--card-bg);
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background 0.2s var(--soft-easing), border-color 0.2s var(--soft-easing), color 0.2s var(--soft-easing);
+    }
+    .concepts-toggle:hover { background: var(--bg); border-color: var(--accent); }
+    .concepts-toggle.is-active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .concepts-toggle-count {
+      font-size: 10px; font-weight: 800;
+      background: rgba(255,255,255,0.22);
+      color: inherit;
+      padding: 1px 6px; border-radius: 999px;
+      margin-left: 2px;
+    }
+    .concepts-toggle:not(.is-active) .concepts-toggle-count {
+      background: var(--accent-weak);
+      color: var(--accent);
+    }
+
+    .zoom-body {
+      flex: 1;
+      position: relative;
+      background: white;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .zoom-stage {
+      position: absolute; inset: 0;
+      background: white;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      overflow: auto;
+      transition: background 0.25s var(--soft-easing);
+    }
+    .zoom-stage iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+    /* Mobile view: constrain iframe to phone width with neutral surround */
+    .zoom-stage.view-mobile {
+      background: var(--bg);
+      padding: 16px 0;
+    }
+    .zoom-stage.view-mobile iframe {
+      width: 390px;
+      max-width: 100%;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      box-shadow: var(--shadow-low);
+      border: 1px solid var(--stroke);
+    }
+
+    .concept-panel {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 360px;
+      background: white;
+      border-left: 1px solid var(--stroke);
+      box-shadow: -8px 0 24px rgba(58,41,62,0.06);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      opacity: 0;
+      z-index: 4;
+      transition: transform 0.32s var(--out-easing), opacity 0.32s var(--out-easing);
+    }
+    .concept-panel.is-open { transform: translateX(0); opacity: 1; }
+
+    .concept-panel-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .concept-panel-label {
+      font-size: 10px; font-weight: 700;
+      color: var(--text-weaker); text-transform: uppercase;
+      letter-spacing: 1.4px;
+      margin-bottom: 4px;
+    }
+    .concept-panel-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 4px;
+    }
+    .concept-panel-summary {
+      font-size: 12px; color: var(--text-weak); line-height: 1.5;
+    }
+    .concept-list {
+      flex: 1; overflow-y: auto;
+      padding: 8px 10px;
+    }
+    .concept-item {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: white;
+      margin-bottom: 8px;
+      transition: border-color 0.25s var(--soft-easing), background 0.25s var(--soft-easing);
+    }
+    .concept-item.is-added {
+      border-color: #B3D0F5;
+      background: var(--accent-weak);
+    }
+    .concept-item-name {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 3px;
+    }
+    .concept-item-id {
+      display: inline-block;
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 10px;
+      color: var(--accent);
+      background: var(--accent-weak);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
+      font-weight: 500;
+    }
+    .concept-item.is-added .concept-item-id { background: white; }
+    .concept-item-desc {
+      font-size: 12px; color: var(--text-weak);
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .concept-add-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: inherit;
+      font-size: 12px; font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--stroke);
+      background: white;
+      color: var(--text-strong);
+      transition: border-color 0.2s var(--soft-easing), background 0.2s var(--soft-easing), color 0.2s var(--soft-easing);
+    }
+    .concept-add-btn:hover { border-color: var(--accent); background: var(--accent-weak); color: var(--accent); }
+    .concept-item.is-added .concept-add-btn {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .concept-item.is-added .concept-add-btn:hover {
+      background: #00256F;
+      border-color: #00256F;
+    }
+
+    .cart-modal-backdrop {
+      position: fixed; inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 40px 20px;
+      opacity: 0;
+      transition: opacity 0.22s var(--soft-easing);
+    }
+    .cart-modal-backdrop.is-active { display: flex; opacity: 1; }
+    .cart-modal {
+      background: white;
+      border-radius: 14px;
+      box-shadow: var(--shadow-modal);
+      width: 680px; max-width: 100%;
+      max-height: 100%;
+      display: flex; flex-direction: column;
+      transform: scale(0.94);
+      opacity: 0;
+      transition: transform 0.28s var(--spring-easing), opacity 0.22s var(--soft-easing);
+    }
+    .cart-modal-backdrop.is-active .cart-modal { transform: scale(1); opacity: 1; }
+    .cart-modal-header {
+      padding: 18px 24px 16px;
+      border-bottom: 1px solid var(--stroke);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-modal-title { font-size: 17px; font-weight: 700; }
+    .cart-modal-title-count {
+      font-size: 11px; font-weight: 700;
+      background: var(--accent); color: white;
+      padding: 2px 8px; border-radius: 999px;
+      margin-left: 6px;
+    }
+    .cart-modal-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 22px; color: var(--text-weaker);
+      line-height: 1; padding: 4px 8px;
+      font-family: inherit;
+      transition: color 0.2s var(--soft-easing);
+    }
+    .cart-modal-close:hover { color: var(--text-strong); }
+    .cart-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 24px;
+    }
+    .cart-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-weaker);
+      font-size: 14px;
+    }
+    .cart-empty-hint {
+      font-size: 12px;
+      margin-top: 8px;
+      color: var(--text-weaker);
+      font-style: italic;
+    }
+    .cart-group { margin-bottom: 18px; }
+    .cart-group:last-child { margin-bottom: 0; }
+    .cart-group-header {
+      font-size: 11px; font-weight: 700;
+      color: var(--text-weaker);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cart-group-pill {
+      font-size: 10px; font-weight: 700;
+      background: var(--bg);
+      color: var(--text-strong);
+      border: 1px solid var(--stroke);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .cart-chips {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .cart-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px;
+      background: var(--accent-weak);
+      color: var(--accent);
+      border: 1px solid #B3D0F5;
+      border-radius: 999px;
+      padding: 4px 8px 4px 10px;
+      font-weight: 600;
+    }
+    .cart-chip-id {
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 10px; opacity: 0.65;
+      margin-left: 2px;
+    }
+    .cart-chip-remove {
+      background: none; border: none; cursor: pointer;
+      color: inherit; opacity: 0.5;
+      font-size: 14px; line-height: 1;
+      padding: 0 0 0 2px;
+      font-family: inherit;
+      transition: opacity 0.15s var(--soft-easing);
+    }
+    .cart-chip-remove:hover { opacity: 1; }
+
+    .cart-commentary {
+      margin-top: 6px;
+      border-top: 1px solid var(--stroke);
+      padding-top: 16px;
+    }
+    .cart-commentary-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--text-weaker); text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+    .cart-commentary textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-strong);
+      background: white;
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+      transition: border-color 0.2s var(--soft-easing);
+    }
+    .cart-commentary textarea:focus { outline: none; border-color: var(--accent); }
+    .cart-commentary textarea::placeholder { color: var(--text-weaker); font-style: italic; }
+
+    .cart-modal-footer {
+      border-top: 1px solid var(--stroke);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px;
+      background: #FCFCFD;
+      border-radius: 0 0 14px 14px;
+    }
+    .cart-clear-btn {
+      font-family: inherit;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-weak);
+      background: none; border: none;
+      cursor: pointer; padding: 4px 8px;
+      transition: color 0.2s var(--soft-easing);
+    }
+    .cart-clear-btn:hover { color: var(--brand-yellow-deep); }
+    .cart-clear-btn:disabled { color: var(--text-weaker); opacity: 0.4; cursor: not-allowed; }
+    .cart-copy-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-family: inherit;
+      font-size: 13px; font-weight: 700;
+      color: white; background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: filter 0.2s var(--soft-easing);
+    }
+    .cart-copy-btn:hover { filter: brightness(1.1); }
+    .cart-copy-btn:disabled {
+      background: var(--stroke); border-color: var(--stroke);
+      color: var(--text-weaker); cursor: not-allowed;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(24px);
+      background: var(--text-strong);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px; font-weight: 600;
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s var(--spring-easing), opacity 0.25s var(--soft-easing);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Card entrance — kicks in via .has-entered class. Cards render visible by default
+       so a JS failure can never make the gallery blank. */
+    .variant-card.will-enter { opacity: 0; transform: translateY(12px); }
+    .variant-card.has-entered { opacity: 1; transform: translateY(0); transition: opacity 0.5s var(--out-easing), transform 0.5s var(--out-easing); }
+
+    .riff-logo .letter.bump { animation: riffHop 0.75s var(--spring-easing); }
+    @keyframes riffHop {
+      0%   { transform: translateY(0) rotate(0) scale(1); color: var(--brand-yellow); }
+      30%  { transform: translateY(-14px) rotate(-12deg) scale(1.22); color: #FF7A00; }
+      65%  { transform: translateY(2px) rotate(6deg) scale(0.96); color: #FFB800; }
+      100% { transform: translateY(0) rotate(0) scale(1); color: var(--brand-yellow); }
+    }
+
+    .cart-btn.bump { animation: cartBump 0.42s var(--spring-easing); }
+    .cart-btn-count.bump { animation: countBump 0.42s var(--spring-easing); }
+    @keyframes cartBump {
+      0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); }
+    }
+    @keyframes countBump {
+      0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="riff-logo" id="riffLogo"><span class="letter">R</span><span class="letter">I</span><span class="letter">F</span><span class="letter">F</span></div>
+      <div class="header-divider"></div>
+      <div>
+        <span class="header-title">__BOARD_TITLE__</span>
+        <span class="header-subtitle"><span id="variantCount">0</span> variants</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="view-toggle" role="tablist" aria-label="Viewport">
+        <button id="viewBtnMobile" class="view-toggle-btn is-active" onclick="setViewMode('mobile')" title="Mobile view (M)" role="tab">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>
+          </svg>
+          Mobile
+        </button>
+        <button id="viewBtnDesktop" class="view-toggle-btn" onclick="setViewMode('desktop')" title="Desktop view (D)" role="tab">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/>
+          </svg>
+          Desktop
+          <span class="missing-dot" title="Desktop captures missing — see banner"></span>
+        </button>
+      </div>
+      <button id="cartBtn" class="cart-btn" onclick="openCart()" title="View prompt cart (C)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+        </svg>
+        Prompt cart
+        <span id="cartCount" class="cart-btn-count is-zero">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop-missing banner: shown when user selects Desktop view but
+       no desktop screenshots were captured. Zoomed iframe still works
+       (live resize via srcdoc) — this just nudges to capture proper thumbs. -->
+  <div class="missing-banner" id="missingBanner">
+    <div class="missing-banner-text">
+      <strong>Desktop captures missing.</strong>
+      Run <span class="missing-banner-cmd" id="missingBannerCmd">node capture.js <board-name> --desktop</span>
+      to add desktop screenshots for the gallery. Zoomed preview already shows the live desktop layout.
+    </div>
+    <button class="missing-banner-copy" onclick="copyDesktopCmd(this)" title="Copy command">Copy</button>
+  </div>
+
+  <!-- Gallery -->
+  <div class="gallery view-mobile" id="gallery"></div>
+
+  <div class="zoom-overlay" id="zoomOverlay" onclick="zoomOut()"></div>
+
+  <div class="zoom-panel" id="zoomPanel">
+    <div class="zoom-toolbar">
+      <div class="zoom-toolbar-left">
+        <button class="zoom-close" onclick="zoomOut()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Gallery
+        </button>
+        <button class="zoom-nav-btn" onclick="zoomPrev()" id="zoomPrevBtn" title="Previous (←)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <span class="zoom-counter" id="zoomCounter"></span>
+        <button class="zoom-nav-btn" onclick="zoomNext()" id="zoomNextBtn" title="Next (→)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="zoom-toolbar-center">
+        <span class="zoom-variant-name" id="zoomName"></span>
+      </div>
+      <div class="zoom-toolbar-right">
+        <button id="conceptsToggle" class="concepts-toggle" onclick="toggleConceptPanel()" title="View concepts (V)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
+          <span>View concepts</span>
+          <span id="conceptsToggleCount" class="concepts-toggle-count" style="display:none">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="zoom-body">
+      <div class="zoom-stage">
+        <iframe id="zoomIframe" sandbox="allow-same-origin allow-scripts"></iframe>
+      </div>
+
+      <aside class="concept-panel" id="conceptPanel">
+        <div class="concept-panel-header">
+          <div class="concept-panel-label">Core concepts</div>
+          <div class="concept-panel-title" id="conceptPanelTitle"></div>
+          <div class="concept-panel-summary" id="conceptPanelSummary"></div>
+        </div>
+        <div class="concept-list" id="conceptList"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="cart-modal-backdrop" id="cartModal" onclick="if (event.target === this) closeCart()">
+    <div class="cart-modal" id="cartModalInner">
+      <div class="cart-modal-header">
+        <div class="cart-modal-title">
+          Prompt cart
+          <span id="cartModalCount" class="cart-modal-title-count">0</span>
+        </div>
+        <button class="cart-modal-close" onclick="closeCart()" title="Close">×</button>
+      </div>
+      <div class="cart-modal-body" id="cartBody">
+        <div class="cart-empty">
+          Nothing in your cart yet.
+          <div class="cart-empty-hint">Open a variant → click "View concepts" → add the ones you want.</div>
+        </div>
+      </div>
+      <div class="cart-modal-footer">
+        <button class="cart-clear-btn" id="cartClearBtn" onclick="clearCart()" disabled>Clear all</button>
+        <button class="cart-copy-btn" id="cartCopyBtn" onclick="copyPrompt()" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy prompt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ================= INLINED DATA =================
+    // All data is baked in at build time by riff-capture.js. There is no
+    // network fetch, no CDN import, and no relative-file reference. This file
+    // works identically when opened via file:// (double-click in Finder) or
+    // served over localhost.
+    const BOARD_TITLE    = __BOARD_TITLE_JSON__;
+    const BOARD_SLUG     = __BOARD_SLUG_JSON__;
+    const SURFACE        = __SURFACE_JSON__;       // e.g. "my-petitions" or null
+    const SURFACE_LABEL  = __SURFACE_LABEL_JSON__; // e.g. "My Petitions" or null
+    const PROJECT_DIR    = __PROJECT_DIR_JSON__;   // absolute path to riff/ folder
+    const HAS_DESKTOP    = __HAS_DESKTOP_JSON__;   // true if --desktop was passed at capture time
+    // VARIANTS: [{ key, label, short, teaser, screenshot, screenshotDesktop, srcdoc }]
+    //   screenshot: data:image/jpeg;base64,... (mobile, always present)
+    //   screenshotDesktop: data:image/jpeg;base64,... (1280px, null if not captured)
+    //   srcdoc: the full variant HTML as a string (rendered in the zoom iframe via srcdoc)
+    const VARIANTS    = __VARIANTS_JSON__;
+    // CONCEPTS: { [variantKey]: { variant, name, summary, concepts: [{id, name, desc}] } }
+    const CONCEPTS    = __CONCEPTS_JSON__;
+
+    const STORAGE_KEY      = 'riff:cart:' + BOARD_SLUG;
+    const COMMENTARY_KEY   = 'riff:commentary:' + BOARD_SLUG;
+    const ORDER_KEY        = 'riff:order:' + BOARD_SLUG;
+    const VIEWMODE_KEY     = 'riff:viewmode:' + BOARD_SLUG;
+
+    // ================= STATE =================
+    let currentIndex = -1;
+    let isZoomed = false;
+    let conceptPanelOpen = false;
+    // 'mobile' | 'desktop' — persisted per-board in localStorage
+    let viewMode = (() => { try { return localStorage.getItem(VIEWMODE_KEY) || 'mobile'; } catch { return 'mobile'; } })();
+
+    window.setViewMode = function (mode) {
+      if (mode !== 'mobile' && mode !== 'desktop') return;
+      if (mode === viewMode) return;
+      viewMode = mode;
+      try { localStorage.setItem(VIEWMODE_KEY, mode); } catch {}
+      applyViewMode();
+      renderGallery();
+    };
+
+    function applyViewMode() {
+      // Toggle buttons
+      const mBtn = document.getElementById('viewBtnMobile');
+      const dBtn = document.getElementById('viewBtnDesktop');
+      if (mBtn) mBtn.classList.toggle('is-active', viewMode === 'mobile');
+      if (dBtn) {
+        dBtn.classList.toggle('is-active', viewMode === 'desktop');
+        // Yellow dot when desktop captures are missing — info, not error
+        dBtn.classList.toggle('has-missing', !HAS_DESKTOP);
+      }
+      // Gallery aspect-ratio class
+      const gallery = document.getElementById('gallery');
+      if (gallery) gallery.classList.toggle('view-mobile', viewMode === 'mobile');
+      // Zoom stage iframe constraint
+      const stage = document.querySelector('.zoom-stage');
+      if (stage) stage.classList.toggle('view-mobile', viewMode === 'mobile');
+      // Missing-desktop banner
+      const banner = document.getElementById('missingBanner');
+      if (banner) banner.classList.toggle('is-visible', viewMode === 'desktop' && !HAS_DESKTOP);
+      // Populate the board name in the copy command
+      const cmdEl = document.getElementById('missingBannerCmd');
+      if (cmdEl) cmdEl.textContent = `node capture.js ${BOARD_TITLE.toLowerCase().replace(/\s+/g, '-')} --desktop`;
+    }
+
+    window.copyDesktopCmd = async function (btn) {
+      const cmdEl = document.getElementById('missingBannerCmd');
+      const cmd = cmdEl ? cmdEl.textContent : 'node capture.js --desktop';
+      try {
+        await navigator.clipboard.writeText(cmd);
+        const orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => { btn.textContent = orig; }, 1400);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = cmd;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+    };
+
+    function loadCart() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch { return {}; }
+    }
+    function saveCart() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch {} }
+    let cart = loadCart();
+
+    function loadOrder() {
+      try { return JSON.parse(localStorage.getItem(ORDER_KEY) || '[]'); }
+      catch { return []; }
+    }
+    function saveOrder(order) { try { localStorage.setItem(ORDER_KEY, JSON.stringify(order)); } catch {} }
+
+    function loadCommentary() {
+      try { return localStorage.getItem(COMMENTARY_KEY) || ''; }
+      catch { return ''; }
+    }
+    function saveCommentary(text) {
+      try { localStorage.setItem(COMMENTARY_KEY, text); } catch {}
+    }
+    window.saveCommentary = saveCommentary;
+
+    function cartCount() {
+      let n = 0;
+      for (const k in cart) n += (cart[k] || []).length;
+      return n;
+    }
+    function cartHas(variantKey, conceptId) { return (cart[variantKey] || []).includes(conceptId); }
+    function cartAdd(variantKey, conceptId) {
+      if (!cart[variantKey]) cart[variantKey] = [];
+      if (!cart[variantKey].includes(conceptId)) cart[variantKey].push(conceptId);
+      saveCart();
+      // Track variant pick order (first touch = first in cart output)
+      const order = loadOrder();
+      if (!order.includes(variantKey)) { order.push(variantKey); saveOrder(order); }
+    }
+    function cartRemove(variantKey, conceptId) {
+      if (!cart[variantKey]) return;
+      cart[variantKey] = cart[variantKey].filter(id => id !== conceptId);
+      if (cart[variantKey].length === 0) delete cart[variantKey];
+      saveCart();
+    }
+
+    // ================= GALLERY =================
+    // Pick the screenshot for the current view mode. Falls back to mobile
+    // capture when desktop wasn't captured, so the gallery always shows something.
+    function pickScreenshot(v) {
+      if (viewMode === 'desktop' && v.screenshotDesktop) return v.screenshotDesktop;
+      return v.screenshot;
+    }
+
+    function renderGallery() {
+      document.getElementById('variantCount').textContent = VARIANTS.length;
+      const container = document.getElementById('gallery');
+      container.innerHTML = VARIANTS.map((v, i) => {
+        const shot = pickScreenshot(v);
+        return `
+        <div class="variant-card will-enter" data-index="${i}" data-key="${v.key}" onclick="zoomIn(${i})">
+          <div class="card-label-bar">
+            <div class="card-label-left">
+              <span class="card-label-pill">${escapeHtml(v.label)}</span>
+              <span class="card-label-name">${escapeHtml(v.short)}</span>
+              <span class="card-cart-badge" data-cart-badge="${escapeHtml(v.key)}"></span>
+            </div>
+            <div class="card-expand-hint">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+              Zoom
+            </div>
+          </div>
+          <div class="card-thumb" data-full="${escapeHtml(shot || '')}" style="background-image: url('${shot || ''}')">
+            <div class="card-thumb-fallback">Screenshot missing — re-run: node capture.js</div>
+          </div>
+          <div class="card-meta">
+            <p>${escapeHtml(v.teaser || '')}</p>
+          </div>
+        </div>`;
+      }).join('');
+      wireScrollAnimations();
+      probeScreenshots();
+      refreshCardBadges();
+
+      // Belt and braces: cards are already visible per `.variant-card { opacity: 1 }`.
+      // We add `will-enter` (opacity 0) THEN immediately swap to `has-entered`
+      // on the next frame so users see the staggered fade-in, but any JS error
+      // before this point still leaves cards visible.
+      const cards = document.querySelectorAll('.variant-card');
+      requestAnimationFrame(() => {
+        cards.forEach((c, i) => {
+          c.style.transitionDelay = `${i * 0.06}s`;
+          c.classList.remove('will-enter');
+          c.classList.add('has-entered');
+        });
+        // Clear the inline delays after entrance so subsequent transitions are unaffected
+        setTimeout(() => cards.forEach(c => { c.style.transitionDelay = ''; }), 1000);
+      });
+    }
+
+    function refreshCardBadges() {
+      document.querySelectorAll('[data-cart-badge]').forEach(el => {
+        const k = el.getAttribute('data-cart-badge');
+        const n = (cart[k] || []).length;
+        if (n > 0) {
+          el.textContent = `${n} in cart`;
+          el.classList.add('is-visible');
+        } else {
+          el.classList.remove('is-visible');
+        }
+      });
+    }
+
+    function probeScreenshots() {
+      document.querySelectorAll('.card-thumb').forEach(thumb => {
+        const src = thumb.getAttribute('data-full');
+        if (!src) { thumb.classList.add('is-missing'); return; }
+        const probe = new Image();
+        probe.onerror = () => thumb.classList.add('is-missing');
+        probe.src = src;
+      });
+    }
+
+    // Hover-to-scroll preview on the gallery cards. Pure rAF + background-position
+    // animation — no CSS animation, no library. Works identically under file:// and localhost.
+    function wireScrollAnimations() {
+      const SCROLL_DURATION = 3500, RETURN_SPEED = 4;
+      document.querySelectorAll('.variant-card').forEach(card => {
+        const thumb = card.querySelector('.card-thumb');
+        if (!thumb) return;
+        let raf, pct = 0;
+        function scrollDown(ts, startTs) {
+          if (!startTs) startTs = ts;
+          pct = Math.min(((ts - startTs) / SCROLL_DURATION) * 100, 100);
+          thumb.style.backgroundPosition = `0% ${pct}%`;
+          if (pct < 100) raf = requestAnimationFrame(t => scrollDown(t, startTs));
+        }
+        function snapBack() {
+          cancelAnimationFrame(raf);
+          function step() {
+            pct = Math.max(0, pct - RETURN_SPEED);
+            thumb.style.backgroundPosition = `0% ${pct}%`;
+            if (pct > 0) raf = requestAnimationFrame(step);
+          }
+          raf = requestAnimationFrame(step);
+        }
+        card.addEventListener('mouseenter', () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(ts => scrollDown(ts, null));
+        });
+        card.addEventListener('mouseleave', snapBack);
+      });
+    }
+
+    // ================= ZOOM =================
+    window.zoomIn = function (index) {
+      currentIndex = index;
+      isZoomed = true;
+      const v = VARIANTS[index];
+
+      document.getElementById('gallery').classList.add('is-zoomed');
+      document.getElementById('zoomOverlay').classList.add('is-active');
+      document.getElementById('zoomPanel').classList.add('is-active');
+
+      document.getElementById('zoomCounter').textContent = `${index + 1} / ${VARIANTS.length}`;
+      document.getElementById('zoomPrevBtn').disabled = index === 0;
+      document.getElementById('zoomNextBtn').disabled = index === VARIANTS.length - 1;
+
+      // srcdoc instead of src — works under file:// because the iframe content
+      // is supplied as a string, not loaded from a URL.
+      const iframe = document.getElementById('zoomIframe');
+      iframe.srcdoc = v.srcdoc || '<!doctype html><meta charset="utf-8"><body style="font-family:system-ui;padding:24px;color:#888">Variant HTML missing.</body>';
+
+      document.querySelectorAll('.variant-card').forEach((card, i) => {
+        card.style.opacity = i === index ? '1' : '0.4';
+      });
+
+      const concepts = CONCEPTS[v.key];
+      if (concepts) {
+        document.getElementById('zoomName').textContent = `${concepts.variant} — ${concepts.name}`;
+        document.getElementById('conceptPanelTitle').textContent = `${concepts.variant} — ${concepts.name}`;
+        document.getElementById('conceptPanelSummary').textContent = concepts.summary || '';
+        renderConceptList(v, concepts);
+      } else {
+        document.getElementById('zoomName').textContent = `${v.label} — ${v.short}`;
+        document.getElementById('conceptPanelTitle').textContent = `${v.label} — ${v.short}`;
+        document.getElementById('conceptPanelSummary').textContent = v.teaser || '';
+        document.getElementById('conceptList').innerHTML = '<div style="padding: 20px; font-size: 12px; color: var(--text-weaker); font-style: italic;">No concepts annotated for this variant.</div>';
+      }
+
+      refreshConceptToggleCount(v.key);
+    };
+
+    window.zoomOut = function () {
+      isZoomed = false;
+      currentIndex = -1;
+      closeConceptPanel();
+      document.getElementById('zoomOverlay').classList.remove('is-active');
+      document.getElementById('zoomPanel').classList.remove('is-active');
+      document.getElementById('gallery').classList.remove('is-zoomed');
+      // Clear srcdoc after transition completes so the iframe stops running scripts
+      setTimeout(() => { if (!isZoomed) document.getElementById('zoomIframe').srcdoc = ''; }, 320);
+      document.querySelectorAll('.variant-card').forEach(card => { card.style.opacity = '1'; });
+      refreshCardBadges();
+    };
+
+    window.zoomPrev = function () { if (currentIndex > 0) window.zoomIn(currentIndex - 1); };
+    window.zoomNext = function () { if (currentIndex < VARIANTS.length - 1) window.zoomIn(currentIndex + 1); };
+
+    // ================= CONCEPT PANEL =================
+    window.toggleConceptPanel = function () {
+      conceptPanelOpen = !conceptPanelOpen;
+      const panel = document.getElementById('conceptPanel');
+      const btn = document.getElementById('conceptsToggle');
+      panel.classList.toggle('is-open', conceptPanelOpen);
+      btn.classList.toggle('is-active', conceptPanelOpen);
+    };
+    function closeConceptPanel() {
+      if (!conceptPanelOpen) return;
+      conceptPanelOpen = false;
+      document.getElementById('conceptPanel').classList.remove('is-open');
+      document.getElementById('conceptsToggle').classList.remove('is-active');
+    }
+
+    function refreshConceptToggleCount(variantKey) {
+      const n = (cart[variantKey] || []).length;
+      const el = document.getElementById('conceptsToggleCount');
+      if (n > 0) {
+        el.textContent = n;
+        el.style.display = 'inline-block';
+        el.classList.remove('bump');
+        // force reflow to restart animation
+        void el.offsetWidth;
+        el.classList.add('bump');
+      } else {
+        el.style.display = 'none';
+      }
+    }
+
+    function renderConceptList(variant, data) {
+      const list = document.getElementById('conceptList');
+      list.innerHTML = (data.concepts || []).map(c => {
+        const added = cartHas(variant.key, c.id);
+        return `
+          <div class="concept-item ${added ? 'is-added' : ''}" data-concept="${escapeAttr(c.id)}" data-variant="${escapeAttr(variant.key)}">
+            <div class="concept-item-name">
+              ${escapeHtml(c.name)}
+              <span class="concept-item-id">${escapeHtml(c.id)}</span>
+            </div>
+            <div class="concept-item-desc">${escapeHtml(c.desc)}</div>
+            <button class="concept-add-btn" onclick="handleAddConcept('${escapeAttr(variant.key)}', '${escapeAttr(c.id)}', this)">
+              <span class="add-label">${buttonLabel(added)}</span>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function buttonLabel(added) {
+      return added
+        ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Added to prompt`
+        : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Add to prompt`;
+    }
+
+    window.handleAddConcept = function (variantKey, conceptId, btnEl) {
+      const willAdd = !cartHas(variantKey, conceptId);
+      if (willAdd) cartAdd(variantKey, conceptId);
+      else cartRemove(variantKey, conceptId);
+
+      const item = document.querySelector(`[data-concept="${cssEscape(conceptId)}"][data-variant="${cssEscape(variantKey)}"]`);
+      if (item) {
+        item.classList.toggle('is-added', willAdd);
+        const label = item.querySelector('.concept-add-btn .add-label');
+        if (label) label.innerHTML = buttonLabel(willAdd);
+        if (willAdd) bumpCartButton();
+      }
+      refreshAllCartIndicators();
+    };
+
+    function bumpCartButton() {
+      const btn = document.getElementById('cartBtn');
+      const cnt = document.getElementById('cartCount');
+      [btn, cnt].forEach(el => {
+        el.classList.remove('bump');
+        void el.offsetWidth;
+        el.classList.add('bump');
+      });
+    }
+
+    function refreshAllCartIndicators() {
+      const count = cartCount();
+      const btn = document.getElementById('cartBtn');
+      const cnt = document.getElementById('cartCount');
+      cnt.textContent = count;
+      if (count > 0) {
+        cnt.classList.remove('is-zero');
+        btn.classList.add('has-items');
+      } else {
+        cnt.classList.add('is-zero');
+        btn.classList.remove('has-items');
+      }
+      if (currentIndex >= 0) refreshConceptToggleCount(VARIANTS[currentIndex].key);
+      refreshCardBadges();
+      if (document.getElementById('cartModal').classList.contains('is-active')) {
+        renderCartModal();
+      }
+    }
+
+    // ================= CART MODAL =================
+    window.openCart = function () {
+      renderCartModal();
+      document.getElementById('cartModal').classList.add('is-active');
+    };
+    window.closeCart = function () {
+      document.getElementById('cartModal').classList.remove('is-active');
+    };
+
+    function renderCartModal() {
+      const count = cartCount();
+      document.getElementById('cartModalCount').textContent = count;
+      document.getElementById('cartClearBtn').disabled = count === 0;
+      document.getElementById('cartCopyBtn').disabled = count === 0;
+
+      const body = document.getElementById('cartBody');
+      if (count === 0) {
+        body.innerHTML = `
+          <div class="cart-empty">
+            Nothing in your cart yet.
+            <div class="cart-empty-hint">Open a variant → click "View concepts" → add the ones you want.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const groups = VARIANTS.filter(v => cart[v.key]?.length).map(v => {
+        const data = CONCEPTS[v.key];
+        const chips = cart[v.key].map(cid => {
+          const c = data?.concepts?.find(c => c.id === cid);
+          const label = c ? c.name : cid;
+          return `
+            <span class="cart-chip">
+              ${escapeHtml(label)}
+              <span class="cart-chip-id">${escapeHtml(cid)}</span>
+              <button class="cart-chip-remove" onclick="cartRemoveAndRefresh('${escapeAttr(v.key)}', '${escapeAttr(cid)}')" title="Remove">×</button>
+            </span>
+          `;
+        }).join('');
+        return `
+          <div class="cart-group">
+            <div class="cart-group-header">
+              <span class="cart-group-pill">${escapeHtml(v.label)}</span>
+              ${escapeHtml(v.short)}
+              <span style="color: var(--text-weaker); font-weight: 500;">· ${cart[v.key].length} selected</span>
+            </div>
+            <div class="cart-chips">${chips}</div>
+          </div>
+        `;
+      }).join('');
+
+      const commentary = loadCommentary();
+      body.innerHTML = `
+        ${groups}
+        <div class="cart-commentary">
+          <div class="cart-commentary-label">What do you want Claude to do with these?</div>
+          <textarea
+            id="cartCommentary"
+            placeholder="e.g. Combine A's stats-row with C's victory-glow-gradient into a new variant G. Keep the data density but make it more celebratory."
+            oninput="saveCommentary(this.value)"
+          >${escapeHtml(commentary)}</textarea>
+        </div>
+      `;
+    }
+
+    window.cartRemoveAndRefresh = function (variantKey, conceptId) {
+      cartRemove(variantKey, conceptId);
+      renderCartModal();
+      if (isZoomed && VARIANTS[currentIndex]?.key === variantKey) {
+        const item = document.querySelector(`[data-concept="${cssEscape(conceptId)}"][data-variant="${cssEscape(variantKey)}"]`);
+        if (item) {
+          item.classList.remove('is-added');
+          const label = item.querySelector('.concept-add-btn .add-label');
+          if (label) label.innerHTML = buttonLabel(false);
+        }
+      }
+      refreshAllCartIndicators();
+    };
+
+    window.clearCart = function () {
+      if (!confirm('Clear all concepts from your prompt cart?')) return;
+      cart = {};
+      saveCart();
+      saveOrder([]);
+      refreshAllCartIndicators();
+      if (isZoomed) {
+        const v = VARIANTS[currentIndex];
+        const data = CONCEPTS[v.key];
+        if (data) renderConceptList(v, data);
+      }
+    };
+
+    // ================= COPY PROMPT =================
+    window.copyPrompt = async function () {
+      const lines = [];
+      lines.push(`## Selected concepts from ${BOARD_TITLE} riff`);
+      if (SURFACE_LABEL) lines.push(`**Surface:** ${SURFACE_LABEL} (\`${SURFACE}\`)`);
+      lines.push('');
+
+      // Build selections in cart pick-order (cartVariantOrder), not A→F
+      const order = loadOrder();
+      const allKeys = VARIANTS.map(v => v.key);
+      const orderedKeys = [...new Set([...order, ...allKeys])].filter(k => (cart[k] || []).length > 0);
+
+      const selections = [];
+      for (const key of orderedKeys) {
+        const v = VARIANTS.find(v => v.key === key);
+        if (!v) continue;
+        const ids = cart[key] || [];
+        if (ids.length === 0) continue;
+        const data = CONCEPTS[key];
+        const filename = v.file || `variant-${key}.html`;
+        lines.push(`### Variant ${v.label} — ${v.short} (\`${filename}\`)`);
+        lines.push('');
+        if (data && data.summary) lines.push(`> ${data.summary}`);
+        lines.push('');
+        // Inline screenshot reference for visual context
+        const screenshotPath = `${PROJECT_DIR}/${key}/assets/full-${key}.jpg`;
+        lines.push(`![Variant ${v.label} screenshot](file://${screenshotPath})`);
+        lines.push('');
+        for (const cid of ids) {
+          const c = data?.concepts?.find(c => c.id === cid);
+          const name = c ? c.name : cid;
+          const desc = c ? c.desc : '';
+          lines.push(`- **${name}** (\`${cid}\`)${desc ? ' — ' + desc : ''}`);
+        }
+        lines.push('');
+        selections.push({
+          variant: v.label, key,
+          file: filename,
+          screenshot: `assets/full-${key}.jpg`,
+          name: v.short,
+          summary: data?.summary || '',
+          concepts: ids,
+        });
+      }
+
+      const commentary = loadCommentary().trim();
+      if (commentary) {
+        lines.push('---');
+        lines.push('**What I want you to do:**');
+        lines.push('');
+        lines.push(commentary);
+        lines.push('');
+      }
+      // No placeholder when commentary is empty — omit the section entirely
+
+      // Fenced riff-handoff JSON block for deterministic downstream ingest
+      const handoff = {
+        type: 'riff-handoff',
+        version: 1,
+        boardName: BOARD_TITLE,
+        boardSlug: BOARD_SLUG,
+        surface: SURFACE,
+        surfaceLabel: SURFACE_LABEL,
+        projectDir: PROJECT_DIR,
+        selections,
+        instruction: commentary || null,
+      };
+      lines.push('```riff-handoff');
+      lines.push(JSON.stringify(handoff, null, 2));
+      lines.push('```');
+
+      const text = lines.join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(`Copied ${cartCount()} concepts to clipboard`);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showToast('Copied to clipboard'); }
+        catch { showToast('Copy failed — select the text manually'); }
+        ta.remove();
+      }
+    };
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('is-visible');
+      clearTimeout(t._hideTimer);
+      t._hideTimer = setTimeout(() => t.classList.remove('is-visible'), 1800);
+    }
+
+    // ================= UTIL =================
+    function escapeHtml(s) {
+      if (s === undefined || s === null) return '';
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+    function escapeAttr(s) {
+      // Safe for use inside single-quoted onclick="..." attributes
+      return String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+    function cssEscape(s) {
+      return (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
+    }
+
+    // ================= KEYBOARD =================
+    document.addEventListener('keydown', (e) => {
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (tag === 'textarea' || tag === 'input') return;
+
+      if (e.key === 'Escape') {
+        if (document.getElementById('cartModal').classList.contains('is-active')) { closeCart(); return; }
+        if (isZoomed && conceptPanelOpen) { closeConceptPanel(); return; }
+        if (isZoomed) zoomOut();
+        return;
+      }
+      if (isZoomed && e.key === 'ArrowLeft') { zoomPrev(); return; }
+      if (isZoomed && e.key === 'ArrowRight') { zoomNext(); return; }
+      if (isZoomed && (e.key === 'v' || e.key === 'V')) { toggleConceptPanel(); return; }
+      if (!isZoomed && (e.key === 'c' || e.key === 'C')) { openCart(); return; }
+      // Viewport toggle: M = mobile, D = desktop (works both zoomed and not)
+      if (e.key === 'm' || e.key === 'M') { setViewMode('mobile'); return; }
+      if (e.key === 'd' || e.key === 'D') { setViewMode('desktop'); return; }
+      if (!isZoomed && e.key >= '1' && e.key <= String(VARIANTS.length)) {
+        zoomIn(parseInt(e.key, 10) - 1);
+      }
+    });
+
+    // Logo hover — staggered letter hop using pure CSS animation
+    document.addEventListener('DOMContentLoaded', () => {
+      applyViewMode();
+      renderGallery();
+      refreshAllCartIndicators();
+
+      const logo = document.getElementById('riffLogo');
+      const letters = logo.querySelectorAll('.letter');
+      let riffBusy = false;
+      logo.addEventListener('mouseenter', () => {
+        if (riffBusy) return;
+        riffBusy = true;
+        letters.forEach((l, i) => {
+          setTimeout(() => {
+            l.classList.remove('bump');
+            void l.offsetWidth;
+            l.classList.add('bump');
+          }, i * 70);
+        });
+        setTimeout(() => { riffBusy = false; }, 70 * letters.length + 800);
+      });
+    });
+  </script>
+
+</body>
+</html>

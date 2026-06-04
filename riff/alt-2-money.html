@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Cash up front. Upside on top.</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D1B2A;
+    --bg-card: #13243A;
+    --bg-card-2: #1B2F4A;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.16);
+    --text: #FFFFFF;
+    --muted: rgba(255,255,255,0.6);
+    --faint: rgba(255,255,255,0.35);
+    --red: #E8002D;
+    --yellow: #FFC93C;
+    --green: #00D68F;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .back {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(255,255,255,0.06);
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    z-index: 100;
+  }
+  .back:hover { color: var(--yellow); border-color: var(--yellow); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* TOP BAR — like a fintech app */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+  .brand {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .brand .dot { color: var(--red); }
+  .topbar .live {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar .live .pulse {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(0,214,143,0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,214,143,0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(0,214,143,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,214,143,0); }
+  }
+
+  /* HERO */
+  .hero { padding: 80px 0 64px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-left .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--yellow);
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .h1 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 80px;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  .h1 .green { color: var(--green); }
+  .h1 .yellow { color: var(--yellow); }
+  .h1 .dim { color: var(--muted); font-weight: 800; }
+  .hero-sub {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .btn-pay {
+    background: var(--yellow);
+    color: var(--bg);
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 16px 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-pay:hover { background: white; }
+  .btn-ghost {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 16px 20px;
+    border-bottom: 1px solid transparent;
+  }
+  .btn-ghost:hover { color: var(--yellow); border-color: var(--yellow); }
+
+  /* MONEY CARD — receipt-like */
+  .money-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+  }
+  .money-card::before {
+    content: 'PAYOUT BREAKDOWN · SAMPLE';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--bg);
+    padding: 0 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--faint);
+  }
+  .mc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .mc-row:last-of-type { border-bottom: none; }
+  .mc-row.total {
+    border-top: 1px solid var(--border-strong);
+    border-bottom: none;
+    margin-top: 8px;
+    padding-top: 18px;
+  }
+  .mc-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .mc-amount {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--text);
+  }
+  .mc-amount.green { color: var(--green); }
+  .mc-amount.yellow { color: var(--yellow); }
+  .mc-amount.total { font-size: 32px; color: var(--yellow); }
+  .mc-note {
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .mc-footnote {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--faint);
+    font-family: var(--mono);
+    line-height: 1.6;
+  }
+
+  /* SECTION */
+  section { padding: 80px 0; border-top: 1px solid var(--border); }
+  .sec-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 12px;
+  }
+  .sec-h {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+    max-width: 760px;
+  }
+  .sec-h em { font-style: normal; color: var(--yellow); }
+  .sec-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* TWO STREAMS */
+  .streams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .stream {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 36px;
+    position: relative;
+  }
+  .stream.guaranteed { border-color: var(--green); }
+  .stream.upside { border-color: var(--yellow); }
+  .stream-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+  .stream.guaranteed .stream-label { background: rgba(0,214,143,0.12); color: var(--green); }
+  .stream.upside .stream-label { background: rgba(255,201,60,0.12); color: var(--yellow); }
+  .stream-amount {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+  .stream.guaranteed .stream-amount { color: var(--green); }
+  .stream.upside .stream-amount { color: var(--yellow); }
+  .stream-name {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .stream-desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .stream-meta {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .meta-item .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .meta-item .val {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  /* CALCULATOR */
+  .calc {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .calc-left .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+  }
+  .calc-left h3 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .calc-left p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .calc-controls .ctrl-row { margin-bottom: 24px; }
+  .ctrl-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .ctrl-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .ctrl-val {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--yellow);
+  }
+  input[type="range"] {
+    width: 100%;
+    appearance: none;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px; height: 20px;
+    background: var(--yellow);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--bg-card);
+  }
+  .calc-result {
+    margin-top: 28px;
+    background: var(--bg-card-2);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .calc-result .result-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .calc-result .result-amount {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 36px;
+    color: var(--yellow);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .calc-result .result-note {
+    font-size: 12px;
+    color: var(--faint);
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .calc-result .result-amount .plus { color: var(--green); }
+
+  /* TIER GRID */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .tier {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .tier.featured { border-color: var(--yellow); background: rgba(255,201,60,0.05); }
+  .tier-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tier-name {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .tier-followers {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .tier-row-amt {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-top: 1px dashed var(--border);
+    font-size: 13px;
+  }
+  .tier-row-amt:first-of-type { border-top: 1px solid var(--border-strong); padding-top: 12px; margin-top: 12px;}
+  .tier-row-amt .k {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .tier-row-amt .v {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    color: var(--yellow);
+  }
+  .tier.featured .badge {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: var(--yellow);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  /* PAYMENT FAQ — accordion-ish */
+  .faq {
+    border-top: 1px solid var(--border-strong);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    gap: 32px;
+  }
+  .faq-q {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--yellow);
+  }
+  .faq-a {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .faq-a strong { color: var(--text); font-family: 'Commissioner', sans-serif; }
+
+  /* FINAL */
+  .final {
+    text-align: center;
+    padding: 96px 0 64px;
+    border-top: 1px solid var(--border);
+  }
+  .final h2 {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .final h2 em { font-style: normal; color: var(--green); }
+  .final p { color: var(--muted); font-size: 17px; margin-bottom: 32px; }
+  .final .btn-pay { font-size: 17px; padding: 18px 36px; }
+
+  @media (max-width: 920px) {
+    .h1 { font-size: 52px; }
+    .sec-h { font-size: 30px; }
+    .hero-grid, .streams, .calc { grid-template-columns: 1fr; gap: 32px; }
+    .tier-grid { grid-template-columns: repeat(2, 1fr); }
+    .stream-amount { font-size: 42px; }
+    .final h2 { font-size: 36px; }
+    .faq-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← Riff gallery</a>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">CHANGE<span class="dot">.</span>ORG / AMBASSADORS</div>
+    <div class="live"><span class="pulse"></span> 342 ambassadors paid · Q1 2026</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-left">
+      <div class="label">∎ Change Ambassadors Program · payment summary</div>
+      <h1 class="h1"><span class="green">Cash up front.</span><br><span class="yellow">Upside</span> on top.<br><span class="dim">One petition.</span></h1>
+      <p class="hero-sub">A guaranteed advance the day you sign — plus a share of revenue every time someone signs your petition. Run the calculator. Pick your tier. Sign.</p>
+      <div class="cta-row">
+        <a href="#" class="btn-pay">Sign your contract →</a>
+        <a href="#calc" class="btn-ghost">Run the calculator first</a>
+      </div>
+    </div>
+
+    <div class="money-card">
+      <div class="mc-row">
+        <div>
+          <div class="mc-label">// Guaranteed advance</div>
+          <div class="mc-note">Paid 48hr after signing</div>
+        </div>
+        <div class="mc-amount green">$$$ – $$$$</div>
+      </div>
+      <div class="mc-row">
+        <div>
+          <div class="mc-label">// Promo revenue share</div>
+          <div class="mc-note">Variable · per signer</div>
+        </div>
+        <div class="mc-amount yellow">+ $$ – $$$$</div>
+      </div>
+      <div class="mc-row">
+        <div>
+          <div class="mc-label">// Brand bonuses (if eligible)</div>
+          <div class="mc-note">Pass-through, no markup</div>
+        </div>
+        <div class="mc-amount">+ $$</div>
+      </div>
+      <div class="mc-row total">
+        <div class="mc-label">// Total earnings potential</div>
+        <div class="mc-amount total">$$$$+</div>
+      </div>
+      <div class="mc-footnote">$ symbols shown to preserve advance-agnostic policy. Exact amount appears on your contract — locked before you sign.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO STREAMS -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Two payment streams. One signature.</div>
+    <h2 class="sec-h">Most brand deals pay you once. <em>We pay you twice.</em></h2>
+    <p class="sec-sub">A guaranteed advance for showing up. A revenue share for performance. You get one, the other, or both — depending on how well the petition lands.</p>
+
+    <div class="streams">
+      <div class="stream guaranteed">
+        <div class="stream-label">∎ Stream 01 · guaranteed</div>
+        <div class="stream-amount">$$$ – $$$$</div>
+        <div class="stream-name">Your advance</div>
+        <div class="stream-desc">Locked in before you sign. Paid 48 hours after signing. Yours regardless of how the petition performs. Tier-based, see below.</div>
+        <div class="stream-meta">
+          <div class="meta-item">
+            <div class="lbl">Paid</div>
+            <div class="val">48 hours</div>
+          </div>
+          <div class="meta-item">
+            <div class="lbl">Conditions</div>
+            <div class="val">None</div>
+          </div>
+        </div>
+      </div>
+      <div class="stream upside">
+        <div class="stream-label">∎ Stream 02 · variable</div>
+        <div class="stream-amount">+ $$ – $$$$</div>
+        <div class="stream-name">Promo revenue share</div>
+        <div class="stream-desc">A cut of the promo revenue Change.org earns when signers from your audience become paying supporters. Accrues for 90 days post-launch.</div>
+        <div class="stream-meta">
+          <div class="meta-item">
+            <div class="lbl">Paid</div>
+            <div class="val">~120 days</div>
+          </div>
+          <div class="meta-item">
+            <div class="lbl">Performance</div>
+            <div class="val">Per-signer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calc">
+  <div class="container">
+    <div class="sec-eyebrow">Estimate your variable upside</div>
+    <h2 class="sec-h">What promo revenue might look like <em>on top of</em> your advance.</h2>
+    <p class="sec-sub">Your advance is fixed. This estimates the variable revenue share — based on average performance of ambassadors with similar reach. Not a promise; an honest range.</p>
+
+    <div class="calc">
+      <div class="calc-left">
+        <div class="badge">∎ Promo revenue estimator</div>
+        <h3>Move the slider. See what creators with your reach typically earn from the revenue share.</h3>
+        <p>Excludes your advance entirely. Excludes any brand bonuses. Just the per-signer revenue share, modeled from Q1 2026 actuals.</p>
+      </div>
+      <div class="calc-controls">
+        <div class="ctrl-row">
+          <div class="ctrl-label">
+            <span class="ctrl-name">Your follower count</span>
+            <span class="ctrl-val" id="follower-display">250K</span>
+          </div>
+          <input type="range" min="10000" max="2000000" step="10000" value="250000" id="follower-slider" />
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">
+            <span class="ctrl-name">Engagement rate</span>
+            <span class="ctrl-val" id="eng-display">3.0%</span>
+          </div>
+          <input type="range" min="10" max="80" step="5" value="30" id="eng-slider" />
+        </div>
+        <div class="calc-result">
+          <div class="result-label">∎ Estimated revenue share (excl. advance)</div>
+          <div class="result-amount" id="revenue-output">$800<span class="plus"> – $2,400</span></div>
+          <div class="result-note">90-day accrual window · paid ~30 days after window closes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Tier structure</div>
+    <h2 class="sec-h">Four tiers. <em>Your tier sets your advance.</em></h2>
+    <p class="sec-sub">Tier is set by reach + engagement at the time of contracting. You'll see your specific tier and exact advance on your contract — never on this page.</p>
+
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tier-num">T1 // emerging</div>
+        <div class="tier-name">Emerging</div>
+        <div class="tier-followers">10K – 50K followers</div>
+        <div class="tier-row-amt"><span class="k">Advance</span><span class="v">$ – $$</span></div>
+        <div class="tier-row-amt"><span class="k">Rev. share</span><span class="v">+ $ – $$</span></div>
+      </div>
+      <div class="tier featured">
+        <div class="badge">MOST COMMON</div>
+        <div class="tier-num">T2 // established</div>
+        <div class="tier-name">Established</div>
+        <div class="tier-followers">50K – 250K followers</div>
+        <div class="tier-row-amt"><span class="k">Advance</span><span class="v">$$ – $$$</span></div>
+        <div class="tier-row-amt"><span class="k">Rev. share</span><span class="v">+ $$ – $$$</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-num">T3 // major</div>
+        <div class="tier-name">Major</div>
+        <div class="tier-followers">250K – 1M followers</div>
+        <div class="tier-row-amt"><span class="k">Advance</span><span class="v">$$$ – $$$$</span></div>
+        <div class="tier-row-amt"><span class="k">Rev. share</span><span class="v">+ $$$ – $$$$</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-num">T4 // headline</div>
+        <div class="tier-name">Headline</div>
+        <div class="tier-followers">1M+ followers</div>
+        <div class="tier-row-amt"><span class="k">Advance</span><span class="v">$$$$+</span></div>
+        <div class="tier-row-amt"><span class="k">Rev. share</span><span class="v">custom</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT FAQ -->
+<section>
+  <div class="container">
+    <div class="sec-eyebrow">Payment FAQ</div>
+    <h2 class="sec-h">The boring (important) stuff.</h2>
+    <p class="sec-sub">Money questions, answered straight. No fine print.</p>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">When do I get the advance?</div>
+        <div class="faq-a"><strong>48 hours after you sign.</strong> Direct deposit via Gigapay. We've processed 342 payouts — average actual time is 31 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When does revenue share pay out?</div>
+        <div class="faq-a"><strong>~120 days after petition launch.</strong> The petition accrues revenue for 90 days, then we close the window and pay out 30 days later. One single deposit.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What about taxes?</div>
+        <div class="faq-a"><strong>You're an independent contractor.</strong> We issue a 1099 in January for any year you earned $600+ from us. Set aside about 25-30% for taxes — we don't withhold.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">If the petition flops, do I still get paid?</div>
+        <div class="faq-a"><strong>Yes — the advance is yours regardless.</strong> The advance is for the work (creating + sharing). The revenue share is for the result. You always get the first; the second is upside.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a clawback if the petition gets pulled?</div>
+        <div class="faq-a"><strong>Only if you violate the content terms.</strong> Hate speech, fraud, posts that violate platform policy. Standard stuff. If we ever ask for the advance back, the contract spells out exactly why.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="container">
+  <div class="final">
+    <h2>Your advance is waiting.<br><em>Sign to see your number.</em></h2>
+    <p>Tier-locked advance · 48-hour payout · revenue share on top</p>
+    <a href="#" class="btn-pay">Sign your contract →</a>
+  </div>
+</div>
+
+<script>
+  const fSlider = document.getElementById('follower-slider');
+  const fDisplay = document.getElementById('follower-display');
+  const eSlider = document.getElementById('eng-slider');
+  const eDisplay = document.getElementById('eng-display');
+  const output = document.getElementById('revenue-output');
+
+  function fmt(n) {
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1) + 'M';
+    if (n >= 1_000) return Math.round(n / 1_000) + 'K';
+    return String(n);
+  }
+  function money(n) { return '$' + n.toLocaleString(); }
+
+  function update() {
+    const f = +fSlider.value;
+    const e = +eSlider.value / 1000; // 0.010 - 0.080
+    fDisplay.textContent = fmt(f);
+    eDisplay.textContent = (e * 100).toFixed(1) + '%';
+    // signers ≈ followers * engagement * 0.4 (petition-click conversion factor)
+    // revenue per signer ≈ $0.50 – $0.85
+    const baseSigners = f * e * 0.4;
+    const low  = Math.round(baseSigners * 0.50 / 50) * 50;
+    const high = Math.round(baseSigners * 0.85 / 50) * 50;
+    output.innerHTML = money(low) + '<span class="plus"> – ' + money(high) + '</span>';
+  }
+  fSlider.addEventListener('input', update);
+  eSlider.addEventListener('input', update);
+  update();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money First — Pre-contract hero · Change.org</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Commissioner', 'system-ui', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            sunrise: {
+              'bg-base':            '#FFFFFF',
+              'bg-raised':          '#F8F9FC',
+              'text-strong':        '#2D2F37',
+              'text-weak':          'rgba(58,62,73,0.8)',
+              'text-weaker':        'rgba(58,62,73,0.5)',
+              'accent-primary':     '#003193',
+              'stroke-weaker':      '#DDE0E9',
+              'brand-red':          '#E02822',
+              'yellow':             '#FFDB00',
+              'navy':               '#0D1B2A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card-shadow { box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 3px 19px rgba(58,41,62,0.06); }
+  </style>
+  <script type="application/json" id="riff-concepts">
+  {
+    "variant": "B",
+    "name": "Money First",
+    "summary": "Dark navy hero. Earnings range ($300–$3K+) is the first thing you see. Comparison stat below.",
+    "concepts": [
+      { "id": "dark-hero-full-bleed", "name": "Full-bleed dark navy hero", "desc": "Hero section is full-bleed navy (#0D1B2A) — makes the yellow earnings figure pop immediately on load." },
+      { "id": "earnings-range-large", "name": "Large earnings range as hero text", "desc": "$300–$3K+ rendered at 52px+ font weight 900 in yellow — the first thing the eye lands on." },
+      { "id": "tier-breakdown-card", "name": "Tier breakdown cards", "desc": "4 rows: Nano / Micro / Mid-tier / Macro with audience size and earnings range per tier. Shown inside the dark hero section." },
+      { "id": "comparison-53-white", "name": "53-clicks compare block (white section)", "desc": "After hero: white background section showing 53 clicks (us) vs 12 clicks (brand deals) side-by-side in two bordered cards." },
+      { "id": "not-brand-deal-list", "name": "'Not a brand deal' differentiator list", "desc": "Bulleted list: You pick the cause / Zero approval rounds / 3 posts total / No exclusivity. Each with a green check." },
+      { "id": "process-row-minimal", "name": "3-step process row", "desc": "Horizontal three-step row (numbered circles) at bottom: Launch → Share × 3 → Get paid. Minimal label text." },
+      { "id": "cta-on-yellow-band", "name": "CTA on yellow footer band", "desc": "Bottom CTA sits on a yellow band — contrasts with the white body section above it. Button is dark navy." },
+      { "id": "payment-speed-note", "name": "Payment speed callout", "desc": "'Paid within days via Gigapay' as a small info chip below the CTA — addresses a common hesitation." }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-sunrise-bg-base min-h-screen font-sans text-sunrise-text-strong">
+
+  <!-- DARK HERO -->
+  <section class="px-6 pt-5 pb-8" style="background:#0D1B2A">
+    <!-- Nav -->
+    <div class="flex items-center justify-between mb-10">
+      <span class="font-bold text-base tracking-tight text-white">change<span style="color:#FFDB00">.</span>org</span>
+      <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)">Invite only</span>
+    </div>
+
+    <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:rgba(255,255,255,0.4)">Change Ambassadors · Earnings range</p>
+
+    <div class="text-5xl font-black leading-none mb-2 tracking-tight" style="color:#FFDB00;letter-spacing:-0.04em">$300–$3K+</div>
+    <p class="text-sm mb-8" style="color:rgba(255,255,255,0.55)">per campaign · 3 posts total · your cause</p>
+
+    <!-- Tier breakdown -->
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center justify-between px-4 py-3 rounded-xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07)">
+        <div>
+          <span class="text-xs font-semibold text-white">Nano</span>
+          <span class="text-xs ml-2" style="color:rgba(255,255,255,0.4)">10K–50K followers</span>
+        </div>
+        <span class="text-sm font-bold text-white">$300–$700</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 rounded-xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07)">
+        <div>
+          <span class="text-xs font-semibold text-white">Micro</span>
+          <span class="text-xs ml-2" style="color:rgba(255,255,255,0.4)">50K–200K followers</span>
+        </div>
+        <span class="text-sm font-bold text-white">$700–$1,500</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 rounded-xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07)">
+        <div>
+          <span class="text-xs font-semibold text-white">Mid-tier</span>
+          <span class="text-xs ml-2" style="color:rgba(255,255,255,0.4)">200K–500K</span>
+        </div>
+        <span class="text-sm font-bold text-white">$1,500–$2,500</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 rounded-xl" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,219,0,0.25)">
+        <div>
+          <span class="text-xs font-semibold text-white">Macro</span>
+          <span class="text-xs ml-2" style="color:rgba(255,255,255,0.4)">500K+</span>
+        </div>
+        <span class="text-sm font-bold" style="color:#FFDB00">$2,500–$3,000+</span>
+      </div>
+    </div>
+    <p class="text-xs mt-3 text-center" style="color:rgba(255,255,255,0.3)">Exact tier + amount shown in your contract</p>
+  </section>
+
+  <!-- WHY US -->
+  <section class="px-6 py-8">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-5">Why this beats brand deals</p>
+
+    <!-- comparison -->
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="rounded-xl border-2 p-4" style="border-color:#FFDB00;background:#FFFDF4">
+        <p class="text-xs font-bold mb-2" style="color:#7A5000">✦ Change Ambassadors</p>
+        <div class="text-4xl font-black leading-none mb-1" style="color:#0D1B2A;letter-spacing:-0.04em">53</div>
+        <p class="text-xs text-sunrise-text-weak">avg. clicks per post · low restrictions</p>
+      </div>
+      <div class="rounded-xl border border-sunrise-stroke-weaker p-4 bg-sunrise-bg-raised">
+        <p class="text-xs font-bold mb-2 text-sunrise-text-weaker">Standard brand deal</p>
+        <div class="text-4xl font-black leading-none mb-1 text-sunrise-text-strong" style="letter-spacing:-0.04em">12</div>
+        <p class="text-xs text-sunrise-text-weak">avg. clicks per post · heavy restrictions</p>
+      </div>
+    </div>
+
+    <!-- differentiators -->
+    <div class="flex flex-col gap-3">
+      <div class="flex items-start gap-3 text-sm">
+        <span class="text-sunrise-fill-success font-bold flex-shrink-0">✓</span>
+        <span>You choose the cause — we never assign one</span>
+      </div>
+      <div class="flex items-start gap-3 text-sm">
+        <span class="text-sunrise-fill-success font-bold flex-shrink-0">✓</span>
+        <span>Zero content approvals or brand briefs</span>
+      </div>
+      <div class="flex items-start gap-3 text-sm">
+        <span class="text-sunrise-fill-success font-bold flex-shrink-0">✓</span>
+        <span>3 posts total — that's your entire commitment</span>
+      </div>
+      <div class="flex items-start gap-3 text-sm">
+        <span class="text-sunrise-fill-success font-bold flex-shrink-0">✓</span>
+        <span>Paid within days — no net-60 brand delays</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS ROW -->
+  <section class="px-6 pb-8">
+    <div class="flex items-start gap-0">
+      <div class="flex-1 text-center">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white mx-auto mb-2" style="background:#0D1B2A">1</div>
+        <p class="text-xs font-semibold text-sunrise-text-strong mb-1">Launch petition</p>
+        <p class="text-xs text-sunrise-text-weaker leading-snug">Your cause, co-written</p>
+      </div>
+      <div class="pt-4 text-sunrise-stroke-weak text-xs px-1">→</div>
+      <div class="flex-1 text-center">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white mx-auto mb-2" style="background:#0D1B2A">2</div>
+        <p class="text-xs font-semibold text-sunrise-text-strong mb-1">Share × 3</p>
+        <p class="text-xs text-sunrise-text-weaker leading-snug">Any format, your voice</p>
+      </div>
+      <div class="pt-4 text-sunrise-stroke-weak text-xs px-1">→</div>
+      <div class="flex-1 text-center">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white mx-auto mb-2" style="background:#0D1B2A">3</div>
+        <p class="text-xs font-semibold text-sunrise-text-strong mb-1">Get paid</p>
+        <p class="text-xs text-sunrise-text-weaker leading-snug">Days, via Gigapay</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- YELLOW FOOTER CTA -->
+  <section class="px-6 py-8" style="background:#FFDB00">
+    <h2 class="text-2xl font-black mb-2 text-sunrise-text-strong" style="letter-spacing:-0.025em">Your contract is ready.</h2>
+    <p class="text-sm text-sunrise-text-weak mb-6">Two minutes to review. One click to sign.</p>
+    <a href="#" class="flex items-center justify-center w-full py-4 rounded-xl font-bold text-base text-white" style="background:#0D1B2A">
+      Sign your contract →
+    </a>
+    <p class="text-xs text-sunrise-text-weak text-center mt-3">Paid within days of your last post via Gigapay</p>
+  </section>
+
+</body>
+</html>

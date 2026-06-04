@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Editorial — Pre-contract hero · Change.org</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Commissioner', 'system-ui', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            sunrise: {
+              'bg-base':            '#FFFFFF',
+              'bg-raised':          '#F5F4F0',
+              'text-strong':        '#2D2F37',
+              'text-weak':          'rgba(58,62,73,0.8)',
+              'text-weaker':        'rgba(58,62,73,0.5)',
+              'stroke-weaker':      '#DDE0E9',
+              'brand-red':          '#E02822',
+              'yellow':             '#FFDB00',
+              'navy':               '#0D1B2A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card-shadow { box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 3px 19px rgba(58,41,62,0.06); }
+    body { background: #F5F4F0; }
+  </style>
+  <script type="application/json" id="riff-concepts">
+  {
+    "variant": "D",
+    "name": "Data Editorial",
+    "summary": "Mood board: Pinterest-clean data viz. '53 clicks. 3 posts. Real pay.' Stats as the visual hero.",
+    "concepts": [
+      { "id": "chalk-bg", "name": "Chalk/off-white background", "desc": "Body background is #F5F4F0 (chalk) instead of pure white — editorial, warm, like a print publication. Mood board signal: clean data + alignment." },
+      { "id": "editorial-headline-three-stats", "name": "Editorial 3-stat headline", "desc": "'53 clicks. 3 posts. Real pay.' as the hero H1 — each phrase separated by periods, read as a sequence of facts, not a pitch." },
+      { "id": "data-row-viz", "name": "Data bar visualization row", "desc": "53 vs 12 shown as horizontal progress bars side-by-side — visual data comparison, no chart library needed." },
+      { "id": "stat-cards-masonry", "name": "Alternating colored stat cards", "desc": "Navy / Yellow / White / Red cards stacked vertically with a single large number and label each — inspired by Pinterest card grid." },
+      { "id": "full-bleed-nav-invert", "name": "Full-bleed dark header strip", "desc": "Top nav is a full-bleed navy strip with logo and invite chip — creates editorial 'magazine' feel." },
+      { "id": "process-as-data", "name": "Process steps as data table", "desc": "How-it-works rendered as a borderless two-column table: step label | description. Clean, information-dense, no decorative icons." },
+      { "id": "yellow-cta-on-dark", "name": "Yellow CTA on navy footer", "desc": "CTA sits on navy footer band — yellow button pops against dark. No section heading, just the action." },
+      { "id": "requirements-as-grid", "name": "Requirements as 3-item data grid", "desc": "1 petition / 3 share units / 1 link — three equal-width cells in a bordered grid row. Like a product spec table." }
+    ]
+  }
+  </script>
+</head>
+<body class="min-h-screen font-sans text-sunrise-text-strong" style="background:#F5F4F0">
+
+  <!-- DARK HEADER -->
+  <header class="px-6 py-4 flex items-center justify-between" style="background:#0D1B2A">
+    <span class="font-bold text-base tracking-tight text-white">change<span style="color:#FFDB00">.</span>org</span>
+    <span class="text-xs font-semibold px-3 py-1 rounded-full text-white" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15)">Invite only</span>
+  </header>
+
+  <!-- EDITORIAL HERO -->
+  <section class="px-6 pt-8 pb-6">
+    <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color:#E02822">Change Ambassadors</p>
+    <h1 class="font-black leading-tight mb-6" style="font-size:42px;letter-spacing:-0.04em;color:#0D1B2A;line-height:1.0">
+      53 clicks<span style="color:#E02822">.</span><br/>
+      3 posts<span style="color:#E02822">.</span><br/>
+      Real pay<span style="color:#E02822">.</span>
+    </h1>
+    <p class="text-sm text-sunrise-text-weak leading-relaxed mb-6">
+      Your audience drives 4× more action on causes than brand ads.
+      We're the only program that pays you for it — on something you actually believe in.
+    </p>
+
+    <!-- DATA BAR COMPARE -->
+    <div class="rounded-xl overflow-hidden" style="border:1px solid #DDE0E9">
+      <div class="px-4 pt-4 pb-3" style="background:#0D1B2A">
+        <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color:rgba(255,255,255,0.4)">Avg. clicks per post</p>
+        <div class="flex flex-col gap-3">
+          <div>
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="text-xs font-semibold text-white">Our program</span>
+              <span class="text-lg font-black" style="color:#FFDB00">53</span>
+            </div>
+            <div class="h-2 rounded-full" style="background:rgba(255,255,255,0.1)">
+              <div class="h-2 rounded-full" style="width:88%;background:#FFDB00"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="text-xs font-semibold" style="color:rgba(255,255,255,0.5)">Brand contracts</span>
+              <span class="text-lg font-black" style="color:rgba(255,255,255,0.6)">12</span>
+            </div>
+            <div class="h-2 rounded-full" style="background:rgba(255,255,255,0.1)">
+              <div class="h-2 rounded-full" style="width:23%;background:rgba(255,255,255,0.3)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-sunrise-bg-base">
+        <p class="text-xs text-sunrise-text-weaker">Under low restrictions vs. standard brand restrictions</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT CARDS -->
+  <section class="px-6 pb-6">
+    <div class="flex flex-col gap-3">
+      <!-- Navy card -->
+      <div class="rounded-xl px-5 py-4" style="background:#0D1B2A">
+        <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color:rgba(255,255,255,0.4)">Posts total</p>
+        <div class="text-5xl font-black leading-none" style="color:#FFFFFF;letter-spacing:-0.05em">3</div>
+        <p class="text-sm mt-2" style="color:rgba(255,255,255,0.6)">Your entire content commitment</p>
+      </div>
+      <!-- Yellow card -->
+      <div class="rounded-xl px-5 py-4" style="background:#FFDB00">
+        <p class="text-xs font-bold tracking-widest uppercase mb-2 text-sunrise-text-weaker">Earnings range</p>
+        <div class="text-5xl font-black leading-none text-sunrise-text-strong" style="letter-spacing:-0.05em">$300–$3K+</div>
+        <p class="text-sm mt-2 text-sunrise-text-weak">Per campaign · tier shown in contract</p>
+      </div>
+      <!-- White card -->
+      <div class="rounded-xl px-5 py-4 bg-sunrise-bg-base" style="border:1px solid #DDE0E9">
+        <p class="text-xs font-bold tracking-widest uppercase mb-2 text-sunrise-text-weaker">Brand approvals required</p>
+        <div class="text-5xl font-black leading-none text-sunrise-text-strong" style="letter-spacing:-0.05em">0</div>
+        <p class="text-sm mt-2 text-sunrise-text-weak">No briefs. No mood boards. No reviews.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REQUIREMENTS GRID -->
+  <section class="px-6 pb-6">
+    <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color:#E02822">The commitment</p>
+    <div class="rounded-xl overflow-hidden" style="border:1px solid #DDE0E9">
+      <div class="grid grid-cols-3">
+        <div class="text-center py-4 px-2 border-r" style="border-color:#DDE0E9;background:#F8F9FC">
+          <div class="text-2xl font-black text-sunrise-text-strong">1</div>
+          <p class="text-xs text-sunrise-text-weak mt-1 leading-snug">petition you create</p>
+        </div>
+        <div class="text-center py-4 px-2 border-r" style="border-color:#DDE0E9;background:#F8F9FC">
+          <div class="text-2xl font-black text-sunrise-text-strong">3</div>
+          <p class="text-xs text-sunrise-text-weak mt-1 leading-snug">share units, any format</p>
+        </div>
+        <div class="text-center py-4 px-2" style="background:#F8F9FC">
+          <div class="text-2xl font-black text-sunrise-text-strong">1</div>
+          <p class="text-xs text-sunrise-text-weak mt-1 leading-snug">link in bio while active</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS TABLE -->
+  <section class="px-6 pb-8">
+    <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color:#E02822">How it works</p>
+    <div class="flex flex-col divide-y rounded-xl overflow-hidden bg-sunrise-bg-base" style="border:1px solid #DDE0E9">
+      <div class="px-4 py-4 grid grid-cols-5 gap-3 items-start">
+        <span class="text-xs font-bold text-sunrise-text-weaker col-span-1">01</span>
+        <div class="col-span-4">
+          <p class="text-sm font-semibold text-sunrise-text-strong mb-0.5">Launch a petition</p>
+          <p class="text-xs text-sunrise-text-weak leading-relaxed">Pick your cause. We co-draft. You publish on Change.org.</p>
+        </div>
+      </div>
+      <div class="px-4 py-4 grid grid-cols-5 gap-3 items-start">
+        <span class="text-xs font-bold text-sunrise-text-weaker col-span-1">02</span>
+        <div class="col-span-4">
+          <p class="text-sm font-semibold text-sunrise-text-strong mb-0.5">Share it 3 times</p>
+          <p class="text-xs text-sunrise-text-weak leading-relaxed">Feed, stories, reels — your format, your words.</p>
+        </div>
+      </div>
+      <div class="px-4 py-4 grid grid-cols-5 gap-3 items-start">
+        <span class="text-xs font-bold text-sunrise-text-weaker col-span-1">03</span>
+        <div class="col-span-4">
+          <p class="text-sm font-semibold text-sunrise-text-strong mb-0.5">Get paid</p>
+          <p class="text-xs text-sunrise-text-weak leading-relaxed">Gigapay within days. No invoice, no chasing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK FOOTER CTA -->
+  <section class="px-6 py-8" style="background:#0D1B2A">
+    <p class="text-sm font-medium mb-4" style="color:rgba(255,255,255,0.6)">Your contract is ready to sign.</p>
+    <a href="#" class="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base text-sunrise-text-strong" style="background:#FFDB00">
+      Sign your contract →
+    </a>
+    <p class="text-xs text-center mt-3" style="color:rgba(255,255,255,0.35)">Exact compensation shown before you sign</p>
+  </section>
+
+</body>
+</html>

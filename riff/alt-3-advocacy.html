@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Your platform, used on purpose.</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper: #FAF6EE;
+    --paper-warm: #F2EBDB;
+    --ink: #1A1A1A;
+    --ink-soft: #3A3833;
+    --muted: #6F6A60;
+    --line: #DAD3C2;
+    --red: #C8001F;
+    --yellow: #F5BA1F;
+    --navy: #1F2E3D;
+    --moss: #4A6651;
+  }
+
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .back {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(255,255,255,0.7);
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    z-index: 100;
+    backdrop-filter: blur(4px);
+  }
+  .back:hover { color: var(--red); border-color: var(--red); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+  /* MASTHEAD — like a magazine */
+  .masthead {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 24px 0 18px;
+    text-align: center;
+  }
+  .masthead .pub {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .masthead .issue {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .masthead .issue span { margin: 0 8px; }
+
+  /* HERO ESSAY */
+  .essay {
+    padding: 112px 0 96px;
+    border-bottom: 1px solid var(--line);
+  }
+  .essay .label {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .essay .label::before,
+  .essay .label::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--red);
+    vertical-align: middle;
+    margin: 0 16px;
+  }
+  .essay h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 76px;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .essay h1 em {
+    font-style: italic;
+    color: var(--red);
+    font-weight: 600;
+  }
+  .essay .dek {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 48px;
+  }
+  .byline {
+    text-align: center;
+    font-family: 'Commissioner', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .byline strong { color: var(--ink); font-weight: 600; }
+
+  /* PROBLEM ESSAY BLOCK */
+  .problem {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-label {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+  .essay-h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .essay-h2 em { font-style: italic; color: var(--red); }
+  .essay-body p {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .essay-body p.lede::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 64px;
+    float: left;
+    line-height: 0.85;
+    margin: 8px 12px 0 0;
+    color: var(--red);
+  }
+
+  /* PULL QUOTE */
+  .pullquote {
+    padding: 64px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 64px 0;
+    text-align: center;
+  }
+  .pullquote .mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .pullquote p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 720px;
+    margin: 0 auto 24px;
+  }
+  .pullquote .attrib {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pullquote .attrib strong { color: var(--ink); font-weight: 700; }
+
+  /* CAUSES */
+  .causes-section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .causes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .cause {
+    border-top: 2px solid var(--ink);
+    padding-top: 24px;
+  }
+  .cause-num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .cause-cat {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .cause-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .cause-author {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .cause-author strong { color: var(--ink); font-weight: 600; }
+  .cause-stat {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    padding-top: 16px;
+    border-top: 1px dotted var(--line);
+  }
+  .cause-stat .num {
+    font-family: 'Fraunces', serif;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--red);
+    font-size: 17px;
+  }
+
+  /* VALUES — "what we believe" */
+  .values {
+    padding: 96px 0;
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--line);
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .belief {
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+  }
+  .belief .num {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .belief h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .belief h3 em { font-style: italic; color: var(--red); }
+  .belief p {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* CATEGORIES (cause areas) */
+  .cats-section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .cat-chip {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 100px;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .cat-chip:hover { background: var(--ink); color: var(--paper); }
+  .cats-note {
+    margin-top: 32px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 580px;
+  }
+
+  /* THE OFFER (small print on the deal) */
+  .offer {
+    padding: 96px 0;
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--line);
+  }
+  .offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 32px;
+  }
+  .offer-h {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .offer-grid .col p {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .offer-grid .col ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .offer-grid .col li {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    border-bottom: 1px dotted var(--line);
+  }
+  .offer-grid .col li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-size: 28px;
+    line-height: 0.5;
+    top: 16px;
+  }
+
+  /* FINAL */
+  .final {
+    padding: 128px 32px;
+    text-align: center;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .final .pre {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 32px;
+  }
+  .final h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final h2 em { font-style: italic; color: var(--yellow); }
+  .final p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(250,246,238,0.7);
+    max-width: 540px;
+    margin: 0 auto 40px;
+  }
+  .btn {
+    display: inline-block;
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 18px 36px;
+    border-radius: 4px;
+  }
+  .btn:hover { background: var(--paper); }
+  .ghost {
+    display: inline-block;
+    margin-left: 12px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(250,246,238,0.65);
+    padding: 18px 8px;
+    border-bottom: 1px solid rgba(250,246,238,0.3);
+  }
+  .ghost:hover { color: var(--yellow); border-color: var(--yellow); }
+
+  footer {
+    padding: 24px 0;
+    text-align: center;
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 820px) {
+    .essay h1 { font-size: 48px; }
+    .essay-h2 { font-size: 32px; }
+    .final h2 { font-size: 36px; }
+    .pullquote p { font-size: 22px; }
+    .causes-grid, .values-grid, .offer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← Riff gallery</a>
+
+<!-- MASTHEAD -->
+<div class="container">
+  <div class="masthead">
+    <div class="pub">The Change Ambassadors Program</div>
+    <div class="issue"><span>Issue 04</span>·<span>For creators considering the partnership</span>·<span>Spring 2026</span></div>
+  </div>
+</div>
+
+<!-- HERO ESSAY -->
+<header class="essay">
+  <div class="narrow">
+    <div class="label">An invitation</div>
+    <h1>Your platform built something. <em>Aim it at something that matters.</em></h1>
+    <p class="dek">You earned your audience by being yourself. We're asking you to be exactly that — for a cause you already care about — and we'll pay you for it.</p>
+    <div class="byline"><strong>From Kelsey Kindall</strong> · Brand Growth · Change.org</div>
+  </div>
+</header>
+
+<!-- PROBLEM ESSAY -->
+<section class="problem">
+  <div class="narrow">
+    <div class="section-label">The problem with brand deals</div>
+    <h2 class="essay-h2">Most sponsorships ask you to be <em>slightly less yourself.</em></h2>
+    <div class="essay-body">
+      <p class="lede">A script you didn't write. A product you wouldn't use. A caption your manager negotiated. The brand pays for your reach — and quietly muffles the thing that built it. Your audience can tell. Engagement drops. The next deal pays a little less.</p>
+
+      <p>This is the opposite of that.</p>
+
+      <p>We're not asking you to read our copy. We're asking you to write yours — about a cause you already speak to, in a voice your audience already trusts. A research study at Stanford last year showed creators under low-restriction contracts generated <strong>53 clicks per post</strong>, versus 14 under standard ones. The thing that converts is the thing you'd post anyway.</p>
+
+      <p>We pay for that. Up front. With upside if it scales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="narrow">
+  <div class="pullquote">
+    <div class="mark">"</div>
+    <p>The messenger is as important as the message.</p>
+    <div class="attrib"><strong>Ad Council</strong> · Creators for Good Initiative</div>
+  </div>
+</div>
+
+<!-- CAUSES -->
+<section class="causes-section">
+  <div class="container">
+    <div class="section-label">Recent ambassador petitions</div>
+    <h2 class="essay-h2">What this looks like when it works.</h2>
+
+    <div class="causes-grid">
+      <div class="cause">
+        <div class="cause-num">N° 01</div>
+        <div class="cause-cat">Sustainable Fashion</div>
+        <div class="cause-title">"Ban deceptive 'eco' labels on fast-fashion garments."</div>
+        <div class="cause-author">by <strong>Maya Chen</strong>, 412K followers</div>
+        <div class="cause-stat"><span class="num">87,000</span> signatures in six weeks · brand partner outreach now active</div>
+      </div>
+      <div class="cause">
+        <div class="cause-num">N° 02</div>
+        <div class="cause-cat">Civics + Youth</div>
+        <div class="cause-title">"Restore civics as a required course in U.S. high schools."</div>
+        <div class="cause-author">by <strong>Jordan Reyes</strong>, 156K followers</div>
+        <div class="cause-stat"><span class="num">142,000</span> signatures · cited in two state legislative briefs</div>
+      </div>
+      <div class="cause">
+        <div class="cause-num">N° 03</div>
+        <div class="cause-cat">Public Health</div>
+        <div class="cause-title">"Require menstrual product access in every public school."</div>
+        <div class="cause-author">by <strong>Dr. Aisha Patel</strong>, 89K followers</div>
+        <div class="cause-stat"><span class="num">63,500</span> signatures · policy adopted in three districts to date</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES — "what we believe" -->
+<section class="values">
+  <div class="container">
+    <div class="section-label">What we believe</div>
+    <h2 class="essay-h2">Five things we hold to <em>before</em> we ever talk money.</h2>
+
+    <div class="values-grid">
+      <div class="belief">
+        <div class="num">N° 01</div>
+        <h3>Your voice is the asset. <em>Not your reach.</em></h3>
+        <p>We don't optimize for follower count. We optimize for whether your audience actually listens when you speak on a topic. Trust is the unit, not impressions.</p>
+      </div>
+      <div class="belief">
+        <div class="num">N° 02</div>
+        <h3>You pick the cause.</h3>
+        <p>If we wanted you to argue our position, we'd hire a copywriter. We want you to argue your own — about something your audience already trusts you on.</p>
+      </div>
+      <div class="belief">
+        <div class="num">N° 03</div>
+        <h3>Money should be <em>honest, not hidden.</em></h3>
+        <p>Guaranteed advance up front. Promo revenue share on top. No "we'll send you free product." No barter. Real money, predictable structure, on the contract.</p>
+      </div>
+      <div class="belief">
+        <div class="num">N° 04</div>
+        <h3>Selective is a feature.</h3>
+        <p>We turn down most creators we evaluate. The roster stays small on purpose. When you're in, you're in because your voice carries — not because we hit a quota.</p>
+      </div>
+      <div class="belief">
+        <div class="num">N° 05</div>
+        <h3>The work outlives the post.</h3>
+        <p>Brand deals expire. Petitions don't. Three years from now your petition could still be cited in a legislative brief. That outcome is what we mean by "this matters."</p>
+      </div>
+      <div class="belief">
+        <div class="num">N° 06</div>
+        <h3>If it doesn't feel right, <em>don't sign.</em></h3>
+        <p>Book a call with Kelsey before you commit to anything. We'd rather walk away than ship a partnership that doesn't fit. Your audience will be there next year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats-section">
+  <div class="container">
+    <div class="section-label">Causes our ambassadors petition for</div>
+    <h2 class="essay-h2">Pick something you'd post about <em>regardless.</em></h2>
+    <div class="cats-row">
+      <span class="cat-chip">Climate + Environment</span>
+      <span class="cat-chip">Reproductive Rights</span>
+      <span class="cat-chip">Public Health</span>
+      <span class="cat-chip">Education + Civics</span>
+      <span class="cat-chip">Racial Justice</span>
+      <span class="cat-chip">LGBTQ+ Rights</span>
+      <span class="cat-chip">Animal Welfare</span>
+      <span class="cat-chip">Workers' Rights</span>
+      <span class="cat-chip">Mental Health</span>
+      <span class="cat-chip">Housing + Homelessness</span>
+      <span class="cat-chip">Disability Justice</span>
+      <span class="cat-chip">Press Freedom</span>
+      <span class="cat-chip">Gun Safety</span>
+      <span class="cat-chip">Food + Hunger</span>
+      <span class="cat-chip">Immigration</span>
+    </div>
+    <p class="cats-note">Or propose one we haven't listed. About a third of our ambassador petitions don't fit a category we'd have predicted.</p>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer">
+  <div class="container">
+    <div class="section-label">For the practical question you're going to ask anyway</div>
+    <h2 class="essay-h2">The partnership, plainly stated.</h2>
+
+    <div class="offer-grid">
+      <div class="col">
+        <div class="offer-h">What you do.</div>
+        <ul>
+          <li>Sign the contract (DocuSign, ~5 minutes).</li>
+          <li>Pick a cause and draft a petition. We help if you'd like; we don't override your voice.</li>
+          <li>Share it three times across your platforms, in your style, on your schedule.</li>
+          <li>Stay reachable for ~8 weeks for promo questions.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="offer-h">What we do.</div>
+        <ul>
+          <li>Pay you a guaranteed advance within 48 hours of signing. The amount is on your contract — locked, tier-based, never guessed at.</li>
+          <li>Pay a revenue share for every signer your audience drives, accrued over 90 days.</li>
+          <li>Provide a real human (Kelsey) to answer any question, fast.</li>
+          <li>Tell the truth, including when the answer is uncomfortable.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="pre">·  An invitation to sign  ·</div>
+  <h2>If you've read this far, you're <em>probably the right person.</em></h2>
+  <p>Sign your contract or book a fifteen-minute call. Either is a real start.</p>
+  <a href="#" class="btn">Sign your contract →</a>
+  <a href="#" class="ghost">or book a call with Kelsey</a>
+</section>
+
+<footer>
+  Change.org · The Change Ambassadors Program · 2026
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Riff Board — Pre-Contract Landing · Change.org Design</title>
+  <style>
+    :root { --red: #E8003E; --dark: #1D1D1D; --gray: #767676; --border: #E0E0E0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #EFEFEF; color: var(--dark); -webkit-font-smoothing: antialiased; }
+
+    /* BOARD HEADER */
+    .board-header {
+      background: var(--dark);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .board-title { color: white; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+    .board-title span { color: var(--red); }
+    .board-sub { color: rgba(255,255,255,0.45); font-size: 12px; margin-top: 2px; }
+    .board-meta { text-align: right; }
+    .board-count { color: rgba(255,255,255,0.45); font-size: 12px; }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 24px;
+    }
+
+    /* VARIANT CARD */
+    .card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.1); }
+
+    /* CARD HEADER */
+    .card-header {
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-id {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 3px;
+    }
+    .card-name { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .card-concepts { font-size: 11px; color: var(--gray); }
+
+    /* PREVIEW */
+    .preview-box {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      background: #f0f0f0;
+      cursor: pointer;
+      flex: 1;
+    }
+    .preview-box iframe {
+      width: 1280px;
+      height: 1400px;
+      border: none;
+      transform-origin: top left;
+      transform: scale(0.2969); /* 380/1280 */
+      pointer-events: none;
+    }
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      background: rgba(232, 0, 62, 0.08);
+      transition: opacity 0.2s;
+    }
+    .preview-box:hover .preview-overlay { opacity: 1; }
+    .preview-open-btn {
+      background: var(--red);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(232,0,62,0.4);
+    }
+
+    /* CARD FOOTER */
+    .card-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .card-direction {
+      font-size: 11px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    .view-link {
+      background: var(--dark);
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 99px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .view-link:hover { background: var(--red); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="board-header">
+  <div>
+    <div class="board-title">Riff Board — Pre-Contract Landing <span>·</span> Change.org Design</div>
+    <div class="board-sub">6 variants in Change.org's native design language · Click any preview to open full view</div>
+  </div>
+  <div class="board-meta">
+    <div class="board-count">6 variants · All content preserved · Calculator live in each</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- V1 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V1</div>
+        <div class="card-name">Change.org Standard</div>
+        <div class="card-concepts">Native · Product team aesthetic · Official program page</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v1.html" title="V1 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v1.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">White nav · alternating gray bands · standard card borders · red CTA</div>
+      <a href="v1.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+  <!-- V2 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V2</div>
+        <div class="card-name">Creator Program</div>
+        <div class="card-concepts">Marketing site · Benefit rows · Dark hero with stats panel</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v2.html" title="V2 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v2.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">Dark nav · two-col hero + stats card · numbered horizontal rows</div>
+      <a href="v2.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+  <!-- V3 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V3</div>
+        <div class="card-name">Cause Story</div>
+        <div class="card-concepts">Emotional · Petition-energy · Red hero + impact band</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v3.html" title="V3 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v3.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">Full red hero · dark stat strip · red play button · dark footer</div>
+      <a href="v3.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+  <!-- V4 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V4</div>
+        <div class="card-name">Minimal</div>
+        <div class="card-concepts">White space · Dividers only · Red as punctuation</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v4.html" title="V4 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v4.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">All white · 1px dividers · no cards · red only on logo + CTA</div>
+      <a href="v4.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+  <!-- V5 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V5</div>
+        <div class="card-name">Dashboard / Portal</div>
+        <div class="card-concepts">Sidebar nav · Progress tracker · Creator portal feel</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v5.html" title="V5 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v5.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">Sticky left sidebar · step progress bar · data table for deliverables</div>
+      <a href="v5.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+  <!-- V6 -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-id">V6</div>
+        <div class="card-name">Bold Typography</div>
+        <div class="card-concepts">Type-first · Giant stats · Hard grid lines</div>
+      </div>
+    </div>
+    <div class="preview-box">
+      <iframe src="v6.html" title="V6 preview" loading="lazy"></iframe>
+      <div class="preview-overlay">
+        <a href="v6.html" target="_blank" class="preview-open-btn">Open full →</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-direction">72px headline · 2px hard borders · red rule · display numbers throughout</div>
+      <a href="v6.html" target="_blank" class="view-link">View →</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

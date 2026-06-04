@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's a share unit? — Instagram First</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E8002D;--yellow:#FFDB00;
+  --bg:#FAF8F4;--text:#231226;--muted:rgba(35,18,38,.58);
+  --stroke:rgba(35,18,38,.08);
+}
+body{font-family:'Commissioner',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding:40px 24px 60px}
+.section{max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:10px}
+h2{font-size:24px;font-weight:700;letter-spacing:-.022em;line-height:1.2;margin-bottom:12px}
+.sub{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:28px}
+.sub strong{color:var(--text);font-weight:600}
+
+.visual{display:flex;gap:10px;align-items:flex-start;justify-content:center;margin-bottom:24px}
+.fmt{display:flex;flex-direction:column;align-items:center;gap:10px}
+.fmt-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.fmt-desc{font-size:10px;color:var(--muted);text-align:center;line-height:1.4;max-width:120px}
+.plus{font-size:18px;font-weight:300;color:var(--muted);align-self:center;padding-top:86px}
+.post{width:120px;height:200px;border-radius:10px;position:relative;overflow:hidden;font-family:-apple-system,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.20),0 1px 3px rgba(0,0,0,.12)}
+
+/* === Instagram Reel (primary) === */
+.post-reel{background:#000}
+.reel-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 45% 35%,rgba(178,33,33,.2) 0%,transparent 55%),
+             linear-gradient(175deg,#1A4D5C 0%,#0D2535 45%,#1B1020 100%)}
+.reel-topnav{position:absolute;top:0;left:0;right:0;height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 6px;z-index:5;
+  background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 100%)}
+.reel-topnav-left{display:flex;align-items:center;gap:3px}
+.reel-back{color:#fff;font-size:12px;opacity:.9}
+.reel-nav-text{font-size:7px;font-weight:700;color:#fff;letter-spacing:.04em}
+.reel-topnav-right{display:flex;gap:6px;align-items:center}
+.reel-nav-icon{color:#fff;font-size:11px;opacity:.9}
+.reel-text-area{position:absolute;left:6px;top:50px;z-index:3;transform:rotate(-3deg)}
+.reel-big{font-size:38px;font-weight:900;color:#fff;line-height:.88;letter-spacing:-.04em;
+  text-shadow:-1.5px -1.5px 0 #5B1B96,1.5px -1.5px 0 #5B1B96,-1.5px 1.5px 0 #5B1B96,1.5px 1.5px 0 #5B1B96}
+.reel-big-sub{font-size:11px;font-weight:900;color:#fff;letter-spacing:-.01em;
+  text-shadow:-1px -1px 0 #5B1B96,1px 1px 0 #5B1B96}
+.reel-right{position:absolute;right:5px;bottom:44px;display:flex;flex-direction:column;align-items:center;gap:7px;z-index:4}
+.reel-action{display:flex;flex-direction:column;align-items:center;gap:1px}
+.reel-icon{font-size:15px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.reel-count{font-size:5.5px;color:#fff;font-weight:600;opacity:.9}
+.reel-footer{position:absolute;bottom:22px;left:5px;right:30px;z-index:4}
+.reel-handle{font-size:7px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);margin-bottom:2px}
+.reel-caption{font-size:5.5px;color:rgba(255,255,255,.85);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.reel-audio{font-size:5px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:2px;margin-top:2px}
+.reel-audio-disc{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#888,#444);border:1.5px solid rgba(255,255,255,.3);display:inline-block}
+.reel-bottom-tabs{position:absolute;bottom:0;left:0;right:0;height:22px;background:rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:space-around;z-index:5;border-top:0.5px solid rgba(255,255,255,.1)}
+.reel-tab{font-size:11px;opacity:.7;color:#fff}
+.reel-tab.active{opacity:1}
+.reel-tab.add{background:none;display:flex;align-items:center;justify-content:center}
+.reel-tab.add-inner{width:14px;height:14px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#000;font-weight:700}
+.reel-ig-logo{position:absolute;top:6px;right:5px;width:12px;height:12px;z-index:6;
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  border-radius:3px;display:flex;align-items:center;justify-content:center}
+.reel-ig-inner{width:6px;height:6px;border:1.5px solid #fff;border-radius:1.5px}
+
+/* === IG Story (secondary) === */
+.post-story{background:#000}
+.story-bars{position:absolute;top:4px;left:4px;right:4px;display:flex;gap:2px;z-index:5}
+.story-bars span{flex:1;height:1.5px;background:rgba(255,255,255,.35);border-radius:1px}
+.story-bars span.active{background:rgba(255,255,255,.95)}
+.story-header{position:absolute;top:10px;left:5px;right:5px;display:flex;align-items:center;gap:4px;z-index:5}
+.story-avatar{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);flex-shrink:0}
+.story-name{font-size:6.5px;font-weight:700;color:#fff;flex:1;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.story-time{font-size:5.5px;color:rgba(255,255,255,.7)}
+.story-close{font-size:9px;color:rgba(255,255,255,.8)}
+.story-reply{position:absolute;bottom:6px;left:5px;right:5px;z-index:5;
+  border:1px solid rgba(255,255,255,.5);border-radius:20px;
+  padding:4px 8px;display:flex;align-items:center;justify-content:space-between}
+.story-reply-text{font-size:6px;color:rgba(255,255,255,.65)}
+.story-reply-send{font-size:8px;color:rgba(255,255,255,.8)}
+
+/* Story 1 background: ALS */
+.post-als-story{background:linear-gradient(180deg,#5A7A8C 0%,#2E4550 35%,#1A2A30 100%)}
+.als-sticker-main{position:absolute;top:46px;left:6px;right:6px;z-index:3;background:rgba(255,255,255,.95);border-radius:5px;padding:5px}
+.als-sticker-tag{font-size:5px;font-weight:700;color:#1F9BFC;margin-bottom:2px}
+.als-sticker-body{font-size:6.5px;font-weight:700;color:#111;line-height:1.2}
+.als-avatar{background:linear-gradient(135deg,#C68A6A,#6B4434)}
+.als-sticker-sub{font-size:5.5px;color:#444;margin-top:2px;line-height:1.25}
+
+/* Story 2 background: Forest */
+.post-forest-story{
+  background:radial-gradient(ellipse at 50% 90%,#2D4A1A 0%,transparent 55%),
+             linear-gradient(180deg,#0E1A08 0%,#071005 60%,#142210 100%)}
+.forest-avatar{background:linear-gradient(135deg,#4A7A3A,#1E3A14)}
+.forest-sticker-wrap{position:absolute;top:42px;left:5px;right:5px;z-index:3;display:flex;flex-direction:column;gap:3px}
+.forest-sticker{border-radius:4px;padding:3px 5px;font-size:5.5px;font-weight:700;color:#fff}
+.forest-sticker.tan{background:rgba(210,195,160,.9);color:#3A2E10}
+.forest-sticker.purple{background:rgba(91,27,150,.9)}
+.forest-sticker.link{background:#1F9BFC}
+
+.callout{display:flex;gap:12px;align-items:flex-start;background:rgba(35,18,38,.04);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px}
+.callout-icon{color:var(--text);flex-shrink:0;margin-top:1px}
+.callout-text{font-size:13px;color:var(--muted);line-height:1.55}
+.callout-text strong{color:var(--text);font-weight:700}
+.callout-text em{color:var(--red);font-style:normal}
+</style>
+</head>
+<body>
+<div class="section">
+  <p class="eyebrow">What's a share unit?</p>
+  <h2>One original post pointing your audience to your petition.</h2>
+  <p class="sub">The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format you like.</p>
+
+  <div class="visual" aria-hidden="true">
+
+    <!-- Primary: IG Reel -->
+    <div class="fmt">
+      <div class="post post-reel">
+        <div class="reel-bg"></div>
+        <div class="reel-topnav">
+          <div class="reel-topnav-left">
+            <span class="reel-back">‹</span>
+            <span class="reel-nav-text">Reels</span>
+          </div>
+          <div class="reel-topnav-right">
+            <span class="reel-nav-icon">✈</span>
+            <span class="reel-nav-icon">⋯</span>
+          </div>
+        </div>
+        <div class="reel-text-area">
+          <div class="reel-big">AI</div>
+          <div class="reel-big-sub">Regulations</div>
+        </div>
+        <div class="reel-right">
+          <div class="reel-action"><span class="reel-icon">♥</span><span class="reel-count">12.4K</span></div>
+          <div class="reel-action"><span class="reel-icon">💬</span><span class="reel-count">234</span></div>
+          <div class="reel-action"><span class="reel-icon">↗</span><span class="reel-count">4.5K</span></div>
+          <div class="reel-action"><span class="reel-icon">⋯</span></div>
+        </div>
+        <div class="reel-footer">
+          <div class="reel-handle">@genericartdad</div>
+          <div class="reel-caption">Sign the petition — regulate AI in schools 🔗 #ad #sponsored</div>
+          <div class="reel-audio"><span class="reel-audio-disc"></span> genericartdad · Original audio</div>
+        </div>
+        <div class="reel-bottom-tabs">
+          <span class="reel-tab">🏠</span>
+          <span class="reel-tab">🔍</span>
+          <span class="reel-tab active">
+            <span class="reel-tab.add-inner" style="background:#fff;width:14px;height:14px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#000;font-weight:700">+</span>
+          </span>
+          <span class="reel-tab">♥</span>
+          <span class="reel-tab">👤</span>
+        </div>
+      </div>
+      <span class="fmt-label">Primary</span>
+      <span class="fmt-desc">Original video on your top platform</span>
+    </div>
+
+    <span class="plus">+</span>
+
+    <!-- Secondary 1: IG Story, ALS -->
+    <div class="fmt">
+      <div class="post post-als-story">
+        <div class="story-bars"><span class="active"></span><span></span><span></span></div>
+        <div class="story-header">
+          <div class="story-avatar als-avatar" style="width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4)"></div>
+          <span class="story-name">April 28</span>
+          <span class="story-time">8:47 AM</span>
+          <span class="story-close">✕</span>
+        </div>
+        <div class="als-sticker-main">
+          <div class="als-sticker-tag">#ad #sponsored @changedotorg</div>
+          <div class="als-sticker-body">I'm living with ALS.</div>
+          <div class="als-sticker-sub">The ACT for ALS gives people like me access to experimental treatments.</div>
+        </div>
+        <div class="story-reply">
+          <span class="story-reply-text">Send message</span>
+          <span class="story-reply-send">✈</span>
+        </div>
+      </div>
+      <span class="fmt-label">Secondary</span>
+      <span class="fmt-desc">Any format — Story, post, Reel</span>
+    </div>
+
+    <span class="plus">+</span>
+
+    <!-- Secondary 2: IG Story, Forest -->
+    <div class="fmt">
+      <div class="post post-forest-story">
+        <div class="story-bars"><span></span><span class="active"></span><span></span></div>
+        <div class="story-header">
+          <div class="forest-avatar" style="width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4)"></div>
+          <span class="story-name">forestcreator</span>
+          <span class="story-time">2h</span>
+          <span class="story-close">✕</span>
+        </div>
+        <div class="forest-sticker-wrap">
+          <div class="forest-sticker tan">Petition to protect the Roadless Rule.</div>
+          <div class="forest-sticker purple">500K signatures = USDA delivery in person.</div>
+          <div class="forest-sticker" style="background:rgba(255,255,255,.12);color:#fff">6K signatures already! Sign here:</div>
+          <div class="forest-sticker link">Stop Destroying Our Forests</div>
+          <div class="forest-sticker" style="background:transparent;color:rgba(255,255,255,.7);font-size:5px;padding:0 0 0 2px">#sponsored @changedotorg</div>
+        </div>
+        <div class="story-reply">
+          <span class="story-reply-text">Send message</span>
+          <span class="story-reply-send">✈</span>
+        </div>
+      </div>
+      <span class="fmt-label">Secondary</span>
+      <span class="fmt-desc">Any format — Story, post, Reel</span>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5 11 12 4 19 11"/></svg>
+    </span>
+    <p class="callout-text"><strong>3 is the floor — not the ceiling.</strong> You need 3 to keep your advance, but the program has <strong>no cap on posts</strong>. <em>The more you share, the more you earn.</em></p>
+  </div>
+</div>
+
+<script id="riff-concepts" type="application/json">
+{
+  "variant": "B",
+  "name": "Instagram-First",
+  "summary": "Primary = Instagram Reel with full IG chrome (top nav, bottom tab bar, right-side actions). Secondaries = IG Stories with progress bars, send-message tray, and handle row. Pure Instagram aesthetic throughout.",
+  "concepts": [
+    {"id":"ig-reel-chrome","name":"Full IG Reel chrome","desc":"Top nav with '‹ Reels', camera and DM icons. Bottom tab bar (Home, Search, +, Likes, Profile). Together these scream Instagram screenshot, not generic video."},
+    {"id":"ig-story-format","name":"Story progress bars + reply tray","desc":"Multi-segment progress bars at top and the 'Send message' reply row at bottom — the two unmistakable signals of an IG Story screenshot."},
+    {"id":"ig-audio-disc","name":"Audio credit with spinning disc","desc":"The small rotating disc + 'Original audio · @handle' row at the bottom of the Reel — IG's signature audio attribution that distinguishes it from TikTok."},
+    {"id":"ig-right-actions","name":"IG right-side engagement column","desc":"Heart/comment/share/more stacked vertically on the right — same layout as TikTok but styled closer to Instagram's thinner icons and lighter tap targets."},
+    {"id":"ig-story-stickers","name":"Sticker overlays on Stories","desc":"Colored rounded-rect sticker layers on the Story slides (petition text, CTA link) matching how creators actually build IG Story content."}
+  ]
+}
+</script>
+</body>
+</html>

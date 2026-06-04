@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pre-Contract Page — Project Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Sunrise tokens (exact from Change.org design system) ── */
+    :root {
+      --bg-base:       #FFFFFF;
+      --bg-raised:     #FAF8FD;
+      --bg-overlay:    #F2F1F8;
+
+      --text-strong:   #403A49;
+      --text:          #5A5366;
+      --text-weak:     #766F81;
+      --text-disabled: rgba(64,58,73,0.4);
+      --text-brand:    #BC1E19;
+      --text-info:     #003193;
+      --text-success:  #075208;
+      --text-warning:  #7E3B10;
+
+      --stroke-weaker:  #E1DDE9;
+      --stroke-weak:    #918A9D;
+      --stroke-brand:   #E02822;
+      --stroke-warning: #FE9311;
+      --stroke-focus:   #4771FF;
+
+      --fill-interactive:       #FFDB00;
+      --fill-interactive-hover: #FFE600;
+      --fill-brand-strong:      #F34E49;
+      --fill-brand-weak:        #FEA6A3;
+      --fill-warn-weak:         #FFE3A8;
+      --fill-info-weaker:       #F0F7FF;
+      --fill-info-weak:         #CDDBFF;
+      --fill-success-weaker:    #F0FFF0;
+      --fill-success-weak:      #B8FEB9;
+
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-overlay);
+      color: var(--text-strong);
+      font-family: "Commissioner", system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .header {
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--stroke-weaker);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header-logo {
+      width: 30px; height: 30px;
+      background: var(--fill-brand-strong);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-logo svg { width: 16px; height: 16px; fill: white; }
+    .header-title { font-size: 15px; font-weight: 700; color: var(--text-strong); }
+    .header-sub { font-size: 12px; color: var(--text-weak); margin-top: 1px; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .header-meta { font-size: 12px; color: var(--text-weak); }
+    .open-page {
+      font-family: inherit;
+      font-size: 12px; font-weight: 600;
+      background: var(--fill-interactive);
+      color: var(--text-strong);
+      border: none; border-radius: var(--radius-pill);
+      padding: 6px 14px; cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .open-page:hover { background: var(--fill-interactive-hover); }
+
+    /* ── Progress ────────────────────────────── */
+    .progress-wrap {
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--stroke-weaker);
+      padding: 14px 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .progress-label { font-size: 13px; color: var(--text-weak); white-space: nowrap; }
+    .progress-label strong { color: var(--text-strong); }
+    .progress-bar {
+      flex: 1; height: 5px;
+      background: var(--stroke-weaker);
+      border-radius: var(--radius-pill); overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--fill-brand-strong);
+      border-radius: var(--radius-pill);
+      transition: width .4s ease;
+    }
+    .progress-pct { font-size: 13px; font-weight: 700; color: var(--text-brand); white-space: nowrap; }
+
+    /* ── Main layout ─────────────────────────── */
+    .main { max-width: 860px; margin: 0 auto; padding: 28px 32px 80px; }
+
+    /* ── Section eyebrow ─────────────────────── */
+    .eyebrow {
+      font-size: 10px; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-brand);
+      margin-bottom: 14px; margin-top: 32px;
+    }
+    .eyebrow:first-of-type { margin-top: 0; }
+
+    /* ── Status pill ─────────────────────────── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; padding: 3px 10px;
+      border-radius: var(--radius-pill); flex-shrink: 0;
+    }
+    .pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .pill.todo     { background: var(--bg-overlay);          color: var(--text-weak);    border: 1px solid var(--stroke-weaker); }
+    .pill.todo     .pill-dot { background: var(--text-weak); }
+    .pill.active   { background: var(--fill-warn-weak);      color: var(--text-warning); border: 1px solid var(--stroke-warning); }
+    .pill.active   .pill-dot { background: var(--text-warning); }
+    .pill.done     { background: var(--fill-success-weaker); color: var(--text-success); border: 1px solid #9fe0a0; }
+    .pill.done     .pill-dot { background: var(--text-success); }
+    .pill.blocked  { background: var(--fill-info-weaker);    color: var(--text-info);    border: 1px solid var(--fill-info-weak); }
+    .pill.blocked  .pill-dot { background: var(--text-info); }
+
+    /* ── Task card ───────────────────────────── */
+    .task-card {
+      background: var(--bg-base);
+      border: 1px solid var(--stroke-weaker);
+      border-radius: var(--radius-xl);
+      padding: 22px 24px;
+      margin-bottom: 12px;
+      transition: box-shadow .15s, border-color .15s;
+    }
+    .task-card:hover { box-shadow: 0 2px 12px rgba(64,58,73,.08); }
+    .task-card.is-done   { opacity: .6; }
+    .task-card.is-active { border-color: var(--stroke-warning); background: #fffdf5; }
+    .task-card.is-done .task-title { text-decoration: line-through; color: var(--text-weak); }
+
+    .task-top { display: flex; align-items: flex-start; gap: 16px; }
+    .task-num {
+      font-size: 11px; font-weight: 800; letter-spacing: .08em;
+      color: var(--text-disabled); padding-top: 3px; min-width: 22px;
+    }
+    .task-body { flex: 1; min-width: 0; }
+    .task-head {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .task-title {
+      font-size: 16px; font-weight: 700; color: var(--text-strong);
+      flex: 1; min-width: 160px;
+    }
+    .task-desc {
+      font-size: 14px; color: var(--text); line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    /* ── Subtasks ────────────────────────────── */
+    .subtask-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .subtask { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--text); }
+    .subtask-check {
+      width: 17px; height: 17px;
+      border: 1.5px solid var(--stroke-weak);
+      border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .12s, border-color .12s;
+    }
+    .subtask-check.checked { background: var(--fill-brand-strong); border-color: var(--fill-brand-strong); }
+    .subtask-check.checked svg { display: block; }
+    .subtask-check svg { display: none; width: 9px; height: 9px; fill: white; }
+    .subtask.done-item .subtask-text { text-decoration: line-through; color: var(--text-weak); }
+
+    /* ── Context callouts ────────────────────── */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 12px 14px; margin-top: 12px;
+      font-size: 13px; line-height: 1.55; color: var(--text);
+      border-left: 3px solid var(--stroke-weaker);
+      background: var(--bg-raised);
+    }
+    .callout.warn  { border-left-color: var(--stroke-warning); background: #fffbf2; color: var(--text-warning); }
+    .callout.info  { border-left-color: var(--stroke-focus);   background: var(--fill-info-weaker);    color: var(--text-info); }
+    .callout.brand { border-left-color: var(--stroke-brand);   background: #fff5f5; color: var(--text-brand); }
+    .callout strong { font-weight: 600; color: inherit; }
+    .callout code {
+      font-size: 12px; background: rgba(64,58,73,.08);
+      padding: 1px 5px; border-radius: 4px; font-family: "Courier New", monospace;
+      color: var(--text-strong);
+    }
+
+    /* ── Math block ──────────────────────────── */
+    .math-block {
+      background: var(--bg-overlay); border: 1px solid var(--stroke-weaker);
+      border-radius: var(--radius-md); padding: 12px 14px; margin-top: 12px;
+      font-size: 12px; font-family: "Courier New", monospace; color: var(--text);
+      line-height: 1.8;
+    }
+    .math-block .wrong { color: var(--fill-brand-strong); text-decoration: line-through; opacity: .7; }
+    .math-block .right { color: var(--text-success); font-weight: 600; }
+
+    /* ── Action buttons ──────────────────────── */
+    .task-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: "Commissioner", sans-serif;
+      font-size: 12px; font-weight: 700;
+      padding: 7px 15px; border-radius: var(--radius-pill);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: opacity .15s, background .12s;
+      letter-spacing: .01em;
+    }
+    .btn:hover { opacity: .8; }
+    .btn-yellow { background: var(--fill-interactive); color: var(--text-strong); }
+    .btn-yellow:hover { background: var(--fill-interactive-hover); opacity: 1; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--stroke-weak); }
+    .btn-outline:hover { background: var(--bg-overlay); opacity: 1; }
+
+    /* ── Divider ─────────────────────────────── */
+    hr { border: none; border-top: 1px solid var(--stroke-weaker); margin: 28px 0 0; }
+
+    /* ── Footer ──────────────────────────────── */
+    .footer {
+      text-align: center; font-size: 12px; color: var(--text-weak);
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--stroke-weaker);
+    }
+    .footer a { color: var(--text-info); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .header        { padding: 14px 16px; }
+      .progress-wrap { padding: 12px 16px; }
+      .main          { padding: 20px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────── -->
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo">
+      <!-- Change.org "C" mark approximation -->
+      <svg viewBox="0 0 20 20"><path d="M14.5 6.5A6 6 0 1 0 14.5 13.5" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <div class="header-title">Pre-Contract Landing Page</div>
+      <div class="header-sub">Starter Portal v4 · Page 1</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="header-meta" id="last-updated-label"></span>
+    <a href="1-pre-contract.html" class="open-page">Open page →</a>
+  </div>
+</header>
+
+<!-- ── Progress bar ──────────────────────── -->
+<div class="progress-wrap">
+  <span class="progress-label"><strong id="done-count">0</strong> of 5 tasks complete</span>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <span class="progress-pct" id="progress-pct">0%</span>
+</div>
+
+<!-- ── Main ───────────────────────────────── -->
+<main class="main">
+
+  <!-- ══ SECTION: Active build ══════════════ -->
+  <div class="eyebrow">Active build</div>
+
+  <!-- ── Task 1: Design riff ──────────────── -->
+  <!-- STATUS: todo | active | done -->
+  <div class="task-card" data-status="done" id="card-1">
+    <div class="task-top">
+      <div class="task-num">01</div>
+      <div class="task-body">
+        <div class="task-head">
+          <div class="task-title">Design riff — align to Change.org brand</div>
+          <span class="pill todo"><span class="pill-dot"></span> Not started</span>
+        </div>
+        <p class="task-desc">
+          Current page looks AI-generated. Needs to carry Change.org's Sunrise tokens correctly: Commissioner font, red-as-punctuation, yellow CTAs, proper spacing. Run a multi-direction riff before committing to a final design pass.
+        </p>
+        <ul class="subtask-list">
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Pull Sunrise tokens + Commissioner font rules into riff prompt</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Run /riff → 6 visual directions in riff/ folder</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Pick winning direction, apply to 1-pre-contract.html</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Final visual review — red-as-punctuation, yellow CTA, no AI-slop patterns</span></li>
+        </ul>
+        <div class="callout brand">
+          <strong>Riff task.</strong> Start a new chat and run <strong>/riff</strong> — it'll generate 6 side-by-side directions. Reference mood-board/ for existing inspo. Outputs save to riff/.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Task 2: CTA decision ──────────────── -->
+  <!-- STATUS: todo | active | done -->
+  <div class="task-card" data-status="todo" id="card-2">
+    <div class="task-top">
+      <div class="task-num">02</div>
+      <div class="task-body">
+        <div class="task-head">
+          <div class="task-title">CTA decision — what does "Sign your contract" trigger?</div>
+          <span class="pill todo"><span class="pill-dot"></span> Not started</span>
+        </div>
+        <p class="task-desc">
+          Footer CTA is a mailto placeholder. Two real paths to evaluate before the page ships.
+        </p>
+        <ul class="subtask-list">
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Option A — Slack webhook: fetch() call notifies #starter-economy when clicked. No DocuSign dependency.</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Option B — DocuSign direct link: cleaner UX, requires contract template to be finalized first</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Decide with Kelsey → wire chosen path into 1-pre-contract.html</span></li>
+        </ul>
+        <div class="callout info">
+          <strong>Sprint plan intent:</strong> DocuSign link is the final state. Slack webhook is a lower-lift interim if contract template isn't locked yet. Kelsey decides.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Task 3: Calculator math ───────────── -->
+  <!-- STATUS: todo | active | done -->
+  <div class="task-card" data-status="todo" id="card-3">
+    <div class="task-top">
+      <div class="task-num">03</div>
+      <div class="task-body">
+        <div class="task-head">
+          <div class="task-title">Fix earnings calculator — advance recoup math</div>
+          <span class="pill todo"><span class="pill-dot"></span> Not started</span>
+        </div>
+        <p class="task-desc">
+          Slider at <code>1-pre-contract.html:1479</code> adds advance directly on top of promo revenue. That's wrong — the advance is recouped from promo revenue first. Once promo exceeds the advance, creator earns 95% of everything above. Current math overstates earnings.
+        </p>
+        <ul class="subtask-list">
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Confirm recoup + 95% split formula with Kelsey</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Patch update() function at line ~1479</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Verify slider range (1K–200K sigs) still produces sensible output</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Update earnings note copy to explain recoup model</span></li>
+        </ul>
+        <div class="math-block">
+          <span class="wrong">// WRONG — current code (line 1488)</span><br>
+          total = advance + (sigs × $0.30–$0.50)<br><br>
+          <span class="right">// CORRECT (pending Kelsey confirming formula)</span><br>
+          promoRev = sigs × $0.30–$0.50<br>
+          if promoRev &lt;= advance → total = advance<br>
+          if promoRev &gt;  advance → total = advance + (promoRev − advance) × 0.95
+        </div>
+        <div class="callout warn">
+          <strong>Quick edit, no riff needed.</strong> Confirm the formula first, then it's a 10-min targeted fix. Just say "fix the calculator math" and I'll patch it.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══ SECTION: Content ═══════════════════ -->
+  <div class="eyebrow" style="margin-top:28px;">Content</div>
+
+  <!-- ── Task 4: Script alignment ─────────── -->
+  <!-- STATUS: todo | active | done -->
+  <div class="task-card" data-status="todo" id="card-4">
+    <div class="task-top">
+      <div class="task-num">04</div>
+      <div class="task-body">
+        <div class="task-head">
+          <div class="task-title">Align page copy to approved video script</div>
+          <span class="pill todo"><span class="pill-dot"></span> Not started</span>
+        </div>
+        <p class="task-desc">
+          Chelsea reviewed the video script (v3). Her comments are in the Starter Economy Execution folder. Page copy and script need to tell the same story — load-bearing phrases, differentiators, framing. Any line Chelsea flagged also needs to be audited on the page.
+        </p>
+        <ul class="subtask-list">
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Read Chelsea's comments in Change Ambassadors Precontract Video Script v3.docx</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Extract approved key phrases → compare against hero, differentiators, how-it-works on page</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Update page copy in 1-pre-contract.html to match</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Finalize script as approved → unlocks Task 5</span></li>
+        </ul>
+        <div class="callout">
+          <strong>Script location:</strong> <code>~/Claude/Starter Economy Execution/Change Ambassadors Precontract Video Script v3.docx</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Task 5: Teleprompter + ship ──────── -->
+  <!-- STATUS: todo | active | done | blocked -->
+  <div class="task-card" data-status="blocked" id="card-5">
+    <div class="task-top">
+      <div class="task-num">05</div>
+      <div class="task-body">
+        <div class="task-head">
+          <div class="task-title">Teleprompter → record video → ship to Vercel</div>
+          <span class="pill blocked"><span class="pill-dot"></span> Blocked on Task 4</span>
+        </div>
+        <p class="task-desc">
+          Once script is locked, build a teleprompter, record Kelsey's video, embed it on the page, and do the final GitHub + Vercel ship.
+        </p>
+        <ul class="subtask-list">
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Build teleprompter.html — scrolling script, adjustable speed, large type, dark bg</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Kelsey records video using teleprompter</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Embed video in 1-pre-contract.html (replace placeholder iframe)</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Commit + push to GitHub</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Deploy via /deploy-to-vercel skill</span></li>
+          <li class="subtask"><div class="subtask-check" onclick="toggleSub(this)"><svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><span class="subtask-text">Smoke-test live URL — CTA, calculator, video all working</span></li>
+        </ul>
+        <div class="callout brand">
+          <strong>Teleprompter is a build task.</strong> Ask Claude to build teleprompter.html — big scrolling text, play/pause, speed control. Then use <strong>/deploy-to-vercel</strong> for the final ship.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Kelsey Kindall · Pre-Contract Landing Page · Starter Portal v4 ·
+    <a href="1-pre-contract.html">Open page →</a> ·
+    <a href="docs/Starter Portal — Sprint Plan v4.md">Sprint plan</a>
+  </div>
+
+</main>
+
+<script>
+  // ── Subtask toggle (user-managed, persisted) ──
+  const CHECKS_KEY = "tracker_checks_v1";
+
+  function toggleSub(el) {
+    el.classList.toggle("checked");
+    el.closest(".subtask").classList.toggle("done-item", el.classList.contains("checked"));
+    persistChecks();
+  }
+
+  function persistChecks() {
+    const all = [...document.querySelectorAll(".subtask-check")];
+    localStorage.setItem(CHECKS_KEY, JSON.stringify(all.map(c => c.classList.contains("checked"))));
+  }
+
+  function restoreChecks() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CHECKS_KEY));
+      if (!Array.isArray(saved)) return;
+      document.querySelectorAll(".subtask-check").forEach((el, i) => {
+        if (saved[i]) {
+          el.classList.add("checked");
+          el.closest(".subtask").classList.add("done-item");
+        }
+      });
+    } catch {}
+  }
+
+  // ── Progress (driven by data-status in HTML) ──
+  function updateProgress() {
+    const cards = [...document.querySelectorAll(".task-card[data-status]")];
+    const done  = cards.filter(c => c.dataset.status === "done").length;
+    const pct   = Math.round((done / cards.length) * 100);
+    document.getElementById("done-count").textContent   = done;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-pct").textContent  = pct + "%";
+  }
+
+  // ── Sync pill + card class to data-status ────
+  const STATUS_CONFIG = {
+    todo:    { label: "Not started",       cls: "todo"    },
+    active:  { label: "In progress",       cls: "active"  },
+    done:    { label: "Done",              cls: "done"     },
+    blocked: { label: "Blocked on Task 4", cls: "blocked"  },
+  };
+
+  function applyStatuses() {
+    document.querySelectorAll(".task-card[data-status]").forEach(card => {
+      const s = card.dataset.status;
+      const cfg = STATUS_CONFIG[s] || STATUS_CONFIG.todo;
+      const pill = card.querySelector(".pill");
+      if (pill) {
+        pill.className = "pill " + cfg.cls;
+        pill.innerHTML = '<span class="pill-dot"></span> ' + cfg.label;
+      }
+      card.classList.toggle("is-done",   s === "done");
+      card.classList.toggle("is-active", s === "active");
+    });
+  }
+
+  // ── Last updated ──────────────────────────────
+  // Hardcoded by Claude each time the file is edited
+  const LAST_UPDATED = "Jun 2, 2026 — Task 1 done";
+  document.getElementById("last-updated-label").textContent = "Updated " + LAST_UPDATED;
+
+  // ── Init ──────────────────────────────────────
+  applyStatuses();
+  updateProgress();
+  restoreChecks();
+</script>
+</body>
+</html>

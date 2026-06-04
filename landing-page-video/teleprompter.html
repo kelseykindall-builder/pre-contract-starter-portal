@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teleprompter — Change Ambassadors</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #000;
+    color: #fff;
+    font-family: Georgia, serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Controls bar ── */
+  #controls {
+    background: #111;
+    border-bottom: 1px solid #333;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  #controls label {
+    color: #aaa;
+    font-size: 13px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #controls input[type=range] {
+    width: 120px;
+    accent-color: #e63946;
+  }
+
+  #controls span.val {
+    color: #fff;
+    font-family: monospace;
+    font-size: 13px;
+    min-width: 32px;
+  }
+
+  #playBtn {
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  #playBtn:hover { background: #c0303a; }
+
+  #resetBtn {
+    background: #333;
+    color: #ccc;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+  #resetBtn:hover { background: #444; color: #fff; }
+
+  #mirrorBtn {
+    background: #222;
+    color: #aaa;
+    border: 1px solid #444;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+  #mirrorBtn:hover { background: #333; color: #fff; }
+
+  /* ── Scroll window ── */
+  #viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* gradient mask top + bottom */
+  #viewport::before, #viewport::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  #viewport::before {
+    top: 0;
+    background: linear-gradient(to bottom, #000 0%, transparent 100%);
+  }
+  #viewport::after {
+    bottom: 0;
+    background: linear-gradient(to top, #000 0%, transparent 100%);
+  }
+
+  /* reading-line marker */
+  #marker {
+    position: absolute;
+    left: 0; right: 0;
+    top: 40%;
+    height: 3px;
+    background: rgba(230, 57, 70, 0.5);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  #scroller {
+    padding: 50vh 8vw 50vh;
+    line-height: 1.7;
+    will-change: transform;
+  }
+
+  .line {
+    margin-bottom: 1.4em;
+    color: #e0e0e0;
+    transition: color 0.3s;
+  }
+
+  /* mirrored mode */
+  body.mirrored #scroller {
+    transform: scaleX(-1);
+  }
+
+  /* progress indicator */
+  #progress {
+    font-family: monospace;
+    font-size: 12px;
+    color: #555;
+    margin-left: auto;
+  }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <button id="playBtn">▶ Play</button>
+  <button id="resetBtn">↺ Reset</button>
+
+  <label>
+    Speed
+    <input type="range" id="speedSlider" min="10" max="300" value="60">
+    <span class="val" id="speedVal">60</span>
+  </label>
+
+  <label>
+    Font size
+    <input type="range" id="fontSlider" min="18" max="80" value="36">
+    <span class="val" id="fontVal">36px</span>
+  </label>
+
+  <button id="mirrorBtn">⟺ Mirror</button>
+
+  <span id="progress">0%</span>
+</div>
+
+<div id="viewport">
+  <div id="marker"></div>
+  <div id="scroller"></div>
+</div>
+
+<script>
+const LINES = [
+  "Hi — my name is Kelsey, and I help run the Change Ambassadors program here at Change.org.",
+  "If you're watching this, it's because we've invited you to join our program, and we're so excited to potentially work together.",
+  "This video covers questions we hear most often so that you feel confident to move forward — sign the contract, create your petition, and share with your audience.",
+  "",
+  "Let me zoom out first to tell you about the program.",
+  "Change Ambassadors is pretty simple: we pay you an advance to create a petition that you and our team develop together, and then you share it on your platforms.",
+  "The goal here is to connect three things — you: a trusted voice in information sharing and advocacy, your audience: people who care about an issue, and Change.org's best-in-class digital tools that will help you make a real impact.",
+  "",
+  "The first deliverable is a petition. Some people ask me, do petitions really do anything?",
+  "Think of it like this: a like on a post is a moment. A petition is a live artifact — it keeps growing every time someone signs, and it does three things a social post can't.",
+  "",
+  "One: it turns signers into a list you can actually mobilize. These are real people, and you will be able to download a list of supporters and where they're based.",
+  "Two: our team takes that growing list to the decision makers who can actually make the change happen — a politician, CEO, or whomever holds the power — and we push them for a public response.",
+  "Three: you get an update tool on your petition page that works like a built-in email list, so you can keep coming back to your audience with new messages long after the algorithm has moved on.",
+  "",
+  "That's why a trusted voice like yours can mobilize tens of thousands of people toward real change.",
+  "",
+  "In addition to your published petition, the program requires three pieces of unique content.",
+  "One primary share unit — which is a reel or a static feed post on whichever of your platforms has the highest engagement — and two supplemental shares on any platform where you have 50,000 or more followers.",
+  "That's all you need to do to fulfill the requirements of the program and keep your advance.",
+  "That said, this is really just the starting point — there's additional opportunity to earn through promotion revenue, and I'll walk through exactly how that works after we talk about the timeline.",
+  "",
+  "We aim to launch your petition the same week your contract is signed and have all three posts live within 30 days.",
+  "We'll help set your petition up for success and offer suggestions, and the social content is 100% your voice.",
+  "",
+  "A couple of guidelines so nothing trips you up later:",
+  "Stories count as supplemental shares but do not qualify as a primary share unit.",
+  "Also, cross-posting the same asset is great for reach and driving additional signatures, but it won't count as a separate share unit — every contracted deliverable should have its own unique creative.",
+  "And every post needs to tag change.org and include #ad or #sponsored in the caption.",
+  "",
+  "Now the payment details.",
+  "The guaranteed advance is based on your follower count and paid within 30 days of your petition and primary share unit going live.",
+  "That's yours regardless of how the petition performs as long as you fulfill the deliverables.",
+  "",
+  "Once your petition is live, supporters can chip in to help promote it.",
+  "Those contributions help get your petition in front of more potential signers on Change.org and through email.",
+  "In addition, once your advance has been recouped, you'll earn 95% of the promotion revenue generated by your petition.",
+  "You'll also have access to a live dashboard where you can track exactly how much your petition has earned.",
+  "Payments are dispersed monthly for up to a year after you sign your contract.",
+  "",
+  "The more signatures you get on your petition, the more you can earn. There is no earnings cap during the contract term.",
+  "",
+  "Now you are probably wondering — what petition should I actually start?",
+  "",
+  "My advice: look at the content you were already going to make in the next couple of weeks.",
+  "News topics you'd react to, issues you and your followers care about, the stuff you'd be commenting on anyway.",
+  "Inside that content, is there a call to action? Something concrete you could ask a decision maker to do?",
+  "",
+  "Then — and this is the part that matters most — take a piece of the puzzle, not the whole puzzle.",
+  "For example, \"Protect Americans from Harmful AI\" is too broad. There's no action in it, no decision-maker who can say yes or no.",
+  "So, let's break it down:",
+  "",
+  "What type of protection would be helpful? Maybe a mandatory identification of AI images.",
+  "Who has the power to make this happen? Who is a leader in this field? Perhaps we target a major player, like OpenAI.",
+  "What's our specific ask? \"Demand OpenAI watermark AI photos\" — that has a definitive request for action, that has a named decision-maker. It's a petition that can potentially win.",
+  "",
+  "And we're not leaving you to figure this out alone.",
+  "Our team is here to workshop your petition with you, or suggest strong topic angles based on your platform and audience.",
+  "",
+  "If you're still with me — you're ready to sign.",
+  "Hit \"Sign My Contract\" below, and we'll get your contract to your inbox within 72 hours.",
+  "If you're still deciding what petition to create, feel free to schedule a 15-minute call with our team.",
+  "We'd be happy to help you brainstorm your idea and get started.",
+  "",
+  "Thanks for being a part of this. We're so excited to make change together.",
+];
+
+// ── Build DOM ──
+const scroller = document.getElementById('scroller');
+LINES.forEach(text => {
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.textContent = text || ' '; // nbsp for blank lines
+  scroller.appendChild(div);
+});
+
+// ── State ──
+let playing = false;
+let animId = null;
+let lastTs = null;
+let scrollY = 0; // current scroll position in px
+
+const viewport   = document.getElementById('viewport');
+const playBtn    = document.getElementById('playBtn');
+const resetBtn   = document.getElementById('resetBtn');
+const speedSlider = document.getElementById('speedSlider');
+const fontSlider  = document.getElementById('fontSlider');
+const speedVal   = document.getElementById('speedVal');
+const fontVal    = document.getElementById('fontVal');
+const mirrorBtn  = document.getElementById('mirrorBtn');
+const progressEl = document.getElementById('progress');
+
+function maxScroll() {
+  return scroller.scrollHeight - viewport.clientHeight;
+}
+
+function applyScroll() {
+  scroller.style.transform = `translateY(${-scrollY}px)`;
+  const pct = maxScroll() > 0 ? Math.round((scrollY / maxScroll()) * 100) : 0;
+  progressEl.textContent = pct + '%';
+}
+
+function tick(ts) {
+  if (!playing) return;
+  if (lastTs == null) lastTs = ts;
+  const dt = (ts - lastTs) / 1000; // seconds
+  lastTs = ts;
+
+  const pxPerSec = parseFloat(speedSlider.value);
+  scrollY = Math.min(scrollY + pxPerSec * dt, maxScroll());
+  applyScroll();
+
+  if (scrollY >= maxScroll()) {
+    playing = false;
+    playBtn.textContent = '▶ Play';
+    return;
+  }
+  animId = requestAnimationFrame(tick);
+}
+
+playBtn.addEventListener('click', () => {
+  playing = !playing;
+  playBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
+  if (playing) {
+    lastTs = null;
+    animId = requestAnimationFrame(tick);
+  } else {
+    cancelAnimationFrame(animId);
+  }
+});
+
+resetBtn.addEventListener('click', () => {
+  playing = false;
+  cancelAnimationFrame(animId);
+  playBtn.textContent = '▶ Play';
+  scrollY = 0;
+  lastTs = null;
+  applyScroll();
+});
+
+mirrorBtn.addEventListener('click', () => {
+  document.body.classList.toggle('mirrored');
+  mirrorBtn.textContent = document.body.classList.contains('mirrored') ? '⟺ Unmirrror' : '⟺ Mirror';
+});
+
+speedSlider.addEventListener('input', () => {
+  speedVal.textContent = speedSlider.value;
+});
+
+fontSlider.addEventListener('input', () => {
+  const sz = fontSlider.value + 'px';
+  fontVal.textContent = sz;
+  scroller.style.fontSize = sz;
+});
+
+// keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); playBtn.click(); }
+  if (e.code === 'KeyR')  { resetBtn.click(); }
+  if (e.code === 'ArrowUp')   { speedSlider.value = Math.max(10, +speedSlider.value - 10); speedVal.textContent = speedSlider.value; }
+  if (e.code === 'ArrowDown') { speedSlider.value = Math.min(300, +speedSlider.value + 10); speedVal.textContent = speedSlider.value; }
+});
+
+// touch/drag scroll override
+let dragStart = null;
+let scrollStart = null;
+viewport.addEventListener('pointerdown', e => {
+  dragStart = e.clientY;
+  scrollStart = scrollY;
+  viewport.setPointerCapture(e.pointerId);
+});
+viewport.addEventListener('pointermove', e => {
+  if (dragStart == null) return;
+  scrollY = Math.max(0, Math.min(scrollStart - (e.clientY - dragStart), maxScroll()));
+  applyScroll();
+});
+viewport.addEventListener('pointerup', () => { dragStart = null; });
+
+// init font
+scroller.style.fontSize = fontSlider.value + 'px';
+applyScroll();
+</script>
+</body>
+</html>

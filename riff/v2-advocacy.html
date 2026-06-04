@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Advocacy Driven (v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #E8002D;
+  --yellow: #FFDB00;
+  --navy: #0D1B2A;
+  --forest: #0D2B1A;
+  --sage: #E8F0E9;
+  --paper: #FAFAF8;
+  --warm-white: #F7F5F0;
+  --text: #1A1A1A;
+  --muted: #5C5C5C;
+  --line: #E0DDD8;
+  --green: #1A7F3C;
+}
+
+body {
+  font-family: 'Commissioner', sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; color: var(--navy); }
+.logo span { color: var(--red); }
+.back { font-size: 13px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--navy); }
+
+/* ── HERO ── */
+.hero {
+  padding: 88px 48px 0;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.mission-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 40px;
+  padding: 7px 16px 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 32px;
+  background: var(--warm-white);
+}
+.tag-icon {
+  width: 22px; height: 22px;
+  background: var(--red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  margin-bottom: 0;
+  max-width: 900px;
+}
+.h1-line2 {
+  display: block;
+  color: var(--red);
+}
+
+.hero-body {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 72px;
+  align-items: end;
+  padding: 32px 0 0;
+}
+.hero-sub {
+  font-size: 19px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 36px;
+  font-weight: 400;
+  max-width: 480px;
+}
+.hero-sub em {
+  font-style: normal;
+  color: var(--text);
+  font-weight: 700;
+  border-bottom: 2px solid var(--red);
+}
+
+.cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-red {
+  background: var(--red);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.btn-red:hover { background: #c2001e; }
+.cta-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ── IMPACT PANEL ── */
+.impact-panel {
+  background: var(--forest);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+.impact-panel::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,0,45,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.impact-overline {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 20px;
+}
+.impact-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.impact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.impact-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--yellow);
+  letter-spacing: -0.04em;
+  min-width: 80px;
+  line-height: 1;
+}
+.impact-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+.impact-label strong { color: #FFFFFF; font-weight: 700; }
+.impact-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+.impact-quote {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  border-left: 3px solid var(--red);
+}
+.impact-quote p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.55;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.impact-quote cite {
+  font-size: 11px;
+  font-style: normal;
+  color: rgba(255,255,255,0.4);
+  font-weight: 600;
+}
+
+/* ── DIVIDER ── */
+.section-divider { height: 1px; background: var(--line); max-width: 1100px; margin: 0 auto; }
+
+/* ── NOT A BRAND DEAL ── */
+.not-brand {
+  padding: 80px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.not-brand-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.not-brand-title {
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -0.025em;
+  margin-bottom: 48px;
+  line-height: 1.1;
+}
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.diff-card {
+  padding: 28px;
+  background: var(--warm-white);
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.diff-icon {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.diff-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+  letter-spacing: -0.015em;
+}
+.diff-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.diff-stat {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.diff-stat::before { content: "↑"; }
+
+/* ── HOW IT WORKS ── */
+.how {
+  background: var(--navy);
+  padding: 80px 48px;
+}
+.how-inner { max-width: 1100px; margin: 0 auto; }
+.how-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12px;
+}
+.how-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  margin-bottom: 44px;
+  line-height: 1.1;
+}
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.how-step {
+  padding: 32px 28px;
+  background: var(--navy);
+  position: relative;
+}
+.how-step::after {
+  content: "→";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.15);
+  font-size: 18px;
+  z-index: 2;
+}
+.how-step:last-child::after { display: none; }
+.how-step-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.how-step-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+.how-step-body { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* ── CTA SECTION ── */
+.cta-section {
+  padding: 88px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.cta-left h2 {
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.cta-left p { font-size: 16px; color: var(--muted); max-width: 480px; line-height: 1.6; }
+.cta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.tier-chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--warm-white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">change<span>.</span>org</div>
+  <a href="../1-pre-contract.html" class="back">← back to main</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="mission-tag">
+    <span class="tag-icon">✦</span>
+    Change Ambassadors · Invite only
+  </div>
+  <h1>Make money doing<br/><span class="h1-line2">the work you believe in.</span></h1>
+  <div class="hero-body">
+    <div>
+      <p class="hero-sub">
+        You got this invite because your audience trusts you.
+        We partner with creators who actually care —
+        and we <em>pay you to start a movement</em>, not sell a product.
+      </p>
+      <div class="cta-row">
+        <a href="#" class="btn-red">Sign your contract →</a>
+        <span class="cta-link">See how it works ↓</span>
+      </div>
+    </div>
+    <div class="impact-panel">
+      <div class="impact-overline">What you're joining</div>
+      <div class="impact-row">
+        <div class="impact-item">
+          <div class="impact-num">500M</div>
+          <div class="impact-label"><strong>people</strong> on Change.org — your petition goes to the world's largest petition platform</div>
+        </div>
+        <div class="impact-divider"></div>
+        <div class="impact-item">
+          <div class="impact-num">53×</div>
+          <div class="impact-label">more clicks per post vs. standard brand deals — your audience responds to causes</div>
+        </div>
+        <div class="impact-divider"></div>
+        <div class="impact-item">
+          <div class="impact-num">3</div>
+          <div class="impact-label"><strong>posts total</strong> — that's the entire program commitment</div>
+        </div>
+      </div>
+      <div class="impact-quote">
+        <p>"My audience actually cared about this one. Comments were completely different from my usual sponsored posts."</p>
+        <cite>— Change Ambassador, environmental creator</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height: 80px;"></div>
+<div class="section-divider"></div>
+
+<!-- NOT A BRAND DEAL -->
+<section class="not-brand">
+  <div class="not-brand-eyebrow">What makes this different</div>
+  <div class="not-brand-title">Not a brand deal.<br/>A belief deal.</div>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-icon">🎯</div>
+      <div class="diff-title">You pick the cause</div>
+      <div class="diff-body">We never assign a topic. You choose what petition to launch — a cause your audience already knows you care about.</div>
+      <div class="diff-stat">Your voice stays authentic</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">✍</div>
+      <div class="diff-title">Zero approvals</div>
+      <div class="diff-body">No content review. No brand briefs. No mood boards. Post in your style — we trust you to know your audience.</div>
+      <div class="diff-stat">53 clicks/post vs. 12 on standard brand deals</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">💸</div>
+      <div class="diff-title">Pay for impact, not impressions</div>
+      <div class="diff-body">Your compensation is based on your audience reach — not views or likes. Show up, make it real, get paid.</div>
+      <div class="diff-stat">$300–$3,000+ per campaign</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" style="margin: 0;"></div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <div class="how-eyebrow">The commitment</div>
+    <div class="how-title">Three steps. One cause. Done.</div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">Step 01</div>
+        <div class="how-step-title">Launch a petition</div>
+        <div class="how-step-body">Pick your cause. We co-draft the petition, you post it on Change.org under your name. About one hour of setup, then it's live.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">Step 02</div>
+        <div class="how-step-title">Share it 3 times</div>
+        <div class="how-step-body">Post 3 share units to your audience — feed, stories, reels, whatever fits. Include the link we give you. That's it for content.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">Step 03</div>
+        <div class="how-step-title">Collect your check</div>
+        <div class="how-step-body">Payment via Gigapay within days of your last post. No invoice, no net-60 wait, no chasing anyone. Straight to your account.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-left">
+    <h2>Your contract is<br/>ready to sign.</h2>
+    <p>Two minutes to review. You'll see your tier and exact compensation amount before you sign anything.</p>
+  </div>
+  <div class="cta-right">
+    <a href="#" class="btn-red">Sign your contract →</a>
+    <span class="tier-chip">Compensation shown in contract</span>
+  </div>
+</section>
+
+</body>
+</html>

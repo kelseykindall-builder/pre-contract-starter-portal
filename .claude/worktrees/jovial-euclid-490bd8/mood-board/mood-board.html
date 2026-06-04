@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pre-Contract Landing Page — Mood Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E8002D;
+    --yellow: #FFC93C;
+    --navy: #0D1B2A;
+    --charcoal: #1A1A2E;
+    --off-white: #F7F5F0;
+    --light-gray: #EBEBEB;
+    --mid-gray: #999;
+    --text: #1A1A1A;
+    --purple: #7B2FBE;
+    --teal: #00A896;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F2F0EB;
+    color: var(--text);
+    padding: 48px 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .board-header {
+    margin-bottom: 64px;
+  }
+  .board-header .label {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .board-header h1 {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--navy);
+    max-width: 640px;
+    margin-bottom: 16px;
+  }
+  .board-header p {
+    font-size: 16px;
+    color: #555;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .board-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .board-meta span {
+    font-size: 12px;
+    color: #888;
+    background: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+  }
+
+  /* ── Section titles ── */
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-title {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  /* ── Grid ── */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-pad { padding: 24px; }
+  .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .card-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* ── Reference cards ── */
+  .ref-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .ref-card-header {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    position: relative;
+  }
+  .ref-card-name {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .ref-card-tagline {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .ref-card-body { padding: 20px; }
+  .ref-card-body .signal {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .ref-card-body .signal strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-top: 6px;
+  }
+  .tag-steal { background: #FFF3CD; color: #7A5000; }
+  .tag-avoid { background: #FFE0E0; color: #8B0000; }
+  .tag-ref   { background: #E8F4F8; color: #1A5276; }
+
+  /* ── Color palette ── */
+  .palette-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .swatch-group {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
+    min-width: 220px;
+  }
+  .swatch-group-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 14px;
+  }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    position: relative;
+    cursor: default;
+  }
+  .swatch-hex {
+    font-size: 9px;
+    color: #888;
+    margin-top: 4px;
+    text-align: center;
+    width: 48px;
+    font-family: monospace;
+  }
+  .swatch-item { display: flex; flex-direction: column; align-items: center; }
+
+  /* ── Typography ── */
+  .type-sample {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+  .type-row {
+    border-bottom: 1px solid #F0F0F0;
+    padding: 18px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta {
+    font-size: 10px;
+    color: #aaa;
+    font-family: monospace;
+    min-width: 130px;
+  }
+
+  /* ── Copy patterns ── */
+  .copy-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .copy-source {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 8px;
+  }
+  .copy-headline {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .copy-annotation {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+    border-left: 2px solid var(--red);
+    padding-left: 10px;
+    margin-top: 12px;
+  }
+
+  /* ── Layout wireframe ── */
+  .wireframe {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .wf-section {
+    border: 1.5px dashed #CCC;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .wf-label {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .wf-sublabel {
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+  }
+  .wf-note {
+    font-size: 11px;
+    color: var(--mid-gray);
+    text-align: right;
+    max-width: 220px;
+  }
+  .wf-section.active {
+    border-color: var(--red);
+    background: #FFF8F9;
+  }
+  .wf-section.active .wf-label { color: var(--red); }
+
+  /* ── Dos / Don'ts ── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .do-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 3px solid #00A878;
+  }
+  .dont-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 3px solid var(--red);
+  }
+  .do-dont-title {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .do-dont ul { list-style: none; }
+  .do-dont li {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+    padding: 8px 0;
+    border-bottom: 1px solid #F5F5F5;
+    padding-left: 18px;
+    position: relative;
+  }
+  .do-dont li:last-child { border-bottom: none; }
+  .do-card li::before { content: '✓'; color: #00A878; position: absolute; left: 0; font-weight: 700; }
+  .dont-card li::before { content: '✗'; color: var(--red); position: absolute; left: 0; font-weight: 700; }
+
+  /* ── Stat callouts ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--navy);
+    color: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
+  .stat-source {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── Hero preview ── */
+  .hero-preview {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .hero-preview::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(232,0,45,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 16px;
+  }
+  .hero-h1 {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: white;
+    line-height: 1.05;
+    max-width: 560px;
+    margin-bottom: 18px;
+  }
+  .hero-h1 em {
+    color: var(--yellow);
+    font-style: normal;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--navy);
+    font-family: 'Commissioner', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 14px 32px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .hero-cta-ghost {
+    display: inline-block;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 24px;
+    text-decoration: none;
+    margin-left: 8px;
+  }
+  .hero-preview-label {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── Tone words ── */
+  .tone-cloud {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .tone-word {
+    font-family: 'Commissioner', sans-serif;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 6px 14px;
+  }
+  .tone-big   { font-size: 22px; background: var(--navy); color: var(--yellow); }
+  .tone-med   { font-size: 16px; background: #F0EEE9; color: var(--navy); }
+  .tone-small { font-size: 13px; background: #F7F5F0; color: #555; border: 1px solid #E5E5E5; }
+  .tone-red   { font-size: 17px; background: var(--red); color: white; }
+
+  /* ── Divider ── */
+  hr.section-divider {
+    border: none;
+    border-top: 1px solid #DDD;
+    margin: 64px 0;
+  }
+
+  /* ── Key insight callout ── */
+  .insight {
+    background: var(--navy);
+    color: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .insight::after {
+    content: '"';
+    font-family: 'Commissioner', sans-serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    position: absolute;
+    top: -40px; right: 20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .insight p {
+    font-family: 'Commissioner', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    max-width: 640px;
+    position: relative;
+    z-index: 1;
+  }
+  .insight-source {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="board-header">
+  <div class="label">Mood Board</div>
+  <h1>Pre-Contract<br>Landing Page</h1>
+  <p>Visual and strategic reference for the Change Ambassadors pre-contract page — the first thing an influencer sees after clicking our outreach email. Their job: decide to sign.</p>
+  <div class="board-meta">
+    <span>Project: pre-contract-landing-page</span>
+    <span>Created: May 26, 2026</span>
+    <span>Audience: Influencers / Creators</span>
+    <span>CTA: Sign your contract</span>
+  </div>
+</div>
+
+
+<!-- ── KEY RESEARCH STATS ── -->
+<div class="section">
+  <div class="section-title">Research — What the data says</div>
+  <div class="section-subtitle">Signals that should inform every design decision</div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">of creators prefer guaranteed flat fee + performance upside over flat-fee-only deals</div>
+      <div class="stat-source">Impact.com Creator Compensation Report</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">53 vs 14</div>
+      <div class="stat-label">clicks per post under low-restriction vs. standard brand contracts — creative control isn't nice-to-have, it's a performance multiplier</div>
+      <div class="stat-source">Stanford GSB Influencer Study</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">0</div>
+      <div class="stat-label">of the best creator program pages show tier tables or fine print above the fold. Lead with empowerment, not structure.</div>
+      <div class="stat-source">Synthesis across 9 programs</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <p>"The messenger is as important as the message. Less-restrictive contracts generated 53 clicks per post vs. 14 under standard contracts."</p>
+    <div class="insight-source">Stanford GSB + Ad Council Creators for Good — implication: lead with creative control, not contract terms</div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── REFERENCE PROGRAMS ── -->
+<div class="section">
+  <div class="section-title">Competitive Reference</div>
+  <div class="section-subtitle">What comparable programs do — what to steal, what to avoid</div>
+
+  <div class="grid-3">
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #7B2FBE 0%, #4A1580 100%);">
+        <div class="ref-card-name">Substack</div>
+        <div class="ref-card-tagline">"Make money doing the work you believe in"</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>Strongest structural reference.</strong> White background, charcoal text, purple accent. Leads with creator empowerment + anti-establishment framing. Three stats front and center. "90% goes to you" as standalone callout — not buried.</div>
+        <div class="signal">Pattern: <em>creator empowerment → validate with numbers → close with financial specifics</em></div>
+        <span class="tag tag-steal">Steal: stat block placement</span>
+        <span class="tag tag-steal">Steal: anti-establishment copy</span>
+        <span class="tag tag-steal">Steal: 90%/advance as standalone</span>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #0D1B2A 0%, #1A3050 100%);">
+        <div class="ref-card-name">CauseChampions</div>
+        <div class="ref-card-tagline">"Post with a Purpose"</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>Closest direct analog.</strong> Dark navy, mission-forward tone. "Use your voice. Amplify what matters." Leads entirely with autonomy + authenticity — never opens with payment. Creator testimonials with follower counts. Accordion FAQ at bottom.</div>
+        <div class="signal">Differentiator: "Get paid or go pro bono — your call." Signals respect for the creator's agency.</div>
+        <span class="tag tag-steal">Steal: lead with voice/cause</span>
+        <span class="tag tag-steal">Steal: dark navy tone</span>
+        <span class="tag tag-steal">Steal: testimonials w/ follower counts</span>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #E60023 0%, #A0001A 100%);">
+        <div class="ref-card-name">Pinterest Inclusion Fund</div>
+        <div class="ref-card-tagline">Cause-aligned outcomes + clean data</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>Best outcome-led proof.</strong> Leads with creator results: "250% increase in saves," "147x outbound clicks." Minimal white layout. Eligibility checklist is fully transparent — no mystery about who qualifies. Mission-aligned but never preachy.</div>
+        <div class="signal">Uses outcome stats instead of platform stats — makes the creator feel like they gain something, not that they join something.</div>
+        <span class="tag tag-steal">Steal: outcome stats not platform stats</span>
+        <span class="tag tag-steal">Steal: eligibility transparency</span>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #1A1A2E 0%, #2D2D4E 100%);">
+        <div class="ref-card-name">SNIF / Brand Ambassador</div>
+        <div class="ref-card-tagline">6-section recruitment page structure</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>Best page structure reference.</strong> Hero → 3-step visual → ideal partner traits → "The Assignment" → journey arc → perks + CTA. Uses "apply" not "join" to signal selectivity. Treats recruitment like a product launch.</div>
+        <div class="signal">Key insight: the "journey from creator to collaborator" arc maps perfectly onto Change Ambassadors (you care → you build → you get paid + people sign).</div>
+        <span class="tag tag-steal">Steal: page flow</span>
+        <span class="tag tag-steal">Steal: "apply" selectivity signal</span>
+        <span class="tag tag-steal">Steal: journey arc narrative</span>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #005D5D 0%, #003B3B 100%);">
+        <div class="ref-card-name">Gymshark Athletes</div>
+        <div class="ref-card-tagline">"Keep focusing on your own path"</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>Best identity-before-compensation frame.</strong> Leads with values/mission not money. "Identify what makes you unique." Compensation mentioned late. Recruits on creator identity, not deal size.</div>
+        <div class="signal">Applicable pattern: "Your voice, your cause, your audience" — before any mention of payment structure.</div>
+        <span class="tag tag-steal">Steal: identity-first framing</span>
+        <span class="tag tag-avoid">Avoid: burying payment entirely (we should name the advance)</span>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-header" style="background: linear-gradient(135deg, #666 0%, #333 100%);">
+        <div class="ref-card-name">Change.org Help Center</div>
+        <div class="ref-card-tagline">Current baseline — what we're replacing</div>
+      </div>
+      <div class="ref-card-body">
+        <div class="signal"><strong>The gap we're closing.</strong> Documentation, not recruitment. Sidebar nav, bullet lists, no visual identity. Leads with compensation then jumps to disclosure policy. No social proof, no testimonials, no stats, no emotional hook.</div>
+        <div class="signal">Every design decision on the new page should be the opposite of this page.</div>
+        <span class="tag tag-avoid">Avoid: help center layout</span>
+        <span class="tag tag-avoid">Avoid: disclosure above fold</span>
+        <span class="tag tag-avoid">Avoid: no visual identity</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── COLOR PALETTE ── -->
+<div class="section">
+  <div class="section-title">Color</div>
+  <div class="section-subtitle">Palette options + reference signals</div>
+
+  <div class="palette-row">
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">Change.org Design System — carry from v3</div>
+      <div class="swatches">
+        <div class="swatch-item">
+          <div class="swatch" style="background:#E8002D;"></div>
+          <div class="swatch-hex">#E8002D</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFC93C;"></div>
+          <div class="swatch-hex">#FFC93C</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#0D1B2A;"></div>
+          <div class="swatch-hex">#0D1B2A</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFFFFF; border:1px solid #EEE;"></div>
+          <div class="swatch-hex">#FFFFFF</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#F7F5F0; border:1px solid #E8E8E8;"></div>
+          <div class="swatch-hex">#F7F5F0</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#888;margin-top:12px;">Red = punctuation/accent. Yellow = CTA. Navy = dark mode / hero background.</div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">Direction A — Dark / Mission-forward (CauseChampions)</div>
+      <div class="swatches">
+        <div class="swatch-item">
+          <div class="swatch" style="background:#0D1B2A;"></div>
+          <div class="swatch-hex">Page bg</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#1A2E40;"></div>
+          <div class="swatch-hex">Cards</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#E8002D;"></div>
+          <div class="swatch-hex">Accent</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFC93C;"></div>
+          <div class="swatch-hex">CTA</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFFFFF; border:1px solid #EEE;"></div>
+          <div class="swatch-hex">Text</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#888;margin-top:12px;">Serious, credible, mission-driven. Feels like a real program, not a startup landing page.</div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">Direction B — Light / Clean (Substack / Pinterest)</div>
+      <div class="swatches">
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFFFFF; border:1px solid #EEE;"></div>
+          <div class="swatch-hex">Page bg</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#F7F5F0; border:1px solid #E8E8E8;"></div>
+          <div class="swatch-hex">Cards</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#E8002D;"></div>
+          <div class="swatch-hex">Accent</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#FFC93C;"></div>
+          <div class="swatch-hex">CTA</div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch" style="background:#0D1B2A;"></div>
+          <div class="swatch-hex">Text</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#888;margin-top:12px;">Approachable, modern, editorial. Feels trustworthy. Easier to extend to multi-page.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── TYPOGRAPHY ── -->
+<div class="section">
+  <div class="section-title">Typography</div>
+  <div class="section-subtitle">Commissioner — carry from v3. Go big and bold.</div>
+
+  <div class="type-sample">
+    <div class="type-row">
+      <div class="type-meta">H1 · Commissioner 900<br>52–64px · Line 1.0</div>
+      <div style="font-family:'Commissioner',sans-serif;font-size:52px;font-weight:900;color:#0D1B2A;line-height:1.05;">Start something real.<br><span style="color:#E8002D;">Get paid to mean it.</span></div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H2 · Commissioner 800<br>28–36px · Line 1.15</div>
+      <div style="font-family:'Commissioner',sans-serif;font-size:32px;font-weight:800;color:#0D1B2A;">This isn't a typical brand deal.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">H3 · Commissioner 700<br>20–24px · Line 1.3</div>
+      <div style="font-family:'Commissioner',sans-serif;font-size:22px;font-weight:700;color:#0D1B2A;">Your guaranteed advance. Your cause. Your voice.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Body · Inter 400<br>16–17px · Line 1.65</div>
+      <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:400;color:#444;line-height:1.65;">You choose the cause. You write the petition. You own the voice. We handle the contract, the payment, and the platform — you focus on what you already do: connecting with the people who follow you because they trust what you say.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">Label · Commissioner 700<br>11px · Uppercase · 0.12em tracking</div>
+      <div style="font-family:'Commissioner',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E8002D;">How it works</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">CTA · Commissioner 800<br>15px · 0.02em tracking</div>
+      <div style="display:inline-block;background:#FFC93C;color:#0D1B2A;font-family:'Commissioner',sans-serif;font-size:15px;font-weight:800;padding:14px 32px;border-radius:6px;letter-spacing:0.02em;">Sign your contract →</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── HERO CONCEPT PREVIEW ── -->
+<div class="section">
+  <div class="section-title">Hero Concept</div>
+  <div class="section-subtitle">Direction A mockup — dark, mission-forward</div>
+
+  <div class="hero-preview">
+    <div class="hero-preview-label">Concept only</div>
+    <div class="hero-eyebrow">Change Ambassadors Program</div>
+    <div class="hero-h1">Get paid to spotlight<br>what you <em>already</em> care about.</div>
+    <div class="hero-sub">Start a petition on a topic your audience trusts you on — and earn a guaranteed advance to share it. Full creative control. No awkward brand messaging.</div>
+    <a href="#" class="hero-cta">Sign your contract →</a>
+    <a href="#" class="hero-cta-ghost">Book a call with Kelsey</a>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="copy-card">
+      <div class="copy-source">Hero variant B — authenticity-first</div>
+      <div class="copy-headline" style="font-size:32px;">"Your voice.<br>Your cause.<br>A real paycheck."</div>
+      <div class="copy-annotation">Compression from CauseChampions + Gymshark — identity before compensation, but doesn't hide the money.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">Hero variant C — anti-brand-deal</div>
+      <div class="copy-headline" style="font-size:32px;">"This isn't a brand deal.<br>It's a partnership<br>for what you believe in."</div>
+      <div class="copy-annotation">Lead differentiator from Kelsey's outreach emails. Stanford GSB research shows this framing converts — creators who see "creative control" convert at 3.8× rate of standard deal framing.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── COPY PATTERNS ── -->
+<div class="section">
+  <div class="section-title">Copy Patterns</div>
+  <div class="section-subtitle">Headlines and phrases worth stealing / adapting</div>
+
+  <div class="grid-3">
+    <div class="copy-card">
+      <div class="copy-source">Substack — adapt for Change Ambassadors</div>
+      <div class="copy-headline" style="font-size:22px;">"Make money doing the work you believe in."</div>
+      <div class="copy-annotation">Lead with belief, close with money. This order matters — it signals the program respects the creator's motivation before pitching the deal.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">CauseChampions — closest analog</div>
+      <div class="copy-headline" style="font-size:22px;">"Post with a Purpose."<br><span style="font-weight:400;font-size:14px;">Use your voice. Amplify what matters.</span></div>
+      <div class="copy-annotation">Three words collapse two motivations (self-expression + impact). "Start something real" or "Turn your platform into a petition" does the same work for us.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">Kelsey's actual outreach emails — use verbatim</div>
+      <div class="copy-headline" style="font-size:16px;line-height:1.5;">"Guaranteed payment to start and share a petition that reflects your authentic voice."<br><br>"Full creative control, and if it gains momentum there's a chance to earn more."</div>
+      <div class="copy-annotation">These phrases are already converting in email. The landing page should mirror them — not rewrite them. Continuity between email and landing page reduces cognitive load.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">Book publishing analogy — advance + royalties</div>
+      <div class="copy-headline" style="font-size:22px;">"Your guaranteed advance."</div>
+      <div class="copy-annotation">"Advance" carries more dignity than "payment" or "compensation." Publishers have used advance-against-royalties for 100+ years — creators who write/advocate recognize this frame immediately.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">SNIF — selectivity signal</div>
+      <div class="copy-headline" style="font-size:22px;">"Apply" not "Join"</div>
+      <div class="copy-annotation">One word signals that we're selective, which makes acceptance feel earned. "Join the program" feels like a form. "Apply to partner with Change.org" feels like an opportunity.</div>
+    </div>
+    <div class="copy-card">
+      <div class="copy-source">Ad Council — messenger archetype frame</div>
+      <div class="copy-headline" style="font-size:22px;">"The messenger is as important as the message."</div>
+      <div class="copy-annotation">Change Ambassadors can use this to frame WHY influencers (not just Change.org staff) matter — the credibility they've built with their audience is the thing we're partnering with.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── PAGE LAYOUT ── -->
+<div class="section">
+  <div class="section-title">Recommended Page Layout</div>
+  <div class="section-subtitle">Section order — synthesized from 6 reference programs</div>
+
+  <div class="wireframe">
+
+    <div class="wf-section active">
+      <div>
+        <div class="wf-label">1 — Hero</div>
+        <div class="wf-sublabel">Bold headline + 1-sentence subhead + single yellow CTA button + ghost "Book a call" link</div>
+      </div>
+      <div class="wf-note">No form above fold. One CTA only. Emotional hook first.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">2 — Kelsey Video Card</div>
+        <div class="wf-sublabel">3-min overview video + 4-question context grid (What is it / Who's it for / What do I do / What do I get)</div>
+      </div>
+      <div class="wf-note">Humanizes the program immediately after hero. Reduces "is this legit?" anxiety.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">3 — Stat Block</div>
+        <div class="wf-sublabel">3 horizontal numbers: petitions created · total signatures · average advance range</div>
+      </div>
+      <div class="wf-note">Trust accelerator. All 6 reference programs use this pattern. Numbers = credibility.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">4 — Deliverables Grid</div>
+        <div class="wf-sublabel">What you do (petition + shares) vs. what you get (advance + promo revenue). Advance shown as tier range — never a specific amount.</div>
+      </div>
+      <div class="wf-note">Advance-agnostic constraint. Show range, never promise a number.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">5 — "This isn't a brand deal"</div>
+        <div class="wf-sublabel">4-up differentiator grid: Creative control · Authentic topics · Guaranteed advance · Long-term relationship</div>
+      </div>
+      <div class="wf-note">Most important differentiator from standard brand deals. Lead with control, not money.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">6 — Earnings Calculator</div>
+        <div class="wf-sublabel">Promo revenue only (no advance shown). Slider: follower count → estimated promo revenue range.</div>
+      </div>
+      <div class="wf-note">Advance-agnostic constraint applies here too. Calculator = engagement + time-on-page.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">7 — Tier Preview Chart</div>
+        <div class="wf-sublabel">Show tier structure and advance ranges. Not "your advance" — "what tier you might be in."</div>
+      </div>
+      <div class="wf-note">Transparency builds trust. Don't hide the structure — just don't personalize it before contract.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">8 — Proof Points / Recent Wins</div>
+        <div class="wf-sublabel">Real starter examples: name, niche, petition topic, signatures. No fake testimonials.</div>
+      </div>
+      <div class="wf-note">Social proof with follower counts (per CauseChampions pattern). Specificity = credibility.</div>
+    </div>
+
+    <div class="wf-section">
+      <div>
+        <div class="wf-label">9 — How It Works (3 Steps)</div>
+        <div class="wf-sublabel">Sign contract → Create petition → Share with your audience</div>
+      </div>
+      <div class="wf-note">Appears in every reference program. Reduces friction by making the ask feel small.</div>
+    </div>
+
+    <div class="wf-section active">
+      <div>
+        <div class="wf-label">10 — Footer CTA</div>
+        <div class="wf-sublabel">Repeat the yellow CTA button + "Book a call with Kelsey" ghost link</div>
+      </div>
+      <div class="wf-note">Close with same energy as the hero. Bookend structure.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── TONE ── -->
+<div class="section">
+  <div class="section-title">Tone of Voice</div>
+  <div class="section-subtitle">The feeling this page should create</div>
+
+  <div class="tone-cloud">
+    <span class="tone-word tone-big">Credible</span>
+    <span class="tone-word tone-red">Empowering</span>
+    <span class="tone-word tone-big">Direct</span>
+    <span class="tone-word tone-med">Mission-aligned</span>
+    <span class="tone-word tone-small">Not preachy</span>
+    <span class="tone-word tone-med">Financially honest</span>
+    <span class="tone-word tone-small">Selectively exclusive</span>
+    <span class="tone-word tone-red">Anti-brand-deal</span>
+    <span class="tone-word tone-med">Warm but professional</span>
+    <span class="tone-word tone-small">Specific, not vague</span>
+    <span class="tone-word tone-big">Legit</span>
+    <span class="tone-word tone-small">No fine print above fold</span>
+    <span class="tone-word tone-med">Creator-first</span>
+    <span class="tone-word tone-small">Outcome-oriented</span>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── DOS AND DON'TS ── -->
+<div class="section">
+  <div class="section-title">Design Rules</div>
+  <div class="section-subtitle">Hard calls from the research</div>
+
+  <div class="do-dont">
+    <div class="do-card">
+      <div class="do-dont-title" style="color:#00A878;">Do</div>
+      <ul>
+        <li>Lead with the creator's voice and cause — not the contract</li>
+        <li>Use "guaranteed advance" language — it carries dignity (publishing frame)</li>
+        <li>Show the advance as a tier range, never a specific amount</li>
+        <li>Use Commissioner bold at 52px+ for the H1</li>
+        <li>One CTA above the fold — yellow button only</li>
+        <li>Put the stat block in the first scroll — 3 numbers, horizontal</li>
+        <li>Include real starter names + niches in proof points (specificity = trust)</li>
+        <li>Mirror Kelsey's actual outreach copy — don't rewrite what's already converting</li>
+        <li>Use "apply" language somewhere — signals selectivity</li>
+        <li>Name the "creative control" benefit explicitly — it's a conversion driver</li>
+      </ul>
+    </div>
+    <div class="dont-card">
+      <div class="do-dont-title" style="color:#E8002D;">Don't</div>
+      <ul>
+        <li>Show a specific advance amount — it's advance-agnostic until contract negotiation</li>
+        <li>Put tier tables or fine print above the fold</li>
+        <li>Use two competing CTAs above the fold</li>
+        <li>Open with compensation — lead with cause/voice first</li>
+        <li>Use stock photos of generic influencers</li>
+        <li>Add the earnings calculator to the advance (promo revenue only)</li>
+        <li>Write disclosure/compliance language in the hero section</li>
+        <li>Use "join" — it's passive. Use "apply" or "partner"</li>
+        <li>Make it look like the Change.org help center — that's documentation, not recruitment</li>
+        <li>Use more than one font family — Commissioner + Inter only</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+
+<!-- ── SOURCES ── -->
+<div class="section">
+  <div class="section-title">Research Sources</div>
+  <div class="section-subtitle">What this mood board is built from</div>
+  <div class="card card-pad">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="font-size:13px;color:#444;line-height:1.8;">
+        <strong style="color:#0D1B2A;font-family:'Commissioner',sans-serif;">Reference Programs</strong><br>
+        Substack About page — substack.com/about<br>
+        CauseChampions — cause-champions.com<br>
+        Pinterest Inclusion Fund — create.pinterest.com/pinterest-inclusion-fund<br>
+        SNIF landing page breakdown — getsaral.com/academy/snif-influencer-landing-page<br>
+        Ad Council Creators for Good relaunch<br>
+        Sephora Squad + Gymshark Athletes — modash.io/blog/brand-ambassador-program-examples<br>
+        Change.org Help Center (baseline) — help.change.org/en_US/change-ambassadors
+      </div>
+      <div style="font-size:13px;color:#444;line-height:1.8;">
+        <strong style="color:#0D1B2A;font-family:'Commissioner',sans-serif;">Research + Data</strong><br>
+        Stanford GSB: Influencers want sponsorship, not rules (53 vs 14 clicks)<br>
+        Impact.com: Creator compensation methods (80% prefer hybrid model)<br>
+        Snapchat Unified Monetization — newsroom.snap.com<br>
+        Substack $20M Creator Accelerator — entrepreneur.com<br>
+        9 influencer landing page examples — getshogun.com/learn/influencer-landing-pages<br><br>
+        <strong style="color:#0D1B2A;font-family:'Commissioner',sans-serif;">Internal</strong><br>
+        Sprint Plan v4 — docs/Starter Portal — Sprint Plan v4.md<br>
+        SE Comms Flow — Google Doc (linked in CLAUDE.md)
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

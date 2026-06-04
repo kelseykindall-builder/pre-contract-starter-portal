@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Wildcard (v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #E8002D;
+  --yellow: #FFDB00;
+  --navy: #0D1B2A;
+  --paper: #FFFFFF;
+  --chalk: #F5F4F0;
+  --text: #1A1A1A;
+  --muted: #6B6B6B;
+  --line: #E0DDD5;
+  --ink: #1A1A2E;
+}
+
+body {
+  font-family: 'Commissioner', sans-serif;
+  background: var(--chalk);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; color: var(--navy); }
+.logo span { color: var(--red); }
+.back { font-size: 13px; color: var(--muted); text-decoration: none; }
+
+/* ── FULL-BLEED HERO ── */
+.hero {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+
+/* left: text */
+.hero-left {
+  padding: 72px 56px 72px 48px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+h1 {
+  font-size: clamp(42px, 4.5vw, 58px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+}
+.h1-red { color: var(--red); }
+
+.hero-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  max-width: 380px;
+  margin-bottom: 36px;
+}
+.hero-sub strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-yellow:hover { background: #FFE600; transform: translateY(-1px); }
+.hero-fine {
+  margin-top: 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* right: data viz */
+.hero-right {
+  background: rgba(255,255,255,0.03);
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 56px 48px 56px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+.data-overline {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 24px;
+}
+.data-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.data-row:last-of-type { border-bottom: none; }
+.data-num {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #FFFFFF;
+}
+.data-num.yellow { color: var(--yellow); }
+.data-num.red { color: var(--red); }
+.data-meta { }
+.data-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+.data-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.45;
+}
+.data-bar-wrap {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.data-bar { height: 100%; border-radius: 2px; background: var(--yellow); }
+
+/* ── GRID SECTION ── */
+.grid-section {
+  padding: 64px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.grid-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 28px;
+}
+.pinterest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+/* card heights vary to create Pinterest masonry feel */
+.pcard {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.pcard-inner {
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.pcard-a {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+.pcard-b {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.pcard-c {
+  background: var(--yellow);
+  color: var(--navy);
+}
+.pcard-d {
+  background: var(--red);
+  color: #FFFFFF;
+}
+.pcard-tall { grid-row: span 2; }
+
+.pcard-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+.pcard-stat {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.pcard-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.pcard-body {
+  font-size: 13px;
+  opacity: 0.65;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.pcard-badge {
+  display: inline-flex;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  align-items: center;
+  gap: 4px;
+}
+.pcard-badge::before { content: "→"; font-size: 12px; }
+
+.pcard-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.pcard-list li {
+  font-size: 13px;
+  color: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+.pcard-list li .check {
+  color: var(--red);
+  font-weight: 900;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── PROCESS STRIP ── */
+.process-strip {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 56px 48px;
+}
+.process-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.process-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.process-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  position: relative;
+}
+.process-row::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line) 0%, var(--red) 50%, var(--line) 100%);
+  z-index: 0;
+}
+.process-item {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 16px;
+}
+.process-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.process-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+  letter-spacing: -0.015em;
+}
+.process-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  padding: 80px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.final-cta-text h2 {
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+.final-cta-text p { font-size: 16px; color: var(--muted); max-width: 420px; line-height: 1.65; }
+.final-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.btn-primary-dark {
+  background: var(--navy);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.final-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">change<span>.</span>org</div>
+  <a href="../1-pre-contract.html" class="back">← back to main</a>
+</nav>
+
+<!-- FULL-BLEED HERO with data viz -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Change Ambassadors · Invite only</div>
+    <h1>53 clicks.<br/>3 posts.<br/><span class="h1-red">Real pay.</span></h1>
+    <p class="hero-sub">
+      Your audience drives <strong>4× more action</strong> on causes than brand ads.
+      We're the only program that pays you to use that — on something you actually believe in.
+    </p>
+    <a href="#" class="btn-yellow">Sign your contract →</a>
+    <div class="hero-fine">Compensation range shown in your contract.</div>
+  </div>
+  <div class="hero-right">
+    <div class="data-overline">Program at a glance</div>
+    <div class="data-row">
+      <div class="data-num yellow">53</div>
+      <div class="data-meta">
+        <div class="data-label">Clicks per post (our program)</div>
+        <div class="data-sub">vs. 12 clicks on standard brand contracts</div>
+        <div class="data-bar-wrap"><div class="data-bar" style="width:88%"></div></div>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="data-num">3</div>
+      <div class="data-meta">
+        <div class="data-label">Posts total</div>
+        <div class="data-sub">Your entire content commitment for the campaign</div>
+        <div class="data-bar-wrap"><div class="data-bar" style="width:25%; background: rgba(255,255,255,0.3)"></div></div>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="data-num red">0</div>
+      <div class="data-meta">
+        <div class="data-label">Brand briefs or approvals</div>
+        <div class="data-sub">You own your voice. We don't review your content.</div>
+        <div class="data-bar-wrap"><div class="data-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="data-num" style="font-size:26px; color: rgba(255,255,255,0.7);">500M</div>
+      <div class="data-meta">
+        <div class="data-label">People on Change.org</div>
+        <div class="data-sub">Your petition goes to the world's biggest petition platform</div>
+        <div class="data-bar-wrap"><div class="data-bar" style="width:100%; background: var(--red)"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PINTEREST GRID -->
+<section class="grid-section">
+  <div class="grid-eyebrow">What makes this different</div>
+  <div class="pinterest-grid">
+
+    <!-- card 1: tall, navy — "not a brand deal" -->
+    <div class="pcard pcard-a pcard-tall">
+      <div class="pcard-inner">
+        <div class="pcard-kicker">Different by design</div>
+        <div class="pcard-stat" style="font-size:34px; margin-bottom:16px;">Not a<br/>brand deal.</div>
+        <ul class="pcard-list" style="gap:12px;">
+          <li><span class="check" style="color:var(--yellow)">✓</span><span style="color:rgba(255,255,255,0.7)">You choose the cause — we never assign one</span></li>
+          <li><span class="check" style="color:var(--yellow)">✓</span><span style="color:rgba(255,255,255,0.7)">Zero content approvals or brand briefs</span></li>
+          <li><span class="check" style="color:var(--yellow)">✓</span><span style="color:rgba(255,255,255,0.7)">No exclusivity, no long-term lock-in</span></li>
+          <li><span class="check" style="color:var(--yellow)">✓</span><span style="color:rgba(255,255,255,0.7)">Paid within days of last post</span></li>
+        </ul>
+        <div class="pcard-badge" style="color:rgba(255,255,255,0.4)">Change Ambassadors</div>
+      </div>
+    </div>
+
+    <!-- card 2: yellow — clicks stat -->
+    <div class="pcard pcard-c">
+      <div class="pcard-inner">
+        <div class="pcard-kicker">Avg engagement</div>
+        <div class="pcard-stat">53</div>
+        <div class="pcard-label">clicks per post<br/>on our program</div>
+        <div class="pcard-badge">vs 12 on brand deals</div>
+      </div>
+    </div>
+
+    <!-- card 3: white — requirements -->
+    <div class="pcard pcard-b">
+      <div class="pcard-inner">
+        <div class="pcard-kicker">Your commitment</div>
+        <div class="pcard-label" style="font-size:18px; margin-bottom: 14px; color: var(--navy);">What you actually<br/>have to do</div>
+        <ul class="pcard-list">
+          <li><span class="check">1</span> petition you co-create with us</li>
+          <li><span class="check">3</span> share units in any format you choose</li>
+          <li><span class="check">1</span> link in bio while active</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- card 4: red — CTA -->
+    <div class="pcard pcard-d">
+      <div class="pcard-inner" style="justify-content: space-between;">
+        <div>
+          <div class="pcard-kicker">Ready?</div>
+          <div class="pcard-label" style="font-size:22px; line-height:1.15;">Your contract is waiting.</div>
+          <div class="pcard-body" style="color:rgba(255,255,255,0.65)">Two minutes to review, one click to sign.</div>
+        </div>
+        <a href="#" style="display:inline-flex; align-items:center; gap:6px; background:#FFFFFF; color:var(--red); font-size:13px; font-weight:800; padding:12px 20px; border-radius:30px; text-decoration:none; margin-top:20px; align-self:flex-start;">
+          Sign now →
+        </a>
+      </div>
+    </div>
+
+    <!-- card 5: white — earnings note -->
+    <div class="pcard pcard-b" style="grid-column: span 2;">
+      <div class="pcard-inner" style="flex-direction: row; align-items: center; gap: 32px;">
+        <div>
+          <div class="pcard-kicker">Compensation range</div>
+          <div class="pcard-stat" style="font-size:44px; color:var(--navy);">$300–$3K+</div>
+          <div class="pcard-body" style="color:var(--muted)">Per campaign · based on your audience tier</div>
+        </div>
+        <div style="width:1px; height:80px; background:var(--line); flex-shrink:0;"></div>
+        <div>
+          <div class="pcard-label" style="font-size:15px; margin-bottom:10px; color:var(--navy);">Paid fast. No invoicing.</div>
+          <div class="pcard-body" style="color:var(--muted);">Payment via Gigapay within days of your last post. Your exact amount is in your contract — check before signing.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS STRIP -->
+<section class="process-strip">
+  <div class="process-inner">
+    <div class="process-eyebrow">Three steps. That's the program.</div>
+    <div class="process-row">
+      <div class="process-item">
+        <div class="process-circle">1</div>
+        <div class="process-title">Start a petition</div>
+        <div class="process-body">Pick your cause. We co-write the petition. You post it on Change.org under your name — your cause, your story.</div>
+      </div>
+      <div class="process-item">
+        <div class="process-circle">2</div>
+        <div class="process-title">Share it 3×</div>
+        <div class="process-body">Post to your feed, stories, reels — whatever format fits your style. Minimal script, maximum freedom.</div>
+      </div>
+      <div class="process-item">
+        <div class="process-circle">3</div>
+        <div class="process-title">Get paid</div>
+        <div class="process-body">Payment lands within days. No invoices. No chasing. Your tier and amount are in your contract.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-text">
+    <h2>Make money doing<br/>work that matters.</h2>
+    <p>Your contract has all the details — your tier, your amount, your timeline. Review it, sign it, and let's get started.</p>
+  </div>
+  <div class="final-cta-actions">
+    <a href="#" class="btn-primary-dark">Sign your contract →</a>
+    <div class="final-note">Compensation range: $300–$3,000+<br/>Exact amount in your contract</div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(change-design:brand)",
+      "Skill(change-design:brand:*)",
+      "Skill(change-design:foundations)",
+      "Skill(change-design:foundations:*)",
+      "Skill(change-design:templates)",
+      "Skill(change-design:templates:*)",
+      "Skill(change-design:components)",
+      "Skill(change-design:components:*)",
+      "Skill(change-design:change-design-system)",
+      "Skill(change-design:change-design-system:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git -C /Users/kkindall/Claude/projects/pre-contract-landing-page/.claude/worktrees/jovial-euclid-490bd8 diff --stat)",
+      "Read(//Users/kkindall/Claude/projects/pre-contract-landing-page/**)",
+      "Read(//Users/kkindall/Claude/projects/pre-contract-landing-page/archive/**)"
+    ]
+  }
+}

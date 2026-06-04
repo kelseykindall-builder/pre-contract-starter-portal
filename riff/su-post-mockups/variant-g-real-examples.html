@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's a share unit? — Real Examples</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E8002D;
+  --bg:#FAF8F4;--text:#231226;--muted:rgba(35,18,38,.58);
+  --stroke:rgba(35,18,38,.08);
+}
+body{font-family:'Commissioner',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding:40px 24px 60px}
+.section{max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:10px}
+h2{font-size:24px;font-weight:700;letter-spacing:-.022em;line-height:1.2;margin-bottom:12px}
+.sub{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:28px}
+.sub strong{color:var(--text);font-weight:600}
+
+/* Collage */
+.visual{position:relative;height:240px;margin-bottom:36px;display:flex;align-items:center;justify-content:center}
+.visual-inner{position:relative;width:340px;height:216px}
+
+.photo-card{
+  position:absolute;
+  width:118px;height:196px;
+  border-radius:8px;overflow:hidden;
+  box-shadow:
+    0 6px 24px rgba(0,0,0,.38),
+    0 2px 6px rgba(0,0,0,.22),
+    0 0 0 1px rgba(255,255,255,.07);
+  background:#111;
+}
+/* Glass glare — stays on top of the real photo */
+.photo-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(130deg,rgba(255,255,255,.08) 0%,transparent 40%);
+  pointer-events:none;z-index:10;border-radius:8px;
+}
+
+.card-1{left:0;top:12px;transform:rotate(-5deg);z-index:1}
+.card-2{left:111px;top:0;transform:rotate(1.5deg);z-index:3}
+.card-3{left:222px;top:10px;transform:rotate(4deg);z-index:2}
+
+/* The actual photo — fills the card, crops to fit */
+.photo-card img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Format labels below the collage */
+.fmt-labels{position:absolute;bottom:-30px;left:0;right:0;display:flex;justify-content:space-between;padding:0 6px}
+.fmt-lbl{display:flex;flex-direction:column;align-items:center;gap:2px;width:118px}
+.fmt-lbl-name{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.fmt-lbl-desc{font-size:9px;color:var(--muted);text-align:center}
+
+/* Callout */
+.callout{display:flex;gap:12px;align-items:flex-start;background:rgba(35,18,38,.04);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px}
+.callout-icon{color:var(--text);flex-shrink:0;margin-top:1px}
+.callout-text{font-size:13px;color:var(--muted);line-height:1.55}
+.callout-text strong{color:var(--text);font-weight:700}
+.callout-text em{color:var(--red);font-style:normal}
+</style>
+</head>
+<body>
+<div class="section">
+  <p class="eyebrow">What's a share unit?</p>
+  <h2>One original post pointing your audience to your petition.</h2>
+  <p class="sub">The partnership requires <strong>3 posts</strong> — 1 primary on your highest-engagement platform, plus 2 secondary shares in any format you like.</p>
+
+  <div class="visual" aria-hidden="true">
+    <div class="visual-inner">
+
+      <!-- Card 1: Primary — TikTok reel @genericartdad -->
+      <div class="photo-card card-1">
+        <img
+          src="post-tiktok.png"
+          alt="TikTok reel — @genericartdad"
+          style="object-position: center 15%"
+        >
+      </div>
+
+      <!-- Card 2: Secondary — Maternity leave IG story -->
+      <div class="photo-card card-2">
+        <img
+          src="post-maternity.png"
+          alt="IG Story — maternity leave petition"
+          style="object-position: top center"
+        >
+      </div>
+
+      <!-- Card 3: Secondary — ALS/wheelchair IG story -->
+      <div class="photo-card card-3">
+        <img
+          src="post-als.png"
+          alt="IG Story — ALS petition"
+          style="object-position: top center"
+        >
+      </div>
+
+      <!-- Format labels -->
+      <div class="fmt-labels">
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Primary</span><span class="fmt-lbl-desc">Top platform, original video</span></div>
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Secondary</span><span class="fmt-lbl-desc">Any format</span></div>
+        <div class="fmt-lbl"><span class="fmt-lbl-name">Secondary</span><span class="fmt-lbl-desc">Any format</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5 11 12 4 19 11"/></svg>
+    </span>
+    <p class="callout-text"><strong>3 is the floor — not the ceiling.</strong> You need 3 to keep your advance, but the program has <strong>no cap on posts</strong>. <em>The more you share, the more you earn.</em></p>
+  </div>
+</div>
+
+<script id="riff-concepts" type="application/json">
+{
+  "variant": "G",
+  "name": "Real Examples",
+  "summary": "Actual screenshots from real starter posts: @genericartdad TikTok reel (primary), maternity leave IG story, ALS/wheelchair IG story. Photo collage layout with overlapping angles and glass glare.",
+  "concepts": [
+    {"id":"real-photo-fill","name":"Real photos, no CSS illustration","desc":"Each card is a real screenshot from an actual starter post, filling the card with object-fit:cover. No gradients or fake backgrounds."},
+    {"id":"object-position-crop","name":"Smart crop with object-position","desc":"TikTok card crops to show the video frame (center 15%), IG story cards crop from the top to preserve the story chrome and content."}
+  ]
+}
+</script>
+</body>
+</html>

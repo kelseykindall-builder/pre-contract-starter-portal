@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Change Ambassadors — Low Lift (v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #E8002D;
+  --yellow: #FFDB00;
+  --navy: #0D1B2A;
+  --paper: #FFFFFF;
+  --cream: #FAF8F3;
+  --mist: #F4F2EE;
+  --text: #1A1A1A;
+  --muted: #6B6B6B;
+  --line: #E5E1D8;
+}
+
+body {
+  font-family: 'Commissioner', sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-weight: 800; font-size: 18px; letter-spacing: -0.02em; color: var(--navy); }
+.logo span { color: var(--red); }
+.nav-link { font-size: 14px; color: var(--muted); text-decoration: none; }
+.back { font-size: 13px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+.back:hover { color: var(--navy); }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 48px 72px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 40px;
+  padding: 6px 14px 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+}
+.pill-dot {
+  width: 7px; height: 7px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+h1 {
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  margin-bottom: 20px;
+  max-width: 820px;
+}
+h1 .red { color: var(--red); }
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+.hero-sub strong { color: var(--text); font-weight: 600; }
+
+.cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--yellow);
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #FFE600; }
+.cta-note { font-size: 13px; color: var(--muted); }
+
+/* ── DIVIDER LINE ── */
+.divider { height: 1px; background: var(--line); margin: 0 48px; }
+
+/* ── STEPS ── */
+.steps { padding: 72px 48px; max-width: 1000px; margin: 0 auto; }
+.steps-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 36px;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.step {
+  padding: 36px 32px;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-size: 64px;
+  font-weight: 900;
+  color: var(--mist);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.step-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+.step-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── REQUIREMENTS (not a brand deal) ── */
+.requirements {
+  padding: 0 48px 72px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.req-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.req-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.req-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+.req-body { font-size: 15px; color: var(--muted); line-height: 1.65; }
+.req-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+}
+.req-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.req-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--yellow);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.req-item-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.req-item-text span { font-size: 12px; color: var(--muted); }
+
+/* ── COMPARISON STAT ── */
+.stat-band {
+  background: var(--navy);
+  padding: 64px 48px;
+  margin: 0;
+}
+.stat-band-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.stat-left .overline {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 12px;
+}
+.stat-left .big-stat {
+  font-size: 80px;
+  font-weight: 900;
+  color: var(--yellow);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+}
+.stat-left .stat-label {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.45;
+  font-weight: 500;
+}
+.stat-left .stat-vs {
+  margin-top: 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stat-left .stat-vs::before {
+  content: "vs.";
+  font-style: italic;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red);
+}
+.stat-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stat-right-item {
+  padding: 20px 22px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.stat-right-num {
+  font-size: 28px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  min-width: 56px;
+}
+.stat-right-num.red { color: var(--red); }
+.stat-right-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.4;
+}
+
+/* ── CTA FOOTER ── */
+.cta-footer {
+  padding: 80px 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cta-footer h2 {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.cta-footer p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.tier-note {
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.tier-badge {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">change<span>.</span>org</div>
+  <a href="../1-pre-contract.html" class="back">← back to main</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="pill"><span class="pill-dot"></span>Change Ambassadors · Invite only</div>
+  <h1>The simplest<br/>program<br/>you'll ever see<span class="red">.</span></h1>
+  <p class="hero-sub">
+    Three posts. A cause you choose. <strong>A check from us.</strong><br/>
+    No brand briefs, no mood boards, no approvals.
+  </p>
+  <div class="cta-row">
+    <a href="#" class="btn-primary">Sign your contract →</a>
+    <span class="cta-note">2-minute DocuSign. No negotiation needed.</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STEPS -->
+<section class="steps">
+  <div class="steps-eyebrow">How it works</div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Start a petition</div>
+      <div class="step-body">Pick a cause you care about. We help you write a petition that gets traction. You're the face — we handle the mechanics.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Share it 3×</div>
+      <div class="step-body">Post to your feed, your stories, or both. We call these share units. You decide the format. Minimal restrictions, maximum flexibility.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Get paid</div>
+      <div class="step-body">Payment is processed within days of your final post. No invoicing, no chasing. We use Gigapay — easy international transfers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section class="requirements">
+  <div class="req-card">
+    <div>
+      <div class="req-label">What you commit to</div>
+      <div class="req-title">That's really it</div>
+      <p class="req-body">No long-term agreements. No exclusivity. You keep full creative control of your content — we just ask you post about the petition you launch.</p>
+    </div>
+    <div class="req-list">
+      <div class="req-item">
+        <div class="req-icon">✍</div>
+        <div class="req-item-text">
+          <strong>1 petition</strong>
+          <span>You create it with us. Your cause, your voice, your page.</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-icon">📲</div>
+        <div class="req-item-text">
+          <strong>3 share units</strong>
+          <span>Feed posts, stories, reels — mix and match as you like.</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-icon">🔗</div>
+        <div class="req-item-text">
+          <strong>Link in bio</strong>
+          <span>We give you a tracking link. Stays up while the campaign runs.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BAND -->
+<section class="stat-band">
+  <div class="stat-band-inner">
+    <div class="stat-left">
+      <div class="overline">Avg. engagement per post</div>
+      <div class="big-stat">53</div>
+      <div class="stat-label">clicks per post<br/>under low restrictions</div>
+      <div class="stat-vs">12 clicks per post on standard brand contracts</div>
+    </div>
+    <div class="stat-right">
+      <div class="stat-right-item">
+        <div class="stat-right-num">3</div>
+        <div class="stat-right-label">posts total — that's your whole commitment</div>
+      </div>
+      <div class="stat-right-item">
+        <div class="stat-right-num">0</div>
+        <div class="stat-right-label">brand briefs, mood boards, or content approvals</div>
+      </div>
+      <div class="stat-right-item">
+        <div class="stat-right-num red">500M</div>
+        <div class="stat-right-label">people on Change.org — the platform behind your petition</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<section class="cta-footer">
+  <h2>Ready to sign?</h2>
+  <p>Your contract is waiting. Two minutes to review, one click to sign.</p>
+  <a href="#" class="btn-primary">Sign your contract →</a>
+  <div class="tier-note">
+    Compensation varies by audience size — you'll see your tier in the contract.
+    <span class="tier-badge">Tier 1–4</span>
+  </div>
+</section>
+
+</body>
+</html>

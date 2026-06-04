@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advocacy — Pre-contract hero · Change.org</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400;1,700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Commissioner', 'system-ui', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            sunrise: {
+              'bg-base':            '#FFFFFF',
+              'bg-raised':          '#F8F9FC',
+              'text-strong':        '#2D2F37',
+              'text-weak':          'rgba(58,62,73,0.8)',
+              'text-weaker':        'rgba(58,62,73,0.5)',
+              'stroke-weaker':      '#DDE0E9',
+              'brand-red':          '#E02822',
+              'yellow':             '#FFDB00',
+              'fill-success':       '#1B8A4A',
+              'fill-success-weak':  '#ECFDF5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card-shadow { box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 3px 19px rgba(58,41,62,0.06); }
+  </style>
+  <script type="application/json" id="riff-concepts">
+  {
+    "variant": "C",
+    "name": "Advocacy",
+    "summary": "Mission-first. 'Make money doing the work you believe in.' Speaks to identity, not just the payout.",
+    "concepts": [
+      { "id": "mission-headline", "name": "Mission-first H1", "desc": "'Make money doing the work you believe in.' — a full-sentence H1 that speaks to creator identity before mentioning the program." },
+      { "id": "merriweather-quote", "name": "Merriweather italic hook", "desc": "The word 'believe in' rendered in Merriweather italic — per brand typography pairing, serif = Human/Real. Creates warmth amid the Commissioner headlines." },
+      { "id": "impact-numbers-row", "name": "Impact numbers row", "desc": "500M people on Change.org / 53× more clicks / 3 posts total — three stat tiles as a horizontal scroller on mobile." },
+      { "id": "creator-quote-card", "name": "Creator quote card", "desc": "A blockquote card from an existing Ambassador — Human/Real brand value. Merriweather italic text, attribution below." },
+      { "id": "not-brand-deal-headline", "name": "'Not a brand deal. A belief deal.' section header", "desc": "Section H2 that reframes the proposition — calling out brand deal norms to contrast them." },
+      { "id": "differentiator-icon-cards", "name": "3-up differentiator cards with emoji icons", "desc": "You pick the cause / Zero approvals / Pay for reach not impressions — each in a card with a single emoji and concise copy." },
+      { "id": "red-cta-button", "name": "Brand-red CTA button", "desc": "CTA button is brand red (not yellow) in this variant — signals urgency and aligns with the advocacy emotional register." },
+      { "id": "transparency-note", "name": "Contract transparency note", "desc": "'Your tier and amount are shown before you sign anything' — addresses hesitation about signing blind." }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-sunrise-bg-base min-h-screen font-sans text-sunrise-text-strong">
+
+  <!-- NAV -->
+  <header class="px-6 py-4 border-b border-sunrise-stroke-weaker flex items-center justify-between">
+    <span class="font-bold text-base tracking-tight">change<span class="text-sunrise-brand-red">.</span>org</span>
+    <span class="text-xs font-semibold text-sunrise-text-weaker">Change Ambassadors</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="px-6 pt-10 pb-8">
+    <div class="inline-flex items-center gap-2 mb-6 text-xs font-semibold text-sunrise-brand-red">
+      <span class="w-5 h-px bg-sunrise-brand-red"></span>
+      Invite only
+    </div>
+
+    <h1 class="text-4xl font-extrabold leading-tight mb-5" style="letter-spacing:-0.025em">
+      Make money doing the work you <span class="font-serif italic font-bold" style="color:#0D1B2A">believe in.</span>
+    </h1>
+
+    <p class="text-base text-sunrise-text-weak leading-relaxed mb-8">
+      You got this invite because your audience trusts you.
+      We pay you to start a movement — not sell a product.
+    </p>
+
+    <a href="#" class="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base text-white" style="background:#E02822">
+      Sign your contract →
+    </a>
+    <p class="text-xs text-sunrise-text-weaker text-center mt-3">Your tier and compensation are shown before you sign anything</p>
+  </section>
+
+  <!-- IMPACT NUMBERS -->
+  <section class="px-6 pb-8">
+    <div class="flex gap-3 overflow-x-auto pb-2">
+      <div class="flex-shrink-0 rounded-xl border border-sunrise-stroke-weaker p-4 w-36 text-center">
+        <div class="text-3xl font-black mb-1" style="letter-spacing:-0.04em;color:#0D1B2A">500M</div>
+        <p class="text-xs text-sunrise-text-weak leading-snug">people on Change.org — your petition goes live immediately</p>
+      </div>
+      <div class="flex-shrink-0 rounded-xl border-2 p-4 w-36 text-center" style="border-color:#FFDB00;background:#FFFDF4">
+        <div class="text-3xl font-black mb-1" style="letter-spacing:-0.04em;color:#0D1B2A">53×</div>
+        <p class="text-xs text-sunrise-text-weak leading-snug">more clicks per post vs. standard brand deals</p>
+      </div>
+      <div class="flex-shrink-0 rounded-xl border border-sunrise-stroke-weaker p-4 w-36 text-center">
+        <div class="text-3xl font-black mb-1" style="letter-spacing:-0.04em;color:#0D1B2A">3</div>
+        <p class="text-xs text-sunrise-text-weak leading-snug">posts total — your entire content commitment</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE CARD -->
+  <section class="px-6 pb-8">
+    <div class="rounded-xl border-l-4 bg-sunrise-bg-raised p-5" style="border-color:#E02822">
+      <p class="font-serif italic text-base text-sunrise-text-strong leading-relaxed mb-3">
+        "My audience actually responded. Comments were completely different from my usual sponsored posts — people were sharing it themselves."
+      </p>
+      <p class="text-xs font-semibold text-sunrise-text-weaker">— Change Ambassador · environmental creator</p>
+    </div>
+  </section>
+
+  <!-- NOT A BRAND DEAL -->
+  <section class="px-6 pb-8">
+    <p class="text-xs font-bold tracking-widest text-sunrise-brand-red uppercase mb-3">What makes this different</p>
+    <h2 class="text-2xl font-extrabold mb-5" style="letter-spacing:-0.02em;color:#0D1B2A">Not a brand deal.<br/>A belief deal.</h2>
+
+    <div class="flex flex-col gap-3">
+      <div class="rounded-xl border border-sunrise-stroke-weaker p-4">
+        <span class="text-xl mb-2 block">🎯</span>
+        <h3 class="font-bold text-sm mb-1">You pick the cause</h3>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">We never assign a topic. You choose the petition you launch — something your audience already knows you care about.</p>
+      </div>
+      <div class="rounded-xl border border-sunrise-stroke-weaker p-4">
+        <span class="text-xl mb-2 block">✍️</span>
+        <h3 class="font-bold text-sm mb-1">Zero approvals</h3>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">No content review. No brand briefs. No mood boards. Post in your style — we trust you to know your audience.</p>
+      </div>
+      <div class="rounded-xl border border-sunrise-stroke-weaker p-4">
+        <span class="text-xl mb-2 block">💸</span>
+        <h3 class="font-bold text-sm mb-1">Pay for reach, not impressions</h3>
+        <p class="text-xs text-sunrise-text-weak leading-relaxed">Your compensation is based on audience size — not views or likes. $300–$3K+ per campaign. Exact amount in your contract.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="px-6 pb-12">
+    <h2 class="text-xl font-extrabold mb-2 text-sunrise-text-strong">Ready to sign?</h2>
+    <p class="text-sm text-sunrise-text-weak mb-5">Two minutes to review. Your tier, your amount, your timeline — all in the contract.</p>
+    <a href="#" class="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base text-white" style="background:#E02822">
+      Sign your contract →
+    </a>
+  </section>
+
+</body>
+</html>
