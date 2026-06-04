@@ -62,7 +62,10 @@
 
     /* VIDEO */
     .video-wrap { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .video-frame { width: 100%; aspect-ratio: 16/9; background: #1D1D1D; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+    .video-frame { width: 100%; aspect-ratio: 16/9; background: #1D1D1D; display: flex; align-items: center; justify-content: center; position: relative; }
+    .video-el { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #1D1D1D; }
+    .video-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .video-overlay.hidden { display: none; }
     .play-btn { width: 72px; height: 72px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
     .play-tri { width: 0; height: 0; border-left: 22px solid var(--dark); border-top: 13px solid transparent; border-bottom: 13px solid transparent; margin-left: 5px; }
     .vid-caption { position: absolute; bottom: 16px; left: 20px; color: white; font-weight: 600; font-size: 14px; }
@@ -281,7 +284,7 @@
   <div class="ctr">
     <span class="sec-label">The deal</span>
     <h2>What does this actually involve?</h2>
-    <p class="sec-sub">1 petition, 3 posts, 30 days · then keep earning as it grows</p>
+    <p class="sec-sub">1 petition, 3 posts · all deliverables posted within 30 days · then keep earning as it grows</p>
     <div class="del-grid">
       <div class="del-card featured">
         <div class="del-val" id="featured-advance-value">An advance payment</div>
@@ -333,10 +336,17 @@
     <h2>The three-minute walk-through</h2>
     <p class="sec-sub">Kelsey covers the 4 questions every creator asks</p>
     <div class="video-wrap">
-      <div class="video-frame" role="button" tabindex="0" aria-label="Play intro video">
-        <span class="vid-dur">3:12</span>
-        <div class="play-btn"><div class="play-tri"></div></div>
-        <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+      <div class="video-frame">
+        <video class="video-el" id="intro-video" preload="metadata" playsinline
+               poster="landing-page-video/bg1-change-ambassadors.jpg">
+          <source src="landing-page-video/intro.mp4" type="video/mp4">
+          Your browser doesn't support embedded video.
+        </video>
+        <div class="video-overlay" id="video-overlay" role="button" tabindex="0" aria-label="Play intro video">
+          <span class="vid-dur">3:12</span>
+          <div class="play-btn"><div class="play-tri"></div></div>
+          <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+        </div>
       </div>
       <div class="vid-body">
         <div class="vid-tldr">
@@ -441,7 +451,7 @@
   <div class="ctr">
     <span class="sec-label">Process</span>
     <h2>How it works, start to finish</h2>
-    <p class="sec-sub">From contract to earning in about 30 days</p>
+    <p class="sec-sub">From contract to all deliverables posted — 30 days</p>
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-num">Step 01</div>
@@ -451,7 +461,7 @@
       <div class="step-card">
         <div class="step-num">Step 02</div>
         <h3>Launch your petition</h3>
-        <p>Pick a topic you care about. Our team helps shape it for maximum reach. You publish with full creative control. All posts live within 30 days.</p>
+        <p>Pick a topic you care about. Our team helps shape it for maximum reach. You publish with full creative control. All deliverables posted within 30 days.</p>
       </div>
       <div class="step-card">
         <div class="step-num">Step 03</div>
@@ -466,7 +476,7 @@
   <div class="ctr">
     <span class="eyebrow">Ready to start?</span>
     <h2>Sign your contract</h2>
-    <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to all posts live is 30 days — your advance is paid within 30 days of your first post.</p>
+    <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to all deliverables posted — 30 days. Your advance is paid within 30 days of your first post.</p>
     <div class="footer-btns">
       <button type="button" class="btn-white" data-open-contract>Send me the contract →</button>
       <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost-w">Book a call with us first</a>
@@ -485,7 +495,7 @@
     <div class="modal-body" id="modal-form-step">
       <span class="modal-eyebrow">Change Ambassadors Program</span>
       <h2 id="modal-title">Let's get your contract over.</h2>
-      <p class="modal-sub">Drop your details and we'll send the standard Change Ambassadors agreement via DocuSign. From here to live is 30 days.</p>
+      <p class="modal-sub">Drop your details and we'll send the standard Change Ambassadors agreement via DocuSign. From signature to all deliverables posted — 30 days.</p>
       <form id="contract-form">
         <div class="modal-field">
           <label for="m-name">Your name</label>
@@ -522,6 +532,22 @@
 
 <script>
 (function() {
+  // Intro video: click overlay to play with native controls
+  const introVideo = document.getElementById("intro-video");
+  const videoOverlay = document.getElementById("video-overlay");
+  if (introVideo && videoOverlay) {
+    const startVideo = () => {
+      videoOverlay.classList.add("hidden");
+      introVideo.setAttribute("controls", "");
+      introVideo.play();
+    };
+    videoOverlay.addEventListener("click", startVideo);
+    videoOverlay.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startVideo(); }
+    });
+    introVideo.addEventListener("ended", () => videoOverlay.classList.remove("hidden"));
+  }
+
   const slider = document.getElementById("sig-slider");
   const readoutEl = document.getElementById("sig-readout");
   const promoMidEl = document.getElementById("promo-mid");
