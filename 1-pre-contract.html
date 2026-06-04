@@ -168,6 +168,47 @@
 
     .footnote { text-align: center; font-size: 12px; color: var(--gray); font-style: italic; padding: 24px 0; }
 
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(29,29,29,0.55); backdrop-filter: blur(2px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: white; border-radius: 16px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.3); position: relative; animation: modalIn 0.2s ease-out; }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+    .modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--gray-lt); color: var(--gray); font-size: 18px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: var(--border); color: var(--dark); }
+    .modal-body { padding: 36px 32px 32px; }
+    .modal-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 8px; }
+    .modal h2 { font-size: 26px; line-height: 1.1; margin-bottom: 10px; }
+    .modal-sub { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 24px; }
+    .modal-field { margin-bottom: 16px; }
+    .modal-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .modal-field input, .modal-field textarea { width: 100%; font-family: inherit; font-size: 15px; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; outline: none; background: white; color: var(--dark); }
+    .modal-field input:focus, .modal-field textarea:focus { border-color: var(--red); }
+    .modal-field textarea { resize: vertical; min-height: 72px; }
+    .modal-btn { width: 100%; background: var(--red); color: white; font-family: inherit; font-weight: 700; font-size: 16px; padding: 14px; border: none; border-radius: 99px; cursor: pointer; margin-top: 4px; }
+    .modal-btn:hover { background: var(--red-h); }
+    .modal-btn:disabled { opacity: 0.55; cursor: default; }
+    .modal-error { font-size: 13px; color: var(--red); margin-top: 12px; display: none; }
+    .modal-error.show { display: block; }
+    .modal-fineprint { font-size: 12px; color: var(--gray); line-height: 1.5; margin-top: 16px; text-align: center; }
+
+    /* MODAL — thank you state */
+    .modal-thanks { text-align: center; display: none; }
+    .modal-thanks.show { display: block; }
+    .thanks-mark { width: 64px; height: 64px; border-radius: 50%; background: #f0fff4; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 20px; }
+    .modal-thanks h2 { font-size: 28px; margin-bottom: 12px; }
+    .modal-thanks > p { font-size: 15px; color: var(--gray); line-height: 1.6; margin-bottom: 24px; }
+    .modal-thanks > p strong { color: var(--dark); }
+    .petition-prompt { background: var(--gray-lt); border-radius: 12px; padding: 20px; text-align: left; margin-bottom: 16px; }
+    .petition-prompt .pp-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 6px; }
+    .petition-prompt p { font-size: 14px; color: var(--dark); line-height: 1.55; margin-bottom: 14px; }
+    .pp-confirm { font-size: 13px; color: #16a34a; font-weight: 600; margin-top: 10px; display: none; }
+    .pp-confirm.show { display: block; }
+    .modal-btn-ghost { width: 100%; background: transparent; color: var(--dark); font-family: inherit; font-weight: 600; font-size: 15px; padding: 12px; border: 1.5px solid var(--border); border-radius: 99px; cursor: pointer; }
+    .modal-btn-ghost:hover { border-color: var(--dark); }
+    .modal-btn-sm { background: var(--dark); color: white; font-family: inherit; font-weight: 600; font-size: 14px; padding: 11px 18px; border: none; border-radius: 99px; cursor: pointer; }
+    .modal-btn-sm:hover { background: #000; }
+    .modal-btn-sm:disabled { opacity: 0.55; cursor: default; }
+
     @media (min-width: 861px) {
       .su-grid { justify-items: center; }
       .su-photos { justify-content: center; align-items: flex-start; }
@@ -427,13 +468,57 @@
     <h2>Sign your contract</h2>
     <p>We'll send the standard Change Ambassadors agreement via DocuSign. From signature to petition live is usually 2 weeks — your advance is paid within 30 days of your first post.</p>
     <div class="footer-btns">
-      <a href="mailto:kelsey.kindall@change.org?subject=Ready%20to%20sign%20-%20Change%20Ambassadors%20Program&body=Hi%20Kelsey%2C%20I%27m%20ready%20to%20move%20forward." class="btn-white">Send me the contract →</a>
+      <button type="button" class="btn-white" data-open-contract>Send me the contract →</button>
       <a href="https://calendly.com/kelsey-kindall/petition-launch-prep-call" target="_blank" rel="noopener" class="btn-ghost-w">Book a call with us first</a>
     </div>
   </div>
 </section>
 
 <p class="footnote">Tier ranges reflect current program structure.</p>
+
+<!-- CONTRACT MODAL -->
+<div class="modal-overlay" id="contract-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+
+    <!-- Step 1: form -->
+    <div class="modal-body" id="modal-form-step">
+      <span class="modal-eyebrow">Change Ambassadors Program</span>
+      <h2 id="modal-title">Let's get your contract over.</h2>
+      <p class="modal-sub">Drop your details and we'll send the standard Change Ambassadors agreement via DocuSign. From here to live is usually about 2 weeks.</p>
+      <form id="contract-form">
+        <div class="modal-field">
+          <label for="m-name">Your name</label>
+          <input type="text" id="m-name" name="name" autocomplete="name" required placeholder="First and last name">
+        </div>
+        <div class="modal-field">
+          <label for="m-email">Email</label>
+          <input type="email" id="m-email" name="email" autocomplete="email" required placeholder="you@email.com">
+        </div>
+        <button type="submit" class="modal-btn" id="modal-submit">Send me my contract →</button>
+        <p class="modal-error" id="modal-error">Something went wrong. Email kelsey.kindall@change.org and we'll sort it out.</p>
+        <p class="modal-fineprint">No commitment yet — signing the DocuSign is the next step.</p>
+      </form>
+    </div>
+
+    <!-- Step 2: thank you -->
+    <div class="modal-body modal-thanks" id="modal-thanks-step">
+      <div class="thanks-mark">✓</div>
+      <h2>Thank you!</h2>
+      <p>We'll get a contract over to you shortly. <strong>In the meantime, start thinking about the petition you'd want to start</strong> — pick a topic your audience already cares about.</p>
+      <div class="petition-prompt">
+        <span class="pp-label">Got an idea already?</span>
+        <p>Jot it down and we'll have it ready when we talk. Totally optional.</p>
+        <div class="modal-field" style="margin-bottom:12px;">
+          <textarea id="m-petition" placeholder="The petition I'd want to start is about…"></textarea>
+        </div>
+        <button type="button" class="modal-btn-sm" id="petition-submit">Share my idea</button>
+        <p class="pp-confirm" id="petition-confirm">Got it — Kelsey will see your idea. ✓</p>
+      </div>
+      <button type="button" class="modal-btn-ghost" id="modal-done">Done</button>
+    </div>
+  </div>
+</div>
 
 <script>
 (function() {
@@ -493,6 +578,95 @@
     currentAdvance=adv.value; update();
   }
   fi.addEventListener("input", updAdv);
+
+  // Contract modal
+  const overlay = document.getElementById("contract-modal");
+  const formStep = document.getElementById("modal-form-step");
+  const thanksStep = document.getElementById("modal-thanks-step");
+  const form = document.getElementById("contract-form");
+  const submitBtn = document.getElementById("modal-submit");
+  const errEl = document.getElementById("modal-error");
+  const starterToken = new URLSearchParams(window.location.search).get("starter") || "";
+
+  function openModal() {
+    formStep.style.display = "block";
+    thanksStep.classList.remove("show");
+    errEl.classList.remove("show");
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => document.getElementById("m-name").focus(), 50);
+  }
+  function closeModal() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.querySelectorAll("[data-open-contract]").forEach(b => b.addEventListener("click", openModal));
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  document.getElementById("modal-done").addEventListener("click", closeModal);
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeModal(); });
+
+  function currentTierLabel() {
+    const n = parseInt(fi.value.replace(/[^0-9]/g, ""), 10) || 0;
+    const adv = getAdv(n);
+    return adv ? adv.label + " tier" : "";
+  }
+  function currentFollowers() {
+    return fi.value.trim();
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    errEl.classList.remove("show");
+    const name = document.getElementById("m-name").value.trim();
+    const email = document.getElementById("m-email").value.trim();
+    if (!name || !email) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    try {
+      const res = await fetch("/api/notify-contract", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contract",
+          name, email,
+          followers: currentFollowers(),
+          tier: currentTierLabel(),
+          starterToken
+        })
+      });
+      if (!res.ok) throw new Error("bad status");
+      formStep.style.display = "none";
+      thanksStep.classList.add("show");
+    } catch (err) {
+      errEl.classList.add("show");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send me my contract →";
+    }
+  });
+
+  // Optional petition idea from the thank-you step
+  const petitionBtn = document.getElementById("petition-submit");
+  petitionBtn.addEventListener("click", async () => {
+    const idea = document.getElementById("m-petition").value.trim();
+    if (!idea) return;
+    petitionBtn.disabled = true;
+    petitionBtn.textContent = "Sharing…";
+    try {
+      await fetch("/api/notify-contract", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "petition-idea",
+          name: document.getElementById("m-name").value.trim(),
+          email: document.getElementById("m-email").value.trim(),
+          petitionIdea: idea
+        })
+      });
+    } catch (err) { /* non-blocking */ }
+    document.getElementById("petition-confirm").classList.add("show");
+    petitionBtn.style.display = "none";
+  });
 
   // Scrollspy
   const navLinks = document.querySelectorAll(".side-nav-link");
