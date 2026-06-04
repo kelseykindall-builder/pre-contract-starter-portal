@@ -49,7 +49,12 @@ export default async function handler(req, res) {
     text = `:tada: *${name}* is ready for their contract!`;
     lines.push(text);
     lines.push(`:email: ${email}`);
-    if (followers) lines.push(`:busts_in_silhouette: ${followers} followers${tier ? ` · ${tier}` : ""}`);
+    // Followers + tier come from the calculator on the page. If the starter
+    // didn't use it, fall back to "unknown" so the line is always present.
+    const followersText = followers ? `${followers} followers` : "Followers: unknown";
+    const tierText = tier ? tier : "Tier: unknown";
+    lines.push(`:busts_in_silhouette: ${followersText} · ${tierText}`);
+    // Petition idea is only sent if they entered one — otherwise the line is omitted.
     if (petitionIdea) lines.push(`:bulb: Petition idea: ${petitionIdea}`);
     if (starterToken) lines.push(`:link: starter token: \`${starterToken}\``);
     lines.push(`_Sent from the pre-contract landing page — send the DocuSign agreement._`);
