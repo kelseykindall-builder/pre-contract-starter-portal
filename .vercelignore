@@ -6,3 +6,10 @@ tracker.html
 CLAUDE.md
 README.md
 .claude/
+
+# video source files — keep intro.mp4 + poster.jpg, drop everything else
+landing-page-video/*.mov
+landing-page-video/*.MOV
+landing-page-video/*.docx
+landing-page-video/teleprompter.html
+landing-page-video/*.svg

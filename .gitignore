@@ -31,6 +31,11 @@ deployment/
 .env.local
 .env.*.local
 
+# raw video source — too big for GitHub (>100MB). Only the compressed
+# intro.mp4 + poster.jpg are committed/deployed.
+landing-page-video/*.mov
+landing-page-video/*.MOV
+
 # misc
 *.log
 .cache/
