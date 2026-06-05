@@ -62,9 +62,9 @@
 
     /* VIDEO */
     .video-wrap { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .video-frame { width: 100%; background: #1D1D1D; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 480px; }
-    .video-frame::before { content: ""; position: absolute; inset: 0; background: url("landing-page-video/poster.jpg") center/cover no-repeat; filter: blur(40px) brightness(0.45); transform: scale(1.2); }
-    .video-el { position: relative; z-index: 1; height: min(78vh, 620px); width: auto; max-width: 100%; object-fit: contain; background: #000; border-radius: 10px; display: block; }
+    .video-frame { width: 100%; background: #fff; display: flex; align-items: center; justify-content: center; position: relative; min-height: 480px; padding: 28px 16px; }
+    .video-stage { position: relative; height: min(72vh, 600px); display: inline-flex; }
+    .video-el { height: 100%; width: auto; max-width: 100%; object-fit: contain; background: #000; border-radius: 12px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
     .video-overlay { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .video-overlay.hidden { display: none; }
     .play-btn { width: 72px; height: 72px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
@@ -338,15 +338,17 @@
     <p class="sec-sub">Kelsey covers the 4 questions every creator asks</p>
     <div class="video-wrap">
       <div class="video-frame">
-        <video class="video-el" id="intro-video" preload="metadata" playsinline
-               poster="landing-page-video/poster.jpg">
-          <source src="landing-page-video/intro.mp4" type="video/mp4">
-          Your browser doesn't support embedded video.
-        </video>
-        <div class="video-overlay" id="video-overlay" role="button" tabindex="0" aria-label="Play intro video">
-          <span class="vid-dur">4:54</span>
-          <div class="play-btn"><div class="play-tri"></div></div>
-          <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+        <div class="video-stage">
+          <video class="video-el" id="intro-video" preload="metadata" playsinline
+                 poster="landing-page-video/poster.jpg">
+            <source src="landing-page-video/intro.mp4" type="video/mp4">
+            Your browser doesn't support embedded video.
+          </video>
+          <div class="video-overlay" id="video-overlay" role="button" tabindex="0" aria-label="Play intro video">
+            <span class="vid-dur">4:54</span>
+            <div class="play-btn"><div class="play-tri"></div></div>
+            <div class="vid-caption">Intro to the Change Ambassadors Program</div>
+          </div>
         </div>
       </div>
       <div class="vid-body">
