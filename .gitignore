@@ -36,6 +36,9 @@ deployment/
 landing-page-video/*.mov
 landing-page-video/*.MOV
 
+# Claude Code local settings — personal, may capture command strings. Never commit.
+.claude/settings.local.json
+
 # misc
 *.log
 .cache/
